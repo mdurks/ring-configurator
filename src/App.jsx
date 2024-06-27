@@ -11,25 +11,40 @@ import gsap from 'gsap'
 
 import { degToRad } from 'three/src/math/MathUtils.js'
 
+import { useAppStore, gazeboYRotationReadyValue } from './store/store'
+
 import { Diamond } from './components/Diamond/Diamond'
 import { MiscExperiments } from './components/Experiments/MiscExperiments'
 import { EnvironmentSetup } from './components/EnvironmentSetup/EnvironmentSetup'
 import { WavyRing } from './components/WavyRing/WavyRing'
+import { Gazebo } from './components/Gazebo/Gazebo'
 
 function App() {
+    //
+    //
+    // Global state:
+    const isIntroActive = useAppStore((state) => state.isIntroActive)
     const scroll = useScroll()
 
+    //
+    //
+    //
+    // Global functions:
+    const setIsIntroActive = useAppStore((state) => state.setIsIntroActive)
+
+    // Local init:
+    const groupGazeboRef = useRef()
     const ringRef = useRef()
-    const tl = useRef(gsap.timeline())
+    const tl_intro = useRef(gsap.timeline())
 
     const isRingReadyForScroll = useRef(false)
     const timeToSubtractForSetupAnimation = useRef()
 
     useFrame(() => {
         if (isRingReadyForScroll.current)
-            tl.current.seek(
+            tl_intro.current.seek(
                 scroll.offset *
-                    (tl.current.duration() -
+                    (tl_intro.current.duration() -
                         timeToSubtractForSetupAnimation.current) +
                     timeToSubtractForSetupAnimation.current,
             )
@@ -52,15 +67,23 @@ function App() {
         //
         //
         // move elements into position:
-        ringRef.current.position.x = -5
+        groupGazeboRef.current.position.y = -15
+        groupGazeboRef.current.rotation.y = degToRad(-90)
+
+        ringRef.current.position.x = -10
+        ringRef.current.scale.set(6, 6, 6)
+
         gsap.set(introTitle1El, {
             left: -introTitle1El.offsetWidth,
+            opacity: 1,
         })
         gsap.set(introTitle2El, {
             right: -introTitle2El.offsetWidth,
+            opacity: 1,
         })
         gsap.set(introTitle3El, {
             top: -introTitle3El.offsetHeight,
+            opacity: 1,
         })
 
         //
@@ -69,31 +92,43 @@ function App() {
         //
         //
         // Pre animation start:
-        tl.current.addLabel('pre animation setup')
+        tl_intro.current.addLabel('pre animation setup')
 
-        tl.current.to(
+        tl_intro.current.to(
             ringRef.current.position,
             {
-                duration: 2,
+                // duration: 2,
+                duration: 0.2,
                 x: 1.5,
-                y: 0,
+                y: -0.5,
                 ease: 'power1.inOut',
             },
             'pre animation setup',
         )
-        tl.current.to(
+        tl_intro.current.to(
+            ringRef.current.rotation,
+            {
+                // duration: 2,
+                duration: 0.2,
+                y: degToRad(180),
+                ease: 'power1.inOut',
+            },
+            'pre animation setup',
+        )
+        tl_intro.current.to(
             introTitle1El,
             {
-                duration: 2,
+                // duration: 2,
+                duration: 0.2,
                 left: '10%',
                 ease: 'power1.inOut',
             },
             'pre animation setup',
         )
-        tl.current.add(() => {
+        tl_intro.current.add(() => {
             isRingReadyForScroll.current = true
             timeToSubtractForSetupAnimation.current =
-                tl.current.labels['ready for scrolling']
+                tl_intro.current.labels['ready for scrolling']
         })
 
         //
@@ -108,9 +143,9 @@ function App() {
         //
         //
         //
-        tl.current.addLabel('ready for scrolling')
+        tl_intro.current.addLabel('ready for scrolling')
 
-        tl.current.to(
+        tl_intro.current.to(
             ringRef.current.position,
             {
                 duration: 8,
@@ -119,16 +154,16 @@ function App() {
             },
             'ready for scrolling',
         )
-        tl.current.to(
+        tl_intro.current.to(
             ringRef.current.rotation,
             {
                 duration: 8,
-                y: degToRad(180),
+                y: degToRad(360),
                 ease: 'power1.inOut',
             },
             'ready for scrolling',
         )
-        tl.current.to(
+        tl_intro.current.to(
             introTitle1El,
             {
                 duration: 4,
@@ -137,7 +172,7 @@ function App() {
             },
             'ready for scrolling',
         )
-        tl.current.to(
+        tl_intro.current.to(
             introTitle2El,
             {
                 delay: 3,
@@ -153,9 +188,9 @@ function App() {
         //
         //
         //
-        tl.current.addLabel('message three')
+        tl_intro.current.addLabel('message three')
 
-        tl.current.to(
+        tl_intro.current.to(
             introTitle2El,
             {
                 delay: 1,
@@ -165,7 +200,7 @@ function App() {
             },
             'message three',
         )
-        tl.current.to(
+        tl_intro.current.to(
             ringRef.current.position,
             {
                 duration: 8,
@@ -174,27 +209,27 @@ function App() {
             },
             'message three',
         )
-        tl.current.to(
+        tl_intro.current.to(
             ringRef.current.rotation,
             {
                 duration: 8,
-                y: degToRad(360),
+                y: degToRad(540),
                 ease: 'power1.inOut',
             },
             'message three',
         )
-        tl.current.to(
+        tl_intro.current.to(
             ringRef.current.scale,
             {
                 duration: 8,
-                x: 2,
-                y: 2,
-                z: 2,
+                x: 3,
+                y: 3,
+                z: 3,
                 ease: 'power1.inOut',
             },
             'message three',
         )
-        tl.current.to(
+        tl_intro.current.to(
             introTitle3El,
             {
                 delay: 3,
@@ -206,7 +241,84 @@ function App() {
         )
 
         // add empty time:
-        // tl.current.to({}, { duration: 2 })
+        // tl_intro.current.to({}, { duration: 2 })
+
+        //
+        //
+        //
+        //
+        //
+        tl_intro.current.addLabel('down to gazebo')
+
+        tl_intro.current.to(
+            introTitle3El,
+            {
+                duration: 4,
+                top: -introTitle3El.offsetHeight,
+                ease: 'power1.inOut',
+            },
+            'down to gazebo',
+        )
+        tl_intro.current.to(
+            groupGazeboRef.current.position,
+            {
+                duration: 12,
+                y: -1.75,
+                ease: 'power1.inOut',
+            },
+            'down to gazebo',
+        )
+        tl_intro.current.to(
+            groupGazeboRef.current.rotation,
+            {
+                duration: 12,
+                y: gazeboYRotationReadyValue,
+                ease: 'power1.inOut',
+            },
+            'down to gazebo',
+        )
+        tl_intro.current.to(
+            groupGazeboRef.current.position,
+            {
+                delay: 8,
+                duration: 4,
+                z: 2.5,
+                ease: 'power1.inOut',
+            },
+            'down to gazebo',
+        )
+        tl_intro.current.to(
+            ringRef.current.position,
+            {
+                delay: 4,
+                duration: 8,
+                y: -0.125,
+                z: 4.25,
+                ease: 'power1.inOut',
+            },
+            'down to gazebo',
+        )
+        tl_intro.current.to(
+            ringRef.current.rotation,
+            {
+                duration: 12,
+                y: degToRad(720),
+                ease: 'power1.inOut',
+            },
+            'down to gazebo',
+        )
+        tl_intro.current.to(
+            ringRef.current.scale,
+            {
+                delay: 4,
+                duration: 8,
+                x: 0.5,
+                y: 0.5,
+                z: 0.5,
+                ease: 'power1.inOut',
+            },
+            'down to gazebo',
+        )
 
         //
         //
@@ -214,8 +326,11 @@ function App() {
         //
         //
         // END of timeline:
-        tl.current.add(() => {
-            console.log('END of timeline')
+        tl_intro.current.add(() => {
+            // console.log('END of timeline')
+            if (isIntroActive) setIsIntroActive(false)
+            document.body.classList.remove('introActive')
+            document.body.classList.add('introEnded')
             // isRingReadyForScroll.current = false
         })
     }, [])
@@ -231,17 +346,14 @@ function App() {
                 // maxPolarAngle={degToRad(85)}
                 // autoRotate
                 // autoRotateSpeed={1.5}
-                enableZoom={false}
+                // enableZoom={false}
             />
 
             {/* <Diamond position={[0, 0.32, 0]} rotation={[0, 0, 0.715]} /> */}
 
             <WavyRing ringRef={ringRef} />
 
-            <mesh receiveShadow castShadow visible={false}>
-                <boxGeometry />
-                <meshStandardMaterial />
-            </mesh>
+            <Gazebo groupGazeboRef={groupGazeboRef} />
 
             {/* <MiscExperiments /> */}
         </>

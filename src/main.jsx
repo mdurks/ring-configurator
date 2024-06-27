@@ -4,13 +4,15 @@ import { Canvas } from '@react-three/fiber'
 
 import App from './App.jsx'
 import './index.css'
-import { Scroll, ScrollControls } from '@react-three/drei'
+import { ScrollControlsHOC } from './components/ScrollControlsHOC/ScrollControlsHOC.jsx'
+import { HtmlUIContainer } from './components/HtmlUI/HtmlUIContainer/HtmlUIContainer.jsx'
+import { Leva } from 'leva'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
-        <div className="introTitle1">IntroTitle_1</div>
-        <div className="introTitle2">IntroTitle_2</div>
-        <div className="introTitle3">IntroTitle_3</div>
+        <Leva collapsed={false} />
+
+        <HtmlUIContainer />
 
         <Canvas
             className="r3fCanvas"
@@ -24,9 +26,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             }
             shadows={true}
         >
-            <ScrollControls pages={2} damping={0.2}>
+            <ScrollControlsHOC>
                 <App />
-            </ScrollControls>
+            </ScrollControlsHOC>
         </Canvas>
     </React.StrictMode>,
 )
