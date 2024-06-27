@@ -39,6 +39,7 @@ export const Gazebo = ({ groupGazeboRef }) => {
         <>
             <group ref={groupGazeboRef}>
                 <Carousel />
+
                 <Stars
                     radius={100}
                     depth={50}

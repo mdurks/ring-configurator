@@ -18,6 +18,7 @@ import { MiscExperiments } from './components/Experiments/MiscExperiments'
 import { EnvironmentSetup } from './components/EnvironmentSetup/EnvironmentSetup'
 import { WavyRing } from './components/WavyRing/WavyRing'
 import { Gazebo } from './components/Gazebo/Gazebo'
+import { ProductRotator } from './components/ProductRotator/ProductRotator'
 
 function App() {
     //
@@ -339,7 +340,9 @@ function App() {
         <>
             <EnvironmentSetup />
 
-            <OrbitControls
+            {isIntroActive == false && <ProductRotator meshRef={ringRef} />}
+
+            {/* <OrbitControls
                 makeDefault
                 dampingFactor={0.1}
                 // minPolarAngle={0}
@@ -347,7 +350,7 @@ function App() {
                 // autoRotate
                 // autoRotateSpeed={1.5}
                 // enableZoom={false}
-            />
+            /> */}
 
             {/* <Diamond position={[0, 0.32, 0]} rotation={[0, 0, 0.715]} /> */}
 

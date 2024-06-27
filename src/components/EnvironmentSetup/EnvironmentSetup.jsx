@@ -15,8 +15,8 @@ export const EnvironmentSetup = () => {
 
     return (
         <>
-            {/* <color attach="background" args={['#e9e7cf']} /> */}
-            <color attach="background" args={['#2e2d1f']} />
+            <color attach="background" args={['#e9e7cf']} />
+            {/* <color attach="background" args={['#2e2d1f']} /> */}
 
             {/* <SoftShadows size={60} samples={20} /> */}
 
@@ -59,8 +59,8 @@ export const EnvironmentSetup = () => {
             {/* <EffectComposer>
                 <Bloom
                     luminanceThreshold={4}
-                    intensity={1}
-                    levels={9}
+                    intensity={0.2}
+                    levels={10}
                     mipmapBlur
                 />
             </EffectComposer> */}

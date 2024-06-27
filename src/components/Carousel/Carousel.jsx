@@ -20,21 +20,21 @@ export const Carousel = () => {
 
     // const data = ['red', 'green', 'blue']
     // const data = ['red', 'green', 'blue', 'yellow']
-    const data = ['red', 'green', 'blue', 'yellow', 'purple']
-    // const data = [
-    //     'red',
-    //     'green',
-    //     'blue',
-    //     'yellow',
-    //     'purple',
-    //     'orange',
-    //     'brown',
-    //     'gold',
-    //     'olive',
-    //     'pink',
-    //     'navy',
-    //     'teal',
-    // ]
+    // const data = ['red', 'green', 'blue', 'yellow', 'purple']
+    const data = [
+        'red',
+        'green',
+        'blue',
+        'yellow',
+        'purple',
+        'orange',
+        'brown',
+        'gold',
+        'olive',
+        'pink',
+        'navy',
+        'teal',
+    ]
     const radius = 1.25
     const angleIncrement = (2 * Math.PI) / data.length
 
@@ -61,7 +61,12 @@ export const Carousel = () => {
                     const z = radius * Math.sin(angle)
 
                     return (
-                        <mesh key={index} position={[x, 0, z]}>
+                        <mesh
+                            key={index}
+                            position={[x, 0, z]}
+                            castShadow
+                            receiveShadow
+                        >
                             <icosahedronGeometry args={[0.25, 0]} />
                             <meshStandardMaterial color={item} />
                         </mesh>

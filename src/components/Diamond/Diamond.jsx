@@ -21,43 +21,56 @@ export const Diamond = (props) => {
         // '/brown_photostudio_03_1k.hdr',
         '/blue_photo_studio_1k.hdr',
     )
-    // Optional config
-    const config = useControls({
-        bounces: { value: 3, min: 0, max: 8, step: 1 },
-        aberrationStrength: { value: 0.01, min: 0, max: 0.1, step: 0.01 },
-        ior: { value: 2.75, min: 0, max: 10 },
-        fresnel: { value: 1, min: 0, max: 1 },
-        // color: 'white',
+    const materialSettings = {
+        bounces: 3,
+        aberrationStrength: 0.01,
+        ior: 2.75,
+        fresnel: 1,
         color: '#bcedff',
-        // color: '#ffbfdf',
-    })
+    }
+    // Optional config
+    // const config = useControls({
+    //     bounces: { value: materialSettings.bounces, min: 0, max: 8, step: 1 },
+    //     aberrationStrength: {
+    //         value: materialSettings.aberrationStrength,
+    //         min: 0,
+    //         max: 0.1,
+    //         step: 0.01,
+    //     },
+    //     ior: { value: materialSettings.ior, min: 0, max: 10 },
+    //     fresnel: { value: materialSettings.fresnel, min: 0, max: 1 },
+    //     // color: 'white',
+    //     color: materialSettings.color,
+    //     // color: '#ffbfdf',
+    // })
+
     return (
-        <CubeCamera resolution={256} frames={1} envMap={texture}>
-            {(texture) => (
-                <Caustics
-                    backfaces
-                    color={config.color}
-                    position={[0, 0.01, 0]}
-                    lightSource={[5, 5, -10]}
-                    worldRadius={0.1}
-                    ior={1.8}
-                    backfaceIor={1.1}
-                    intensity={0.1}
-                >
-                    <mesh
-                        castShadow
-                        ref={ref}
-                        geometry={nodes.Diamond_1_0.geometry}
-                        {...props}
-                    >
-                        <MeshRefractionMaterial
-                            envMap={texture}
-                            {...config}
-                            toneMapped={false}
-                        />
-                    </mesh>
-                </Caustics>
-            )}
-        </CubeCamera>
+        // <CubeCamera resolution={256} frames={1} envMap={texture}>
+        //     {(texture) => (
+        //         <Caustics
+        //             backfaces
+        //             color={config.color}
+        //             position={[0, 0.01, 0]}
+        //             lightSource={[5, 5, -10]}
+        //             worldRadius={0.1}
+        //             ior={1.8}
+        //             backfaceIor={1.1}
+        //             intensity={0.1}
+        //         >
+        <mesh
+            castShadow
+            ref={ref}
+            geometry={nodes.Diamond_1_0.geometry}
+            {...props}
+        >
+            <MeshRefractionMaterial
+                envMap={texture}
+                {...materialSettings}
+                toneMapped={false}
+            />
+        </mesh>
+        //         </Caustics>
+        //     )}
+        // </CubeCamera>
     )
 }

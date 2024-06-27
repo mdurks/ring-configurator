@@ -36,25 +36,25 @@ export const ConfigStageNavButtons = () => {
                 type="button"
                 onClick={() => setConfigStage(configStages.gemColor.name)}
             >
-                Step 1
+                Table 1
             </button>
             <button
                 type="button"
                 onClick={() => setConfigStage(configStages.metal.name)}
             >
-                Step 2
+                Table 2
             </button>
             <button
                 type="button"
                 onClick={() => setConfigStage(configStages.ring.name)}
             >
-                Step 3
+                Table 3
             </button>
             <button
                 type="button"
                 onClick={() => setConfigStage(configStages.tryon.name)}
             >
-                Step 4
+                Table 4
             </button>
         </nav>
     )
