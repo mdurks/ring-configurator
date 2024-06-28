@@ -82,7 +82,10 @@ export const ProductRotator = ({ meshRef }) => {
         if (isDragging) {
             meshRef.current.rotation.x += rotationVelocity.x
             meshRef.current.rotation.y += rotationVelocity.y
-        } else meshRef.current.rotation.y += 0.0015
+        } else {
+            meshRef.current.rotation.y += rotationVelocity.y + 0.0015
+            meshRef.current.rotation.x += rotationVelocity.x
+        }
 
         setRotationVelocity({
             x: rotationVelocity.x * friction,

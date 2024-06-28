@@ -33,8 +33,15 @@ export const useAppStore = create(
         // -------------------------------------------
 
         isIntroActive: true,
+
         configStage: configStages.gemColor.name,
-        configCarouselIndex: 0,
+
+        carouselLength: 0,
+        carouselIndex: 0,
+        carouselRotation: 0,
+        carouselPreviousIndex: null,
+
+        chosenColor: null,
 
         //
         //
@@ -62,13 +69,65 @@ export const useAppStore = create(
                 `setConfigStage: ${value}`,
             ),
 
-        setConfigCarouselIndex: (value) =>
+        //
+        //
+        //
+        //
+        //
+        // Carousel:
+        // -------------------------------------------
+
+        setCarouselLength: (value) =>
             set(
                 produce((state) => {
-                    state.configCarouselIndex = value
+                    state.carouselLength = value
                 }),
                 false,
-                `setConfigCarouselIndex: ${value}`,
+                `setCarouselLength: ${value}`,
+            ),
+
+        setCarouselIndex: (value) =>
+            set(
+                produce((state) => {
+                    state.carouselIndex = value
+                }),
+                false,
+                `setCarouselIndex: ${value}`,
+            ),
+
+        setCarouselRotation: (value) =>
+            set(
+                produce((state) => {
+                    state.carouselRotation = value
+                }),
+                false,
+                `setCarouselRotation: ${value}`,
+            ),
+
+        setCarouselPreviousIndex: (value) =>
+            set(
+                produce((state) => {
+                    state.carouselPreviousIndex = value
+                }),
+                false,
+                `setCarouselPreviousIndex: ${value}`,
+            ),
+
+        //
+        //
+        //
+        //
+        //
+        // Chosen:
+        // -------------------------------------------
+
+        setChosenColor: (value) =>
+            set(
+                produce((state) => {
+                    state.chosenColor = value
+                }),
+                false,
+                `setChosenColor: ${value}`,
             ),
     })),
 )

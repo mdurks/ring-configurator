@@ -2,6 +2,7 @@ import {
     AccumulativeShadows,
     Environment,
     RandomizedLight,
+    SoftShadows,
 } from '@react-three/drei'
 import { EffectComposer, Bloom } from '@react-three/postprocessing'
 import { useControls } from 'leva'
@@ -27,7 +28,7 @@ export const EnvironmentSetup = () => {
             <directionalLight
                 castShadow
                 position={[2.5, 5, 5]}
-                intensity={2}
+                intensity={8}
                 shadow-mapSize={[1024, 1024]}
             >
                 <orthographicCamera

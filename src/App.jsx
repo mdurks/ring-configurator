@@ -293,7 +293,7 @@ function App() {
             {
                 delay: 4,
                 duration: 8,
-                y: -0.125,
+                y: -0.07,
                 z: 4.25,
                 ease: 'power1.inOut',
             },

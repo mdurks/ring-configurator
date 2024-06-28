@@ -2,14 +2,38 @@ import { configStages, useAppStore } from '../../../store/store'
 
 export const ConfigStageNavButtons = () => {
     const isIntroActive = useAppStore((state) => state.isIntroActive)
-    const configCarouselIndex = useAppStore(
-        (state) => state.configCarouselIndex,
-    )
+    const carouselIndex = useAppStore((state) => state.carouselIndex)
+    const carouselLength = useAppStore((state) => state.carouselLength)
+    const carouselRotation = useAppStore((state) => state.carouselRotation)
 
     const setConfigStage = useAppStore((state) => state.setConfigStage)
-    const setConfigCarouselIndex = useAppStore(
-        (state) => state.setConfigCarouselIndex,
+    const setCarouselIndex = useAppStore((state) => state.setCarouselIndex)
+    const setCarouselRotation = useAppStore(
+        (state) => state.setCarouselRotation,
     )
+    const setCarouselPreviousIndex = useAppStore(
+        (state) => state.setCarouselPreviousIndex,
+    )
+
+    const decrement = () => {
+        setCarouselPreviousIndex(carouselIndex)
+        /*
+        increment the carouselIndex and uses the modulo operator % to wrap around the array length
+        ensures that after reaching the array length, it starts again at 0
+        */
+        setCarouselIndex((carouselIndex + 1) % carouselLength)
+        setCarouselRotation(carouselRotation - 1)
+    }
+
+    const increment = () => {
+        setCarouselPreviousIndex(carouselIndex)
+        /*
+        decrement the carouselIndex and also uses the modulo operator to wrap around the array length
+        ensures that after reaching 0, it wraps around to the maximum index of the array (array length - 1)
+        */
+        setCarouselIndex((carouselIndex - 1 + carouselLength) % carouselLength)
+        setCarouselRotation(carouselRotation + 1)
+    }
 
     return (
         <nav
@@ -17,16 +41,10 @@ export const ConfigStageNavButtons = () => {
                 isIntroActive && 'introActive'
             }`}
         >
-            <button
-                type="button"
-                onClick={() => setConfigCarouselIndex(configCarouselIndex - 1)}
-            >
+            <button type="button" onClick={decrement}>
                 Carousel -
             </button>
-            <button
-                type="button"
-                onClick={() => setConfigCarouselIndex(configCarouselIndex + 1)}
-            >
+            <button type="button" onClick={increment}>
                 Carousel +
             </button>
 

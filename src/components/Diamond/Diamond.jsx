@@ -26,7 +26,7 @@ export const Diamond = (props) => {
         aberrationStrength: 0.01,
         ior: 2.75,
         fresnel: 1,
-        color: '#bcedff',
+        color: props.color,
     }
     // Optional config
     // const config = useControls({
@@ -43,6 +43,10 @@ export const Diamond = (props) => {
     //     color: materialSettings.color,
     //     // color: '#ffbfdf',
     // })
+
+    const isThisACarouselItem = props.name
+        ? props.name.includes('Carousel')
+        : false
 
     return (
         // <CubeCamera resolution={256} frames={1} envMap={texture}>
