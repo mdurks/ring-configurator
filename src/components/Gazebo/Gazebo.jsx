@@ -28,6 +28,7 @@ export const Gazebo = ({ groupGazeboRef }) => {
     )
 
     const gemData = [
+        { value: '#419aff', label: 'Sky blue' },
         { value: '#bcedff', label: 'Light blue' },
         { value: 'white', label: 'white' },
         { value: '#474747', label: 'Black' },
@@ -44,7 +45,6 @@ export const Gazebo = ({ groupGazeboRef }) => {
         { value: 'purple', label: 'purple' },
         { value: 'navy', label: 'navy' },
         { value: 'blue', label: 'blue' },
-        { value: '#419aff', label: 'Sky blue' },
     ]
     const ringData = [
         { value: 'red', label: 'red' },
