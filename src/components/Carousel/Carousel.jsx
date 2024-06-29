@@ -134,6 +134,21 @@ export const Carousel = ({
                                     color={item.value}
                                 />
                             )}
+                            {carouselName == configStages.ring.name && (
+                                <mesh
+                                    position={[x, 0, z]}
+                                    castShadow
+                                    receiveShadow
+                                    name={`Carousel ${carouselName} Item ${index}`}
+                                >
+                                    <sphereGeometry args={[0.065, 16, 16]} />
+                                    <meshStandardMaterial
+                                        color={item.value}
+                                        transparent
+                                        opacity={1}
+                                    />
+                                </mesh>
+                            )}
                             {carouselName == configStages.metal.name && (
                                 <mesh
                                     position={[x, 0, z]}
@@ -150,21 +165,6 @@ export const Carousel = ({
                                         transparent
                                         opacity={1}
                                         envMapIntensity={0.1}
-                                    />
-                                </mesh>
-                            )}
-                            {carouselName == configStages.ring.name && (
-                                <mesh
-                                    position={[x, 0, z]}
-                                    castShadow
-                                    receiveShadow
-                                    name={`Carousel ${carouselName} Item ${index}`}
-                                >
-                                    <sphereGeometry args={[0.065, 16, 16]} />
-                                    <meshStandardMaterial
-                                        color={item.value}
-                                        transparent
-                                        opacity={1}
                                     />
                                 </mesh>
                             )}

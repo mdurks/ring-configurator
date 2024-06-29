@@ -71,11 +71,11 @@ export const ConfigStageNavButtons = () => {
                     <br />
                     <br />
                     <button type="button" onClick={decrement}>
-                        &gt;
+                        Next
                     </button>
                     {carouselIndex + 1} / {carouselLength}
                     <button type="button" onClick={increment}>
-                        &lt;
+                        Prev
                     </button>
                     <br />
                 </>

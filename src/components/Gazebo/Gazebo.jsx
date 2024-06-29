@@ -80,13 +80,13 @@ export const Gazebo = ({ groupGazeboRef }) => {
                     radius={0.6}
                 />
                 <Carousel
-                    carouselName={configStages.metal.name}
-                    data={metalData}
+                    carouselName={configStages.ring.name}
+                    data={ringData}
                     radius={0.45}
                 />
                 <Carousel
-                    carouselName={configStages.ring.name}
-                    data={ringData}
+                    carouselName={configStages.metal.name}
+                    data={metalData}
                     radius={0.45}
                 />
 
