@@ -28,26 +28,39 @@ export const Gazebo = ({ groupGazeboRef }) => {
     )
 
     const gemData = [
-        '#bcedff',
-        'white',
-        '#474747',
-        'teal',
-        'green',
-        'lime',
-        '#fff27d',
-        'yellow',
-        'orange',
-        'red',
-        'brown',
-        'pink',
-        'violet',
-        'purple',
-        'navy',
-        'blue',
-        '#419aff',
+        { value: '#bcedff', label: 'Light blue' },
+        { value: 'white', label: 'white' },
+        { value: '#474747', label: 'Black' },
+        { value: 'teal', label: 'teal' },
+        { value: 'green', label: 'green' },
+        { value: 'lime', label: 'lime' },
+        { value: '#fff27d', label: 'Light yellow' },
+        { value: 'yellow', label: 'yellow' },
+        { value: 'orange', label: 'orange' },
+        { value: 'red', label: 'red' },
+        { value: 'brown', label: 'brown' },
+        { value: 'pink', label: 'pink' },
+        { value: 'violet', label: 'violet' },
+        { value: 'purple', label: 'purple' },
+        { value: 'navy', label: 'navy' },
+        { value: 'blue', label: 'blue' },
+        { value: '#419aff', label: 'Sky blue' },
     ]
-    const metalData = ['#bcedff', 'purple', '#474747', 'teal', 'orange', 'pink']
-    const ringData = ['red', 'green', 'blue']
+    const ringData = [
+        { value: 'red', label: 'red' },
+        { value: 'green', label: 'green' },
+        { value: 'blue', label: 'blue' },
+        { value: 'orange', label: 'orange' },
+        { value: 'violet', label: 'violet' },
+    ]
+    const metalData = [
+        { value: 'hsl(0, 0%, 100%)', label: 'white' },
+        { value: 'hsl(0, 0%, 90%)', label: 'light gray' },
+        { value: 'hsl(0, 0%, 75%)', label: 'gray' },
+        { value: 'hsl(0, 0%, 50%)', label: 'black' },
+        { value: 'hsl(39, 100%, 87%)', label: 'gold' },
+        { value: 'hsl(11, 54%, 83%)', label: 'rose gold' },
+    ]
 
     useEffect(() => {
         // table button clicked, so rotate the gazebo to the right table
@@ -64,14 +77,17 @@ export const Gazebo = ({ groupGazeboRef }) => {
                 <Carousel
                     carouselName={configStages.gemColor.name}
                     data={gemData}
+                    radius={0.6}
                 />
                 <Carousel
                     carouselName={configStages.metal.name}
                     data={metalData}
+                    radius={0.45}
                 />
                 <Carousel
                     carouselName={configStages.ring.name}
                     data={ringData}
+                    radius={0.45}
                 />
 
                 <Stars

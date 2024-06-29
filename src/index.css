@@ -86,6 +86,12 @@ a:hover {
     border-radius: 4px;
 }
 
+h1 {
+    margin: 0;
+    line-height: 0;
+    text-transform: capitalize;
+}
+
 /*
 the ScrollControls div created to scroll the page
 now the intro is over, remove the ability to scroll the page

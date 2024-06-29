@@ -17,6 +17,7 @@ export const ConfigStageNavButtons = () => {
     const carouselRotation = useAppStore(
         (state) => state[configStage].carouselRotation,
     )
+    const chosenItem = useAppStore((state) => state[configStage].chosenItem)
 
     //
     //
@@ -64,39 +65,34 @@ export const ConfigStageNavButtons = () => {
                 isIntroActive && 'introActive'
             }`}
         >
-            <button type="button" onClick={decrement}>
-                &gt;
-            </button>
-            <button type="button" onClick={increment}>
-                &lt;
-            </button>
+            {configStage != configStages.tryon.name && (
+                <>
+                    <h1>{chosenItem?.label}</h1>
+                    <br />
+                    <br />
+                    <button type="button" onClick={decrement}>
+                        &gt;
+                    </button>
+                    {carouselIndex + 1} / {carouselLength}
+                    <button type="button" onClick={increment}>
+                        &lt;
+                    </button>
+                    <br />
+                </>
+            )}
 
-            <br />
-
-            <button
-                type="button"
-                onClick={() => setConfigStage(configStages.gemColor.name)}
-            >
-                Table 1
-            </button>
-            <button
-                type="button"
-                onClick={() => setConfigStage(configStages.metal.name)}
-            >
-                Table 2
-            </button>
-            <button
-                type="button"
-                onClick={() => setConfigStage(configStages.ring.name)}
-            >
-                Table 3
-            </button>
-            <button
-                type="button"
-                onClick={() => setConfigStage(configStages.tryon.name)}
-            >
-                Table 4
-            </button>
+            {Object.keys(configStages).map((key) => {
+                return (
+                    <button
+                        key={`stageNav${configStages[key].name}`}
+                        type="button"
+                        className={`stageNavBtn_${configStages[key].name}`}
+                        onClick={() => setConfigStage(configStages[key].name)}
+                    >
+                        {configStages[key].label}
+                    </button>
+                )
+            })}
         </nav>
     )
 }

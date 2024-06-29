@@ -1,43 +1,25 @@
 import React, { useEffect, useRef } from 'react'
+import { useThree } from '@react-three/fiber'
 import gsap from 'gsap'
 
 import { degToRad } from 'three/src/math/MathUtils.js'
 
 import { configStages, useAppStore } from '../../store/store'
-import { useThree } from '@react-three/fiber'
+
 import { Diamond } from '../Diamond/Diamond'
+import { adjustLightnessFromHSL } from '../../utilities/adjustLightnessFromHSL'
 
-// const data = ['red', 'green', 'blue']
-// const data = ['red', 'green', 'blue', 'yellow']
-// const data = ['red', 'green', 'blue', 'yellow', 'purple']
-// const data = ['#bcedff', 'red', 'green', 'blue', 'yellow', 'purple', 'orange']
-// const data = [
-//     '#bcedff',
-//     'white',
-//     '#474747',
-//     'teal',
-//     'green',
-//     'lime',
-//     '#fff27d',
-//     'yellow',
-//     'orange',
-//     'red',
-//     'brown',
-//     'pink',
-//     'violet',
-//     'purple',
-//     'navy',
-//     'blue',
-//     '#419aff',
-// ]
-
-export const Carousel = ({ carouselName, data }) => {
+export const Carousel = ({
+    carouselName,
+    data,
+    radius,
+    rotationSpeed = 0.5,
+}) => {
     //
     //
     // Global state:
     const { scene } = useThree()
 
-    const configStage = useAppStore((state) => state.configStage)
     const carouselIndex = useAppStore(
         (state) => state[carouselName].carouselIndex,
     )
@@ -52,26 +34,30 @@ export const Carousel = ({ carouselName, data }) => {
     //
     // Global functions:
     const setCarouselLength = useAppStore((state) => state.setCarouselLength)
-    const setChosenColor = useAppStore((state) => state.setChosenColor)
+    const setChosenItem = useAppStore((state) => state.setChosenItem)
 
     //
     //
     // Local init:
-    const carouselRef = useRef()
-
-    const radius = 0.6
-    const angleIncrement = (2 * Math.PI) / data.length
-    const carouselRotationSpeed = 0.5
-
-    const gemScale = 0.075
 
     setCarouselLength(data.length, carouselName)
 
+    const carouselRef = useRef()
+
+    const angleIncrement = (2 * Math.PI) / data.length
+
+    let meshScale = 1
+    if (carouselName == configStages.gemColor.name) meshScale = 0.075
+
+    //
+    //
+    // Local functions:
+
     useEffect(() => {
-        setChosenColor(data[carouselIndex], carouselName)
+        setChosenItem(data[carouselIndex], carouselName)
 
         gsap.to(carouselRef.current.rotation, {
-            duration: carouselRotationSpeed,
+            duration: rotationSpeed,
             y: -carouselRotation * angleIncrement,
             ease: 'power1.inOut',
         })
@@ -81,19 +67,19 @@ export const Carousel = ({ carouselName, data }) => {
         )
 
         gsap.to(carouselFocusMesh.position, {
-            duration: carouselRotationSpeed,
+            duration: rotationSpeed,
             y: carouselFocusMesh.position.y + 0.25,
             ease: 'power1.inOut',
         })
-        // gsap.to(carouselFocusMesh.scale, {
-        //     duration: carouselRotationSpeed,
-        //     x: 0,
-        //     y: 0,
-        //     z: 0,
-        //     ease: 'power1.out',
-        // })
+        gsap.to(carouselFocusMesh.scale, {
+            duration: rotationSpeed,
+            x: 0,
+            y: 0,
+            z: 0,
+            ease: 'power1.out',
+        })
         gsap.to(carouselFocusMesh.rotation, {
-            duration: carouselRotationSpeed,
+            duration: rotationSpeed,
             y: degToRad(135),
             x: degToRad(180),
             ease: 'power1.inOut',
@@ -105,19 +91,19 @@ export const Carousel = ({ carouselName, data }) => {
 
         if (previouslyFocussedItem) {
             gsap.to(previouslyFocussedItem.position, {
-                duration: carouselRotationSpeed,
+                duration: rotationSpeed,
                 y: 0,
                 ease: 'power1.inOut',
             })
-            // gsap.to(previouslyFocussedItem.scale, {
-            //     duration: carouselRotationSpeed,
-            //     x: gemScale,
-            //     y: gemScale,
-            //     z: gemScale,
-            //     ease: 'power1.out',
-            // })
+            gsap.to(previouslyFocussedItem.scale, {
+                duration: rotationSpeed,
+                x: meshScale,
+                y: meshScale,
+                z: meshScale,
+                ease: 'power1.out',
+            })
             gsap.to(previouslyFocussedItem.rotation, {
-                duration: carouselRotationSpeed,
+                duration: rotationSpeed,
                 y: 0,
                 x: 0,
                 ease: 'power1.inOut',
@@ -141,11 +127,11 @@ export const Carousel = ({ carouselName, data }) => {
                             {carouselName == configStages.gemColor.name && (
                                 <Diamond
                                     position={[x, 0, z]}
-                                    scale={[gemScale, gemScale, gemScale]}
+                                    scale={[meshScale, meshScale, meshScale]}
                                     castShadow
                                     receiveShadow
                                     name={`Carousel ${carouselName} Item ${index}`}
-                                    color={item}
+                                    color={item.value}
                                 />
                             )}
                             {carouselName == configStages.metal.name && (
@@ -157,9 +143,13 @@ export const Carousel = ({ carouselName, data }) => {
                                 >
                                     <sphereGeometry args={[0.065, 16, 16]} />
                                     <meshStandardMaterial
-                                        color={item}
+                                        color={adjustLightnessFromHSL(
+                                            item.value,
+                                            -30,
+                                        )}
                                         transparent
                                         opacity={1}
+                                        envMapIntensity={0.1}
                                     />
                                 </mesh>
                             )}
@@ -172,7 +162,7 @@ export const Carousel = ({ carouselName, data }) => {
                                 >
                                     <sphereGeometry args={[0.065, 16, 16]} />
                                     <meshStandardMaterial
-                                        color={item}
+                                        color={item.value}
                                         transparent
                                         opacity={1}
                                     />

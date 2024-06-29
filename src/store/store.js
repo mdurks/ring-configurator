@@ -9,6 +9,7 @@ export const carouselPosition = { height: 1.45, radiusFromGazeeboCenter: 1.3 }
 export const configStages = {
     gemColor: {
         name: 'gemColor',
+        label: 'Gem Color',
         carouselPosition: [
             0,
             carouselPosition.height,
@@ -17,8 +18,9 @@ export const configStages = {
         carouselRotation: [0, 0, 0],
         yRotationPos: 0,
     },
-    metal: {
-        name: 'metal',
+    ring: {
+        name: 'ring',
+        label: 'Ring style',
         carouselPosition: [
             carouselPosition.radiusFromGazeeboCenter,
             carouselPosition.height,
@@ -27,8 +29,9 @@ export const configStages = {
         carouselRotation: [0, degToRad(90), 0],
         yRotationPos: degToRad(-90),
     },
-    ring: {
-        name: 'ring',
+    metal: {
+        name: 'metal',
+        label: 'Metal',
         carouselPosition: [
             0,
             carouselPosition.height,
@@ -39,6 +42,7 @@ export const configStages = {
     },
     tryon: {
         name: 'tryon',
+        label: 'Try it on',
         carouselPosition: [
             -carouselPosition.radiusFromGazeeboCenter,
             carouselPosition.height,
@@ -165,13 +169,13 @@ export const useAppStore = create(
                 `setCarouselPreviousIndex: ${stage} ${value}`,
             ),
 
-        setChosenColor: (value, stage) =>
+        setChosenItem: (value, stage) =>
             set(
                 produce((state) => {
                     state[stage].chosenItem = value
                 }),
                 false,
-                `setChosenColor: ${value} ${stage}`,
+                `setChosenItem: ${value} ${stage}`,
             ),
     })),
 )
