@@ -3,24 +3,49 @@ import { produce } from 'immer'
 import { devtools } from 'zustand/middleware'
 import { degToRad } from 'three/src/math/MathUtils.js'
 
-export const gazeboYRotationReadyValue = degToRad(45)
+export const gazeboFinalPosition = { x: 0, y: -1.75, z: 2.5 }
+export const carouselPosition = { height: 1.45, radiusFromGazeeboCenter: 1.3 }
 
 export const configStages = {
     gemColor: {
         name: 'gemColor',
-        yRotationPos: gazeboYRotationReadyValue,
+        carouselPosition: [
+            0,
+            carouselPosition.height,
+            carouselPosition.radiusFromGazeeboCenter,
+        ],
+        carouselRotation: [0, 0, 0],
+        yRotationPos: 0,
     },
     metal: {
         name: 'metal',
-        yRotationPos: degToRad(-90) + gazeboYRotationReadyValue,
+        carouselPosition: [
+            carouselPosition.radiusFromGazeeboCenter,
+            carouselPosition.height,
+            0,
+        ],
+        carouselRotation: [0, degToRad(90), 0],
+        yRotationPos: degToRad(-90),
     },
     ring: {
         name: 'ring',
-        yRotationPos: degToRad(-180) + gazeboYRotationReadyValue,
+        carouselPosition: [
+            0,
+            carouselPosition.height,
+            -carouselPosition.radiusFromGazeeboCenter,
+        ],
+        carouselRotation: [0, degToRad(180), 0],
+        yRotationPos: degToRad(-180),
     },
     tryon: {
         name: 'tryon',
-        yRotationPos: degToRad(-270) + gazeboYRotationReadyValue,
+        carouselPosition: [
+            -carouselPosition.radiusFromGazeeboCenter,
+            carouselPosition.height,
+            0,
+        ],
+        carouselRotation: [0, degToRad(270), 0],
+        yRotationPos: degToRad(-270),
     },
 }
 
@@ -36,12 +61,39 @@ export const useAppStore = create(
 
         configStage: configStages.gemColor.name,
 
-        carouselLength: 0,
-        carouselIndex: 0,
-        carouselRotation: 0,
-        carouselPreviousIndex: null,
+        gemColor: {
+            carouselLength: 0,
+            carouselIndex: 0,
+            carouselRotation: 0,
+            carouselPreviousIndex: null,
+            chosenItem: null,
+        },
 
-        chosenColor: null,
+        metal: {
+            carouselLength: 0,
+            carouselIndex: 0,
+            carouselRotation: 0,
+            carouselPreviousIndex: null,
+            chosenItem: null,
+        },
+
+        ring: {
+            carouselLength: 0,
+            carouselIndex: 0,
+            carouselRotation: 0,
+            carouselPreviousIndex: null,
+            chosenItem: null,
+        },
+
+        tryon: {
+            // this stage has no carousel, and thes values are not used
+            // but the logic needs some values to be here anyway
+            carouselLength: 0,
+            carouselIndex: 0,
+            carouselRotation: 0,
+            carouselPreviousIndex: null,
+            chosenItem: null,
+        },
 
         //
         //
@@ -77,57 +129,49 @@ export const useAppStore = create(
         // Carousel:
         // -------------------------------------------
 
-        setCarouselLength: (value) =>
+        setCarouselLength: (value, stage) =>
             set(
                 produce((state) => {
-                    state.carouselLength = value
+                    state[stage].carouselLength = value
                 }),
                 false,
-                `setCarouselLength: ${value}`,
+                `setCarouselLength: ${stage} ${value}`,
             ),
 
-        setCarouselIndex: (value) =>
+        setCarouselIndex: (value, stage) =>
             set(
                 produce((state) => {
-                    state.carouselIndex = value
+                    state[stage].carouselIndex = value
                 }),
                 false,
-                `setCarouselIndex: ${value}`,
+                `setCarouselIndex: ${stage} ${value}`,
             ),
 
-        setCarouselRotation: (value) =>
+        setCarouselRotation: (value, stage) =>
             set(
                 produce((state) => {
-                    state.carouselRotation = value
+                    state[stage].carouselRotation = value
                 }),
                 false,
-                `setCarouselRotation: ${value}`,
+                `setCarouselRotation: ${stage} ${value}`,
             ),
 
-        setCarouselPreviousIndex: (value) =>
+        setCarouselPreviousIndex: (value, stage) =>
             set(
                 produce((state) => {
-                    state.carouselPreviousIndex = value
+                    state[stage].carouselPreviousIndex = value
                 }),
                 false,
-                `setCarouselPreviousIndex: ${value}`,
+                `setCarouselPreviousIndex: ${stage} ${value}`,
             ),
 
-        //
-        //
-        //
-        //
-        //
-        // Chosen:
-        // -------------------------------------------
-
-        setChosenColor: (value) =>
+        setChosenColor: (value, stage) =>
             set(
                 produce((state) => {
-                    state.chosenColor = value
+                    state[stage].chosenItem = value
                 }),
                 false,
-                `setChosenColor: ${value}`,
+                `setChosenColor: ${value} ${stage}`,
             ),
     })),
 )

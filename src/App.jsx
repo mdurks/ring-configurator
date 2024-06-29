@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef } from 'react'
 import * as THREE from 'three'
-import { useFrame } from '@react-three/fiber'
+import { useFrame, useThree } from '@react-three/fiber'
 import {
     OrbitControls,
     Scroll,
@@ -11,7 +11,7 @@ import gsap from 'gsap'
 
 import { degToRad } from 'three/src/math/MathUtils.js'
 
-import { useAppStore, gazeboYRotationReadyValue } from './store/store'
+import { useAppStore, gazeboFinalPosition } from './store/store'
 
 import { Diamond } from './components/Diamond/Diamond'
 import { MiscExperiments } from './components/Experiments/MiscExperiments'
@@ -24,6 +24,7 @@ function App() {
     //
     //
     // Global state:
+    const three = useThree()
     const isIntroActive = useAppStore((state) => state.isIntroActive)
     const scroll = useScroll()
 
@@ -40,6 +41,17 @@ function App() {
 
     const isRingReadyForScroll = useRef(false)
     const timeToSubtractForSetupAnimation = useRef()
+
+    const onKeyDown = (e) => {
+        if (e.key == 'l') console.log(three.scene)
+    }
+
+    useEffect(() => {
+        window.addEventListener('keydown', onKeyDown)
+        return () => {
+            window.addEventListener('keydown', onKeyDown)
+        }
+    }, [])
 
     useFrame(() => {
         if (isRingReadyForScroll.current)
@@ -264,7 +276,7 @@ function App() {
             groupGazeboRef.current.position,
             {
                 duration: 12,
-                y: -1.75,
+                y: gazeboFinalPosition.y,
                 ease: 'power1.inOut',
             },
             'down to gazebo',
@@ -273,7 +285,7 @@ function App() {
             groupGazeboRef.current.rotation,
             {
                 duration: 12,
-                y: gazeboYRotationReadyValue,
+                y: 0,
                 ease: 'power1.inOut',
             },
             'down to gazebo',
@@ -283,7 +295,7 @@ function App() {
             {
                 delay: 8,
                 duration: 4,
-                z: 2.5,
+                z: gazeboFinalPosition.z,
                 ease: 'power1.inOut',
             },
             'down to gazebo',

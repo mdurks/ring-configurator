@@ -36,9 +36,9 @@ export const ProductRotator = ({ meshRef }) => {
     useCursor(isDragging, 'grabbing', 'grab')
 
     const onPointerDown = (e) => {
-        setIsDragging(true)
         const { clientX, clientY } = e.touches ? e.touches[0] : e
         setPreviousPointerPosition({ x: clientX, y: clientY })
+        setIsDragging(true)
     }
 
     const onPointerMove = (e) => {
@@ -83,7 +83,7 @@ export const ProductRotator = ({ meshRef }) => {
             meshRef.current.rotation.x += rotationVelocity.x
             meshRef.current.rotation.y += rotationVelocity.y
         } else {
-            meshRef.current.rotation.y += rotationVelocity.y + 0.0015
+            meshRef.current.rotation.y += rotationVelocity.y + 0.002
             meshRef.current.rotation.x += rotationVelocity.x
         }
 

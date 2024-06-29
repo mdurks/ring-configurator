@@ -1,3 +1,4 @@
+import * as THREE from 'three'
 import { useGLTF } from '@react-three/drei'
 import { Diamond } from '../Diamond/Diamond'
 import { degToRad } from 'three/src/math/MathUtils.js'
@@ -6,7 +7,11 @@ import { useAppStore } from '../../store/store'
 export const WavyRing = ({ ringRef }) => {
     const { nodes } = useGLTF('/WavyRing.glb')
 
-    const chosenColor = useAppStore((state) => state.chosenColor)
+    const material = nodes.WavyRing.material
+    // material.color = new THREE.Color('#ffe48b')
+
+    const configStage = useAppStore((state) => state.configStage)
+    const chosenColor = useAppStore((state) => state[configStage].chosenItem)
 
     return (
         <group ref={ringRef} name="WavyRing">
@@ -29,7 +34,7 @@ export const WavyRing = ({ ringRef }) => {
             />
             <mesh
                 geometry={nodes.WavyRing.geometry}
-                material={nodes.WavyRing.material}
+                material={material}
                 castShadow
             ></mesh>
         </group>

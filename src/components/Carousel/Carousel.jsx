@@ -1,9 +1,9 @@
-import { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 
 import { degToRad } from 'three/src/math/MathUtils.js'
 
-import { gazeboYRotationReadyValue, useAppStore } from '../../store/store'
+import { configStages, useAppStore } from '../../store/store'
 import { useThree } from '@react-three/fiber'
 import { Diamond } from '../Diamond/Diamond'
 
@@ -11,31 +11,41 @@ import { Diamond } from '../Diamond/Diamond'
 // const data = ['red', 'green', 'blue', 'yellow']
 // const data = ['red', 'green', 'blue', 'yellow', 'purple']
 // const data = ['#bcedff', 'red', 'green', 'blue', 'yellow', 'purple', 'orange']
-const data = [
-    '#bcedff',
-    'red',
-    'green',
-    'blue',
-    'yellow',
-    'purple',
-    'orange',
-    'brown',
-    'gold',
-    'olive',
-    'pink',
-    'navy',
-    'teal',
-]
+// const data = [
+//     '#bcedff',
+//     'white',
+//     '#474747',
+//     'teal',
+//     'green',
+//     'lime',
+//     '#fff27d',
+//     'yellow',
+//     'orange',
+//     'red',
+//     'brown',
+//     'pink',
+//     'violet',
+//     'purple',
+//     'navy',
+//     'blue',
+//     '#419aff',
+// ]
 
-export const Carousel = ({ carouselName }) => {
+export const Carousel = ({ carouselName, data }) => {
     //
     //
     // Global state:
     const { scene } = useThree()
-    const carouselIndex = useAppStore((state) => state.carouselIndex)
-    const carouselRotation = useAppStore((state) => state.carouselRotation)
+
+    const configStage = useAppStore((state) => state.configStage)
+    const carouselIndex = useAppStore(
+        (state) => state[carouselName].carouselIndex,
+    )
+    const carouselRotation = useAppStore(
+        (state) => state[carouselName].carouselRotation,
+    )
     const carouselPreviousIndex = useAppStore(
-        (state) => state.carouselPreviousIndex,
+        (state) => state[carouselName].carouselPreviousIndex,
     )
 
     //
@@ -53,16 +63,16 @@ export const Carousel = ({ carouselName }) => {
     const angleIncrement = (2 * Math.PI) / data.length
     const carouselRotationSpeed = 0.5
 
-    const gemScale = 0.1
+    const gemScale = 0.075
 
-    setCarouselLength(data.length)
+    setCarouselLength(data.length, carouselName)
 
     useEffect(() => {
-        setChosenColor(data[carouselIndex])
+        setChosenColor(data[carouselIndex], carouselName)
 
         gsap.to(carouselRef.current.rotation, {
             duration: carouselRotationSpeed,
-            y: -carouselRotation * angleIncrement - gazeboYRotationReadyValue,
+            y: -carouselRotation * angleIncrement,
             ease: 'power1.inOut',
         })
 
@@ -75,13 +85,13 @@ export const Carousel = ({ carouselName }) => {
             y: carouselFocusMesh.position.y + 0.25,
             ease: 'power1.inOut',
         })
-        gsap.to(carouselFocusMesh.scale, {
-            duration: carouselRotationSpeed,
-            x: 0,
-            y: 0,
-            z: 0,
-            ease: 'power1.out',
-        })
+        // gsap.to(carouselFocusMesh.scale, {
+        //     duration: carouselRotationSpeed,
+        //     x: 0,
+        //     y: 0,
+        //     z: 0,
+        //     ease: 'power1.out',
+        // })
         gsap.to(carouselFocusMesh.rotation, {
             duration: carouselRotationSpeed,
             y: degToRad(135),
@@ -99,13 +109,13 @@ export const Carousel = ({ carouselName }) => {
                 y: 0,
                 ease: 'power1.inOut',
             })
-            gsap.to(previouslyFocussedItem.scale, {
-                duration: carouselRotationSpeed,
-                x: gemScale,
-                y: gemScale,
-                z: gemScale,
-                ease: 'power1.out',
-            })
+            // gsap.to(previouslyFocussedItem.scale, {
+            //     duration: carouselRotationSpeed,
+            //     x: gemScale,
+            //     y: gemScale,
+            //     z: gemScale,
+            //     ease: 'power1.out',
+            // })
             gsap.to(previouslyFocussedItem.rotation, {
                 duration: carouselRotationSpeed,
                 y: 0,
@@ -116,45 +126,62 @@ export const Carousel = ({ carouselName }) => {
     }, [carouselRotation])
 
     return (
-        <>
-            <group
-                ref={carouselRef}
-                name={`Carousel ${carouselName}`}
-                position={[-0.95, 1.45, 0.95]}
-                rotation={[0, -gazeboYRotationReadyValue, 0]}
-            >
+        <group
+            position={configStages[carouselName].carouselPosition}
+            rotation={configStages[carouselName].carouselRotation}
+        >
+            <group ref={carouselRef} name={`Carousel ${carouselName}`}>
                 {data.map((item, index) => {
                     const angle = index * angleIncrement + Math.PI / 2
                     const x = radius * Math.cos(angle)
                     const z = radius * Math.sin(angle)
 
                     return (
-                        // <mesh
-                        //     key={index}
-                        //     position={[x, 0, z]}
-                        //     castShadow
-                        //     receiveShadow
-                        //     name={`Carousel ${carouselName} Item ${index}`}
-                        // >
-                        //     <icosahedronGeometry args={[0.08, 0]} />
-                        //     <meshStandardMaterial
-                        //         color={item}
-                        //         transparent
-                        //         opacity={1}
-                        //     />
-                        // </mesh>
-                        <Diamond
-                            key={index}
-                            position={[x, 0, z]}
-                            scale={[gemScale, gemScale, gemScale]}
-                            castShadow
-                            receiveShadow
-                            name={`Carousel ${carouselName} Item ${index}`}
-                            color={item}
-                        />
+                        <React.Fragment key={index}>
+                            {carouselName == configStages.gemColor.name && (
+                                <Diamond
+                                    position={[x, 0, z]}
+                                    scale={[gemScale, gemScale, gemScale]}
+                                    castShadow
+                                    receiveShadow
+                                    name={`Carousel ${carouselName} Item ${index}`}
+                                    color={item}
+                                />
+                            )}
+                            {carouselName == configStages.metal.name && (
+                                <mesh
+                                    position={[x, 0, z]}
+                                    castShadow
+                                    receiveShadow
+                                    name={`Carousel ${carouselName} Item ${index}`}
+                                >
+                                    <sphereGeometry args={[0.065, 16, 16]} />
+                                    <meshStandardMaterial
+                                        color={item}
+                                        transparent
+                                        opacity={1}
+                                    />
+                                </mesh>
+                            )}
+                            {carouselName == configStages.ring.name && (
+                                <mesh
+                                    position={[x, 0, z]}
+                                    castShadow
+                                    receiveShadow
+                                    name={`Carousel ${carouselName} Item ${index}`}
+                                >
+                                    <sphereGeometry args={[0.065, 16, 16]} />
+                                    <meshStandardMaterial
+                                        color={item}
+                                        transparent
+                                        opacity={1}
+                                    />
+                                </mesh>
+                            )}
+                        </React.Fragment>
                     )
                 })}
             </group>
-        </>
+        </group>
     )
 }

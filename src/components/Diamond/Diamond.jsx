@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { useLoader } from '@react-three/fiber'
+import { useFrame, useLoader } from '@react-three/fiber'
 import {
     Caustics,
     CubeCamera,
@@ -47,6 +47,10 @@ export const Diamond = (props) => {
     const isThisACarouselItem = props.name
         ? props.name.includes('Carousel')
         : false
+
+    useFrame(() => {
+        if (isThisACarouselItem) ref.current.rotation.y += 0.00075
+    })
 
     return (
         // <CubeCamera resolution={256} frames={1} envMap={texture}>
