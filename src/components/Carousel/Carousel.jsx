@@ -3,11 +3,12 @@ import { useThree } from '@react-three/fiber'
 import gsap from 'gsap'
 
 import { degToRad } from 'three/src/math/MathUtils.js'
+import { adjustLightnessFromHSL } from '../../utilities/adjustLightnessFromHSL'
 
 import { configStages, useAppStore } from '../../store/store'
 
 import { Diamond } from '../Diamond/Diamond'
-import { adjustLightnessFromHSL } from '../../utilities/adjustLightnessFromHSL'
+import { CarouselRing } from '../CarouselRing/CarouselRing'
 
 export const Carousel = ({
     carouselName,
@@ -48,6 +49,7 @@ export const Carousel = ({
 
     let meshScale = 1
     if (carouselName == configStages.gemColor.name) meshScale = 0.075
+    if (carouselName == configStages.ring.name) meshScale = 0.2
 
     //
     //
@@ -126,35 +128,29 @@ export const Carousel = ({
                         <React.Fragment key={index}>
                             {carouselName == configStages.gemColor.name && (
                                 <Diamond
+                                    name={`Carousel ${carouselName} Item ${index}`}
                                     position={[x, 0, z]}
                                     scale={[meshScale, meshScale, meshScale]}
                                     castShadow
                                     receiveShadow
-                                    name={`Carousel ${carouselName} Item ${index}`}
                                     color={item.value}
                                 />
                             )}
                             {carouselName == configStages.ring.name && (
-                                <mesh
-                                    position={[x, 0, z]}
-                                    castShadow
-                                    receiveShadow
+                                <CarouselRing
                                     name={`Carousel ${carouselName} Item ${index}`}
-                                >
-                                    <sphereGeometry args={[0.065, 16, 16]} />
-                                    <meshStandardMaterial
-                                        color={item.value}
-                                        transparent
-                                        opacity={1}
-                                    />
-                                </mesh>
+                                    modelPath={item.value}
+                                    meshName={item.meshName}
+                                    position={[x, 0, z]}
+                                    carouselRingScale={meshScale}
+                                />
                             )}
                             {carouselName == configStages.metal.name && (
                                 <mesh
+                                    name={`Carousel ${carouselName} Item ${index}`}
                                     position={[x, 0, z]}
                                     castShadow
                                     receiveShadow
-                                    name={`Carousel ${carouselName} Item ${index}`}
                                 >
                                     <sphereGeometry args={[0.065, 16, 16]} />
                                     <meshStandardMaterial

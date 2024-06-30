@@ -1,12 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { Canvas } from '@react-three/fiber'
+import { Leva } from 'leva'
 
 import App from './App.jsx'
 import './index.css'
+
 import { ScrollControlsHOC } from './components/ScrollControlsHOC/ScrollControlsHOC.jsx'
 import { HtmlUIContainer } from './components/HtmlUI/HtmlUIContainer/HtmlUIContainer.jsx'
-import { Leva } from 'leva'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>

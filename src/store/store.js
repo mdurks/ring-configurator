@@ -5,11 +5,16 @@ import { degToRad } from 'three/src/math/MathUtils.js'
 
 export const gazeboFinalPosition = { x: 0, y: -1.75, z: 2.5 }
 export const carouselPosition = { height: 1.45, radiusFromGazeeboCenter: 1.3 }
+export const defaultRingData = {
+    value: '/WavyRing.glb',
+    meshName: 'WavyRing',
+    label: 'Wavy Ring',
+}
 
 export const configStages = {
     gemColor: {
         name: 'gemColor',
-        label: 'Gem Color',
+        label: 'Gem',
         carouselPosition: [
             0,
             carouselPosition.height,
@@ -20,10 +25,10 @@ export const configStages = {
     },
     ring: {
         name: 'ring',
-        label: 'Ring style',
+        label: 'Ring',
         carouselPosition: [
             carouselPosition.radiusFromGazeeboCenter,
-            carouselPosition.height,
+            carouselPosition.height + 0.04,
             0,
         ],
         carouselRotation: [0, degToRad(90), 0],
@@ -86,7 +91,7 @@ export const useAppStore = create(
             carouselIndex: 0,
             carouselRotation: 0,
             carouselPreviousIndex: null,
-            chosenItem: null,
+            chosenItem: defaultRingData,
         },
 
         tryon: {

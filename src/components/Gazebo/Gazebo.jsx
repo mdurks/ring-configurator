@@ -1,11 +1,12 @@
 import { useEffect } from 'react'
 import * as THREE from 'three'
+import { Stars } from '@react-three/drei'
 import gsap from 'gsap'
 
 import { degToRad } from 'three/src/math/MathUtils.js'
 
-import { configStages, useAppStore } from '../../store/store'
-import { Stars } from '@react-three/drei'
+import { configStages, defaultRingData, useAppStore } from '../../store/store'
+
 import { Carousel } from '../Carousel/Carousel'
 
 export const Gazebo = ({ groupGazeboRef }) => {
@@ -47,11 +48,27 @@ export const Gazebo = ({ groupGazeboRef }) => {
         { value: 'blue', label: 'blue' },
     ]
     const ringData = [
-        { value: 'red', label: 'red' },
-        { value: 'green', label: 'green' },
-        { value: 'blue', label: 'blue' },
-        { value: 'orange', label: 'orange' },
-        { value: 'violet', label: 'violet' },
+        defaultRingData,
+        {
+            value: '/FlowerRing.glb',
+            meshName: 'Flower_ring',
+            label: 'Flower Ring',
+        },
+        {
+            value: '/Ring - Simple Oval Center.glb',
+            meshName: 'RingSimpleOvalCenter',
+            label: 'Clasic Oval',
+        },
+        {
+            value: '/RingKnot.glb',
+            meshName: 'RingKnot',
+            label: 'Knot',
+        },
+        {
+            value: '/RingOvalCenterAndShoulders.glb',
+            meshName: 'RingOvalCenterAndShoulders',
+            label: 'Oval and shoulders',
+        },
     ]
     const metalData = [
         { value: 'hsl(0, 0%, 100%)', label: 'white' },
@@ -82,7 +99,7 @@ export const Gazebo = ({ groupGazeboRef }) => {
                 <Carousel
                     carouselName={configStages.ring.name}
                     data={ringData}
-                    radius={0.45}
+                    radius={0.6}
                 />
                 <Carousel
                     carouselName={configStages.metal.name}

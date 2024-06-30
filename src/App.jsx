@@ -1,5 +1,4 @@
 import { useEffect, useLayoutEffect, useRef } from 'react'
-import * as THREE from 'three'
 import { useFrame, useThree } from '@react-three/fiber'
 import {
     OrbitControls,
@@ -13,10 +12,9 @@ import { degToRad } from 'three/src/math/MathUtils.js'
 
 import { useAppStore, gazeboFinalPosition } from './store/store'
 
-import { Diamond } from './components/Diamond/Diamond'
 import { MiscExperiments } from './components/Experiments/MiscExperiments'
 import { EnvironmentSetup } from './components/EnvironmentSetup/EnvironmentSetup'
-import { WavyRing } from './components/WavyRing/WavyRing'
+import { PrimaryRing } from './components/PrimaryRing/PrimaryRing'
 import { Gazebo } from './components/Gazebo/Gazebo'
 import { ProductRotator } from './components/ProductRotator/ProductRotator'
 
@@ -364,9 +362,7 @@ function App() {
                 // enableZoom={false}
             /> */}
 
-            {/* <Diamond position={[0, 0.32, 0]} rotation={[0, 0, 0.715]} /> */}
-
-            <WavyRing ringRef={ringRef} />
+            <PrimaryRing ringRef={ringRef} name={'Primary Ring'} />
 
             <Gazebo groupGazeboRef={groupGazeboRef} />
 
