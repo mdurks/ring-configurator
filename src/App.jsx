@@ -10,7 +10,7 @@ import gsap from 'gsap'
 
 import { degToRad } from 'three/src/math/MathUtils.js'
 
-import { useAppStore, gazeboFinalPosition } from './store/store'
+import { useAppStore, gazeboFinalPosition, storeActions } from './store/store'
 
 import { MiscExperiments } from './components/Experiments/MiscExperiments'
 import { EnvironmentSetup } from './components/EnvironmentSetup/EnvironmentSetup'
@@ -25,12 +25,6 @@ function App() {
     const three = useThree()
     const isIntroActive = useAppStore((state) => state.isIntroActive)
     const scroll = useScroll()
-
-    //
-    //
-    //
-    // Global functions:
-    const setIsIntroActive = useAppStore((state) => state.setIsIntroActive)
 
     // Local init:
     const groupGazeboRef = useRef()
@@ -339,7 +333,7 @@ function App() {
         // END of timeline:
         tl_intro.current.add(() => {
             // console.log('END of timeline')
-            if (isIntroActive) setIsIntroActive(false)
+            if (isIntroActive) storeActions.setIsIntroActive(false)
             document.body.classList.remove('introActive')
             document.body.classList.add('introEnded')
             // isRingReadyForScroll.current = false
