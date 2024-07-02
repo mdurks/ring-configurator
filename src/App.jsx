@@ -336,6 +336,7 @@ function App() {
             if (isIntroActive) storeActions.setIsIntroActive(false)
             document.body.classList.remove('introActive')
             document.body.classList.add('introEnded')
+            document.body.style.cursor = 'grab'
             // isRingReadyForScroll.current = false
         })
     }, [])

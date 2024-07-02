@@ -1,63 +1,39 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { useCursor } from '@react-three/drei'
-import { useAppStore } from '../../store/store'
 
 export const ProductRotator = ({ meshRef }) => {
-    //
-    //
-    // Global State:
-
-    //
-    //
-    // Global functions:
-
-    //
-    //
-    // Local init:
-
     const friction = 0.95
     const sensitivity = 0.0035
-    const pointerInitialState = {
-        x: 0,
-        y: 0,
-    }
 
-    const [isDragging, setIsDragging] = useState(false)
-    const [previousPointerPosition, setPreviousPointerPosition] =
-        useState(pointerInitialState)
-    const [rotationVelocity, setRotationVelocity] =
-        useState(pointerInitialState)
-
-    //
-    //
-    // Local functions:
-
-    useCursor(isDragging, 'grabbing', 'grab')
+    const isDraggingRef = useRef(false)
+    const previousPointerPositionRef = useRef({ x: 0, y: 0 })
+    const rotationVelocityRef = useRef({ x: 0, y: 0 })
 
     const onPointerDown = (e) => {
         const { clientX, clientY } = e.touches ? e.touches[0] : e
-        setPreviousPointerPosition({ x: clientX, y: clientY })
-        setIsDragging(true)
+        previousPointerPositionRef.current = { x: clientX, y: clientY }
+        isDraggingRef.current = true
+        document.body.style.cursor = 'grabbing'
     }
 
     const onPointerMove = (e) => {
-        if (isDragging) {
+        if (isDraggingRef.current) {
             const { clientX, clientY } = e.touches ? e.touches[0] : e
-            const deltaX = clientX - previousPointerPosition.x
-            const deltaY = clientY - previousPointerPosition.y
+            const deltaX = clientX - previousPointerPositionRef.current.x
+            const deltaY = clientY - previousPointerPositionRef.current.y
 
-            setRotationVelocity({
+            rotationVelocityRef.current = {
                 x: deltaY * sensitivity,
                 y: deltaX * sensitivity,
-            })
+            }
 
-            setPreviousPointerPosition({ x: clientX, y: clientY })
+            previousPointerPositionRef.current = { x: clientX, y: clientY }
         }
     }
 
     const onPointerUp = () => {
-        setIsDragging(false)
+        isDraggingRef.current = false
+        document.body.style.cursor = 'grab'
     }
 
     useEffect(() => {
@@ -76,20 +52,25 @@ export const ProductRotator = ({ meshRef }) => {
             window.removeEventListener('touchmove', onPointerMove)
             window.removeEventListener('touchend', onPointerUp)
         }
-    }, [isDragging, previousPointerPosition])
+    }, [])
 
     useFrame(() => {
-        if (isDragging) {
-            meshRef.current.rotation.x += rotationVelocity.x
-            meshRef.current.rotation.y += rotationVelocity.y
-        } else {
-            meshRef.current.rotation.y += rotationVelocity.y + 0.002
-            meshRef.current.rotation.x += rotationVelocity.x
-        }
+        if (meshRef.current) {
+            if (isDraggingRef.current) {
+                meshRef.current.rotation.x += rotationVelocityRef.current.x
+                meshRef.current.rotation.y += rotationVelocityRef.current.y
+            } else {
+                meshRef.current.rotation.y +=
+                    rotationVelocityRef.current.y + 0.002
+                meshRef.current.rotation.x += rotationVelocityRef.current.x
+            }
 
-        setRotationVelocity({
-            x: rotationVelocity.x * friction,
-            y: rotationVelocity.y * friction,
-        })
+            rotationVelocityRef.current = {
+                x: rotationVelocityRef.current.x * friction,
+                y: rotationVelocityRef.current.y * friction,
+            }
+        }
     })
+
+    return null
 }
