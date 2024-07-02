@@ -1,9 +1,11 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { useThree } from '@react-three/fiber'
 import gsap from 'gsap'
 
 import { degToRad } from 'three/src/math/MathUtils.js'
 import { adjustLightnessFromHSL } from '../../utilities/adjustLightnessFromHSL'
+import { generateRandomPositions } from '../../utilities/generateRandomPositions'
+import { randomNumberWithinRange } from '../../utilities/randomNumberWithinRange'
 
 import { configStages, useAppStore } from '../../store/store'
 
@@ -20,6 +22,11 @@ export const Carousel = ({
     //
     // Global state:
     const { scene } = useThree()
+
+    const configStage = useAppStore((state) => state.configStage)
+    const configStagePrevious = useAppStore(
+        (state) => state.configStagePrevious,
+    )
 
     const carouselIndex = useAppStore(
         (state) => state[carouselName].carouselIndex,
@@ -39,24 +46,57 @@ export const Carousel = ({
 
     //
     //
-    // Local init:
+    // Local state:
+    const [itemMeshes, setItemMeshes] = useState()
 
+    //
+    //
+    // Local init:
     setCarouselLength(data.length, carouselName)
 
     const carouselRef = useRef()
 
-    const angleIncrement = (2 * Math.PI) / data.length
+    const itemNames = []
+    for (let i = 0; i < data.length; i++) {
+        itemNames.push(`Carousel ${carouselName} Item ${i}`)
+    }
 
     let meshScale = 1
-    if (carouselName == configStages.gemColor.name) meshScale = 0.075
-    if (carouselName == configStages.ring.name) meshScale = 0.2
+    if (carouselName == configStages.gemColor.name) meshScale = 0.07
+    if (carouselName == configStages.ring.name) meshScale = 0.175
 
-    //
-    //
-    // Local functions:
+    const angleIncrement = (2 * Math.PI) / data.length
+
+    const carouselPositions = useMemo(() => {
+        const positions = []
+        for (let i = 0; i < data.length; i++) {
+            const angle = i * angleIncrement + Math.PI / 2
+            const x = radius * Math.cos(angle)
+            const z = radius * Math.sin(angle)
+            positions.push([x, 0, z])
+        }
+        return positions
+    }, [])
+
+    const tableInfo = {
+        centerPos: [0, 0, 0.475],
+        leftEdge: -1,
+        rightEdge: 1,
+        backEdge: 0.05,
+        frontEdge: 0.7,
+    }
+
+    const widthRange = [tableInfo.leftEdge, tableInfo.rightEdge]
+    const depthRange = [tableInfo.backEdge, tableInfo.frontEdge]
+
+    const [randomItemPositions, setRandomItemPositions] = useState(
+        Array.from({ length: data.length }, () => [0, 0, 0]),
+    )
 
     useEffect(() => {
         setChosenItem(data[carouselIndex], carouselName)
+
+        // if (configStage != carouselName) return
 
         gsap.to(carouselRef.current.rotation, {
             duration: rotationSpeed,
@@ -113,23 +153,153 @@ export const Carousel = ({
         }
     }, [carouselRotation])
 
+    useEffect(() => {
+        if (!itemMeshes?.length) return
+
+        const duration = 1.25
+
+        if (configStage == carouselName) {
+            // reset rotation of carousel to where it was when active
+            gsap.to(carouselRef.current.rotation, {
+                duration: duration,
+                y: -carouselRotation * angleIncrement,
+                ease: 'power1.inOut',
+            })
+
+            itemMeshes.forEach((item, index) => {
+                // const staggerDelay = 0
+                const staggerDelay = randomNumberWithinRange(0, duration * 0.5)
+
+                gsap.to(item.position, {
+                    delay: staggerDelay,
+                    duration: duration,
+                    x: carouselPositions[index][0],
+                    z: carouselPositions[index][2],
+                    ease: 'power1.inOut',
+                })
+
+                // jump up:
+                gsap.to(item.position, {
+                    delay: staggerDelay,
+                    duration: duration * 0.5,
+                    y: 0.15,
+                    ease: 'power1.inOut',
+                })
+                gsap.to(item.position, {
+                    delay: staggerDelay + duration * 0.5,
+                    duration: duration * 0.5,
+                    y: 0,
+                    ease: 'power1.inOut',
+                })
+
+                // rotate:
+                gsap.to(item.rotation, {
+                    delay: staggerDelay,
+                    duration: duration,
+                    x:
+                        carouselName == configStages.gemColor.name
+                            ? degToRad(360)
+                            : degToRad(0),
+                    y: degToRad(180),
+                    z: 0,
+                    ease: 'power1.inOut',
+                })
+            })
+            //
+            //
+            //
+        } else {
+            // only do return to table animation if this carouse WAS active
+            if (configStagePrevious != carouselName) return
+
+            // reset rotation of carousel to where it was when active
+            gsap.to(carouselRef.current.rotation, {
+                duration: duration,
+                y: 0,
+                ease: 'power1.inOut',
+            })
+
+            itemMeshes.forEach((item, index) => {
+                const staggerDelay = randomNumberWithinRange(0, duration / 2)
+
+                // some values can be 360 here, so better rotatin from 0 instead or item will jump
+                gsap.set(item.rotation, {
+                    x: 0,
+                    z: 0,
+                })
+
+                gsap.to(item.position, {
+                    delay: staggerDelay,
+                    duration: duration,
+                    x: randomItemPositions[index][0],
+                    z: randomItemPositions[index][2],
+                    ease: 'power1.inOut',
+                })
+
+                // jump up:
+                gsap.to(item.position, {
+                    delay: staggerDelay,
+                    duration: duration * 0.5,
+                    y: 0.15,
+                    ease: 'power1.inOut',
+                })
+                gsap.to(item.position, {
+                    delay: staggerDelay + duration * 0.5,
+                    duration: duration * 0.75,
+                    y: -0.05,
+                    ease: 'power1.out',
+                })
+
+                // rotate:
+                gsap.to(item.rotation, {
+                    delay: staggerDelay,
+                    duration: staggerDelay + duration * 0.7,
+                    x:
+                        carouselName == configStages.gemColor.name
+                            ? degToRad(45)
+                            : degToRad(85),
+                    y: 0,
+                    z:
+                        carouselName == configStages.gemColor.name
+                            ? degToRad(randomNumberWithinRange(-45, 45))
+                            : 0,
+                    ease: 'power1.inOut',
+                })
+            })
+        }
+    }, [configStage])
+
+    useEffect(() => {
+        setItemMeshes(() => {
+            const arr = []
+            itemNames.forEach((name) => {
+                arr.push(scene.getObjectByName(name))
+            })
+            return arr
+        })
+
+        setRandomItemPositions(
+            generateRandomPositions(data.length, widthRange, depthRange),
+        )
+    }, [])
+
     return (
         <group
             position={configStages[carouselName].carouselPosition}
             rotation={configStages[carouselName].carouselRotation}
         >
+            {/* <mesh position={[0, 0, 0.8]}>
+                <boxGeometry args={[0.25, 0.25, 0.25]} />
+                <meshStandardMaterial color="purple" />
+            </mesh> */}
             <group ref={carouselRef} name={`Carousel ${carouselName}`}>
                 {data.map((item, index) => {
-                    const angle = index * angleIncrement + Math.PI / 2
-                    const x = radius * Math.cos(angle)
-                    const z = radius * Math.sin(angle)
-
                     return (
                         <React.Fragment key={index}>
                             {carouselName == configStages.gemColor.name && (
                                 <Diamond
-                                    name={`Carousel ${carouselName} Item ${index}`}
-                                    position={[x, 0, z]}
+                                    name={itemNames[index]}
+                                    position={carouselPositions[index]}
                                     scale={[meshScale, meshScale, meshScale]}
                                     castShadow
                                     receiveShadow
@@ -138,17 +308,18 @@ export const Carousel = ({
                             )}
                             {carouselName == configStages.ring.name && (
                                 <CarouselRing
-                                    name={`Carousel ${carouselName} Item ${index}`}
+                                    name={itemNames[index]}
+                                    position={randomItemPositions[index]}
+                                    rotation={[degToRad(85), 0, 0]}
                                     modelPath={item.value}
                                     meshName={item.meshName}
-                                    position={[x, 0, z]}
                                     carouselRingScale={meshScale}
                                 />
                             )}
                             {carouselName == configStages.metal.name && (
                                 <mesh
-                                    name={`Carousel ${carouselName} Item ${index}`}
-                                    position={[x, 0, z]}
+                                    name={itemNames[index]}
+                                    position={randomItemPositions[index]}
                                     castShadow
                                     receiveShadow
                                 >
@@ -158,8 +329,6 @@ export const Carousel = ({
                                             item.value,
                                             -30,
                                         )}
-                                        transparent
-                                        opacity={1}
                                         envMapIntensity={0.1}
                                     />
                                 </mesh>

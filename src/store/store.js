@@ -27,7 +27,7 @@ export const configStages = {
         name: 'ring',
         label: 'Ring',
         carouselPosition: [
-            carouselPosition.radiusFromGazeeboCenter,
+            carouselPosition.radiusFromGazeeboCenter + 0.15,
             carouselPosition.height + 0.04,
             0,
         ],
@@ -69,6 +69,7 @@ export const useAppStore = create(
         isIntroActive: true,
 
         configStage: configStages.gemColor.name,
+        configStagePrevious: null,
 
         gemColor: {
             carouselLength: 0,
@@ -128,6 +129,15 @@ export const useAppStore = create(
                 }),
                 false,
                 `setConfigStage: ${value}`,
+            ),
+
+        setConfigStagePrevious: (value) =>
+            set(
+                produce((state) => {
+                    state.configStagePrevious = value
+                }),
+                false,
+                `setConfigStagePrevious: ${value}`,
             ),
 
         //

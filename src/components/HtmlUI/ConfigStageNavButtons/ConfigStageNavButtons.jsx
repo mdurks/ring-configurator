@@ -24,6 +24,9 @@ export const ConfigStageNavButtons = () => {
     // Global functions:
 
     const setConfigStage = useAppStore((state) => state.setConfigStage)
+    const setConfigStagePrevious = useAppStore(
+        (state) => state.setConfigStagePrevious,
+    )
     const setCarouselIndex = useAppStore((state) => state.setCarouselIndex)
     const setCarouselRotation = useAppStore(
         (state) => state.setCarouselRotation,
@@ -35,6 +38,11 @@ export const ConfigStageNavButtons = () => {
     //
     //
     // Local functions:
+
+    const handleCategoryClick = (key) => {
+        setConfigStagePrevious(configStage)
+        setConfigStage(configStages[key].name)
+    }
 
     const decrement = () => {
         setCarouselPreviousIndex(carouselIndex, configStage)
@@ -81,15 +89,15 @@ export const ConfigStageNavButtons = () => {
                 </>
             )}
 
-            {Object.keys(configStages).map((key) => {
+            {Object.keys(configStages).map((stage) => {
                 return (
                     <button
-                        key={`stageNav${configStages[key].name}`}
+                        key={`stageNav${configStages[stage].name}`}
                         type="button"
-                        className={`stageNavBtn_${configStages[key].name}`}
-                        onClick={() => setConfigStage(configStages[key].name)}
+                        className={`stageNavBtn_${configStages[stage].name}`}
+                        onClick={() => handleCategoryClick(stage)}
                     >
-                        {configStages[key].label}
+                        {configStages[stage].label}
                     </button>
                 )
             })}

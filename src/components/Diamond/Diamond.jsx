@@ -8,6 +8,7 @@ import {
 } from '@react-three/drei'
 import { useControls } from 'leva'
 import { RGBELoader } from 'three/examples/jsm/Addons.js'
+import { configStages, useAppStore } from '../../store/store'
 
 export const Diamond = (props) => {
     const ref = useRef()
@@ -44,12 +45,15 @@ export const Diamond = (props) => {
     //     // color: '#ffbfdf',
     // })
 
+    const configStage = useAppStore((state) => state.configStage)
+
     const isThisACarouselItem = props.name
         ? props.name.includes('Carousel')
         : false
 
     useFrame(() => {
-        if (isThisACarouselItem) ref.current.rotation.y += 0.00075
+        if (isThisACarouselItem && configStage == configStages.gemColor.name)
+            ref.current.rotation.y += 0.00075
     })
 
     return (

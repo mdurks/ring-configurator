@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { useGLTF } from '@react-three/drei'
 
-import { useAppStore } from '../../store/store'
+import { configStages, useAppStore } from '../../store/store'
 
 import { Diamond } from '../Diamond/Diamond'
 import { useRef } from 'react'
@@ -12,8 +12,10 @@ export const CarouselRing = ({
     modelPath,
     meshName,
     position,
+    rotation,
     carouselRingScale,
 }) => {
+    const configStage = useAppStore((state) => state.configStage)
     const chosenGemColor = useAppStore((state) => state.gemColor.chosenItem)
     const chosenMetalColor = useAppStore((state) => state.metal.chosenItem)
 
@@ -29,7 +31,8 @@ export const CarouselRing = ({
         .map(([key, value]) => value)
 
     useFrame(() => {
-        groupRef.current.rotation.y -= 0.001
+        if (configStage == configStages.ring.name)
+            groupRef.current.rotation.y -= 0.001
     })
 
     return (
@@ -38,6 +41,7 @@ export const CarouselRing = ({
             name={name}
             scale={[carouselRingScale, carouselRingScale, carouselRingScale]}
             position={position}
+            rotation={rotation}
         >
             {markerGemNodes.map((marker) => (
                 <Diamond
