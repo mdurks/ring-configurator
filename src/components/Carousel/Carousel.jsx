@@ -2,12 +2,12 @@ import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { useThree } from '@react-three/fiber'
 import gsap from 'gsap'
 
-import { degToRad } from 'three/src/math/MathUtils.js'
+import { degToRad, radToDeg } from 'three/src/math/MathUtils.js'
 import { adjustLightnessFromHSL } from '../../utilities/adjustLightnessFromHSL'
 import { generateRandomPositions } from '../../utilities/generateRandomPositions'
 import { randomNumberWithinRange } from '../../utilities/randomNumberWithinRange'
 
-import { configStages, useAppStore } from '../../store/store'
+import { configStages, storeActions, useAppStore } from '../../store/store'
 
 import { Diamond } from '../Diamond/Diamond'
 import { CarouselRing } from '../CarouselRing/CarouselRing'
@@ -17,6 +17,7 @@ export const Carousel = ({
     data,
     radius,
     rotationSpeed = 0.5,
+    meshScale = 1,
 }) => {
     //
     //
@@ -27,7 +28,6 @@ export const Carousel = ({
     const configStagePrevious = useAppStore(
         (state) => state.configStagePrevious,
     )
-
     const carouselIndex = useAppStore(
         (state) => state[carouselName].carouselIndex,
     )
@@ -40,30 +40,20 @@ export const Carousel = ({
 
     //
     //
-    // Global functions:
-    const setCarouselLength = useAppStore((state) => state.setCarouselLength)
-    const setChosenItem = useAppStore((state) => state.setChosenItem)
-
-    //
-    //
     // Local state:
     const [itemMeshes, setItemMeshes] = useState()
 
     //
     //
     // Local init:
-    setCarouselLength(data.length, carouselName)
+    storeActions.setCarouselLength(data.length, carouselName)
 
     const carouselRef = useRef()
 
-    const itemNames = []
-    for (let i = 0; i < data.length; i++) {
-        itemNames.push(`Carousel ${carouselName} Item ${i}`)
-    }
-
-    let meshScale = 1
-    if (carouselName == configStages.gemColor.name) meshScale = 0.07
-    if (carouselName == configStages.ring.name) meshScale = 0.175
+    const itemNames = Array.from(
+        { length: data.length },
+        (_, index) => `Carousel ${carouselName} Item ${index}`,
+    )
 
     const angleIncrement = (2 * Math.PI) / data.length
 
@@ -85,29 +75,29 @@ export const Carousel = ({
         backEdge: 0.05,
         frontEdge: 0.7,
     }
-
-    const widthRange = [tableInfo.leftEdge, tableInfo.rightEdge]
-    const depthRange = [tableInfo.backEdge, tableInfo.frontEdge]
+    tableInfo.widthRange = [tableInfo.leftEdge, tableInfo.rightEdge]
+    tableInfo.depthRange = [tableInfo.backEdge, tableInfo.frontEdge]
 
     const [randomItemPositions, setRandomItemPositions] = useState(
         Array.from({ length: data.length }, () => [0, 0, 0]),
     )
 
     useEffect(() => {
-        setChosenItem(data[carouselIndex], carouselName)
+        storeActions.setChosenItem(data[carouselIndex], carouselName)
 
-        // if (configStage != carouselName) return
-
+        // rotate the whole carousel
         gsap.to(carouselRef.current.rotation, {
             duration: rotationSpeed,
             y: -carouselRotation * angleIncrement,
             ease: 'power1.inOut',
         })
 
+        // get the current carousel mesh
         const carouselFocusMesh = scene.getObjectByName(
             `Carousel ${carouselName} Item ${carouselIndex}`,
         )
 
+        // position/rotate the current mesh like it merged to the primary ring
         gsap.to(carouselFocusMesh.position, {
             duration: rotationSpeed,
             y: carouselFocusMesh.position.y + 0.25,
@@ -127,10 +117,12 @@ export const Carousel = ({
             ease: 'power1.inOut',
         })
 
+        // get the previous carousel mesh
         const previouslyFocussedItem = scene.getObjectByName(
             `Carousel ${carouselName} Item ${carouselPreviousIndex}`,
         )
 
+        // return the previouis mesh to it's normal place in the carousel
         if (previouslyFocussedItem) {
             gsap.to(previouslyFocussedItem.position, {
                 duration: rotationSpeed,
@@ -158,12 +150,25 @@ export const Carousel = ({
 
         const duration = 1.25
 
+        // On table stage change...
+        //
+        //
+        // Return to Carousel:
+        //
         if (configStage == carouselName) {
             // reset rotation of carousel to where it was when active
             gsap.to(carouselRef.current.rotation, {
                 duration: duration,
+                // this rotation smoothly rotate back, but it doesn't match the carousel rotation, fix this 'onComplete'
                 y: -carouselRotation * angleIncrement,
                 ease: 'power1.inOut',
+                onComplete: () => {
+                    // use a .set so no visual movement occurs
+                    // put the rotation back to where it was for the carousel to increment/decrement by one angle rotation properly
+                    gsap.set(carouselRef.current.rotation, {
+                        y: -carouselRotation * angleIncrement,
+                    })
+                },
             })
 
             itemMeshes.forEach((item, index) => {
@@ -205,17 +210,21 @@ export const Carousel = ({
                     ease: 'power1.inOut',
                 })
             })
-            //
-            //
-            //
-        } else {
-            // only do return to table animation if this carouse WAS active
+        }
+        //
+        //
+        // Or, return to Table:
+        //
+        else {
+            // only animate if this carousel was previously active
             if (configStagePrevious != carouselName) return
 
-            // reset rotation of carousel to where it was when active
+            const rotationForFrontOfCarouselToFaceOutwards =
+                carouselRef.current.rotation.y - carouselIndex * angleIncrement
+
             gsap.to(carouselRef.current.rotation, {
                 duration: duration,
-                y: 0,
+                y: rotationForFrontOfCarouselToFaceOutwards,
                 ease: 'power1.inOut',
             })
 
@@ -279,12 +288,17 @@ export const Carousel = ({
         })
 
         setRandomItemPositions(
-            generateRandomPositions(data.length, widthRange, depthRange),
+            generateRandomPositions(
+                data.length,
+                tableInfo.widthRange,
+                tableInfo.depthRange,
+            ),
         )
     }, [])
 
     return (
         <group
+            name={`Outer Carousel ${carouselName}`}
             position={configStages[carouselName].carouselPosition}
             rotation={configStages[carouselName].carouselRotation}
         >

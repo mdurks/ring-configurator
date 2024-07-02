@@ -194,3 +194,16 @@ export const useAppStore = create(
             ),
     })),
 )
+
+export const storeActions = {
+    setIsIntroActive: useAppStore.getState().setIsIntroActive,
+
+    setConfigStage: useAppStore.getState().setConfigStage,
+    setConfigStagePrevious: useAppStore.getState().setConfigStagePrevious,
+
+    setCarouselLength: useAppStore.getState().setCarouselLength,
+    setCarouselIndex: useAppStore.getState().setCarouselIndex,
+    setCarouselRotation: useAppStore.getState().setCarouselRotation,
+    setCarouselPreviousIndex: useAppStore.getState().setCarouselPreviousIndex,
+    setChosenItem: useAppStore.getState().setChosenItem,
+}

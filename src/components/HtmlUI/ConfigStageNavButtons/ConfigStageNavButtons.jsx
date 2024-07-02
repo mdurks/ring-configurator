@@ -40,6 +40,7 @@ export const ConfigStageNavButtons = () => {
     // Local functions:
 
     const handleCategoryClick = (key) => {
+        // setCarouselRotation(carouselIndex, configStage)
         setConfigStagePrevious(configStage)
         setConfigStage(configStages[key].name)
     }

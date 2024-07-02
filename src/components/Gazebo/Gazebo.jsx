@@ -95,11 +95,13 @@ export const Gazebo = ({ groupGazeboRef }) => {
                     carouselName={configStages.gemColor.name}
                     data={gemData}
                     radius={0.6}
+                    meshScale={0.07}
                 />
                 <Carousel
                     carouselName={configStages.ring.name}
                     data={ringData}
                     radius={0.5}
+                    meshScale={0.175}
                 />
                 <Carousel
                     carouselName={configStages.metal.name}
