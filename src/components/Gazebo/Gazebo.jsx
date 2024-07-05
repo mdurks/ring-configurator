@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import * as THREE from 'three'
-import { Stars } from '@react-three/drei'
+import { Html, Stars, useGLTF } from '@react-three/drei'
 import gsap from 'gsap'
 
 import { degToRad } from 'three/src/math/MathUtils.js'
@@ -8,8 +8,9 @@ import { degToRad } from 'three/src/math/MathUtils.js'
 import { configStages, defaultRingData, useAppStore } from '../../store/store'
 
 import { Carousel } from '../Carousel/Carousel'
+import { TryItonUI } from '../TryItonUI/TryItonUI'
 
-export const Gazebo = ({ groupGazeboRef }) => {
+export const Gazebo = ({ groupGazeboRef, ringRef }) => {
     //
     //
     // Global state:
@@ -18,6 +19,11 @@ export const Gazebo = ({ groupGazeboRef }) => {
     //
     //
     // Local init:
+
+    // const tableModel = useGLTF('/ClassicConsole_01_1k.glb')
+    const tableModel = useGLTF('/ClassicConsole_01_2k.glb')
+    // console.log('tableModel', tableModel)
+
     const hemisphereGeometry = new THREE.SphereGeometry(
         3, // radius
         16, // widthSegments
@@ -90,7 +96,7 @@ export const Gazebo = ({ groupGazeboRef }) => {
 
     return (
         <>
-            <group ref={groupGazeboRef} name="Gazebo">
+            <group ref={groupGazeboRef} name="Gazebo" visible={true}>
                 <Carousel
                     carouselName={configStages.gemColor.name}
                     data={gemData}
@@ -118,8 +124,70 @@ export const Gazebo = ({ groupGazeboRef }) => {
                     fade
                     speed={1}
                 />
+
+                <TryItonUI ringRef={ringRef} />
+
                 <group rotation={[0, degToRad(45), 0]}>
                     <mesh
+                        name="table_front_left"
+                        position={[-1.28, 0.1, 1.28]}
+                        rotation={[0, degToRad(-45), 0]}
+                        scale={[1.7, 1.35, 1.9]}
+                        geometry={tableModel.nodes.ClassicConsole_01.geometry}
+                        material={tableModel.materials.ClassicConsole_01}
+                        castShadow
+                        receiveShadow
+                    >
+                        {/* <meshPhysicalMaterial
+                            envMapIntensity={0.5}
+                            metalness={0.5}
+                            roughnes={0.5}
+                            map={tableModel.materials.ClassicConsole_01.map}
+                            metalnessMap={
+                                tableModel.nodes.ClassicConsole_01.material
+                                    .metalnessMap
+                            }
+                            normalMap={
+                                tableModel.nodes.ClassicConsole_01.material
+                                    .normalMap
+                            }
+                            roughnessMap={
+                                tableModel.materials.ClassicConsole_01
+                                    .roughnessMap
+                            }
+                        /> */}
+                    </mesh>
+                    <mesh
+                        name="table_front_right"
+                        position={[1.28, 0.1, 1.28]}
+                        rotation={[0, degToRad(45), 0]}
+                        scale={[1.7, 1.35, 1.9]}
+                        geometry={tableModel.nodes.ClassicConsole_01.geometry}
+                        material={tableModel.materials.ClassicConsole_01}
+                        castShadow
+                        receiveShadow
+                    />
+                    <mesh
+                        name="table_back_right"
+                        position={[1.28, 0.1, -1.28]}
+                        rotation={[0, degToRad(135), 0]}
+                        scale={[1.7, 1.35, 1.9]}
+                        geometry={tableModel.nodes.ClassicConsole_01.geometry}
+                        material={tableModel.materials.ClassicConsole_01}
+                        castShadow
+                        receiveShadow
+                    />
+                    <mesh
+                        name="table_back_left"
+                        position={[-1.28, 0.1, -1.28]}
+                        rotation={[0, degToRad(-135), 0]}
+                        scale={[1.7, 1.35, 1.9]}
+                        geometry={tableModel.nodes.ClassicConsole_01.geometry}
+                        material={tableModel.materials.ClassicConsole_01}
+                        castShadow
+                        receiveShadow
+                    />
+                    {/* <mesh
                         name="table_front_left"
                         position={[-1.2, 0.75, 1.2]}
                         rotation={[0, degToRad(-45), 0]}
@@ -127,7 +195,13 @@ export const Gazebo = ({ groupGazeboRef }) => {
                         castShadow
                     >
                         <boxGeometry args={[2.5, 1.25, 1]} />
-                        <meshStandardMaterial color={'IndianRed'} />
+                        <meshStandardMaterial
+                            transparent
+                            opacity={0.5}
+                            wireframe
+                            // color={'IndianRed'}
+                            color={'black'}
+                        />
                     </mesh>
                     <mesh
                         name="table_front_right"
@@ -137,7 +211,13 @@ export const Gazebo = ({ groupGazeboRef }) => {
                         castShadow
                     >
                         <boxGeometry args={[2.5, 1.25, 1]} />
-                        <meshStandardMaterial color={'DarkOliveGreen'} />
+                        <meshStandardMaterial
+                            transparent
+                            opacity={0.5}
+                            wireframe
+                            // color={'DarkOliveGreen'}
+                            color={'black'}
+                        />
                     </mesh>
                     <mesh
                         name="table_back_right"
@@ -147,7 +227,13 @@ export const Gazebo = ({ groupGazeboRef }) => {
                         castShadow
                     >
                         <boxGeometry args={[2.5, 1.25, 1]} />
-                        <meshStandardMaterial color={'CadetBlue'} />
+                        <meshStandardMaterial
+                            transparent
+                            opacity={0.5}
+                            wireframe
+                            // color={'CadetBlue'}
+                            color={'black'}
+                        />
                     </mesh>
                     <mesh
                         name="table_back_left"
@@ -157,8 +243,14 @@ export const Gazebo = ({ groupGazeboRef }) => {
                         castShadow
                     >
                         <boxGeometry args={[2.5, 1.25, 1]} />
-                        <meshStandardMaterial color={'BurlyWood'} />
-                    </mesh>
+                        <meshStandardMaterial
+                            transparent
+                            opacity={0.5}
+                            wireframe
+                            // color={'BurlyWood'}
+                            color={'black'}
+                        />
+                    </mesh> */}
                     <mesh
                         name="gazebo_dome"
                         position={[0, 5.1, 0]}
@@ -218,6 +310,7 @@ export const Gazebo = ({ groupGazeboRef }) => {
                         <meshStandardMaterial color={'grey'} />
                     </mesh>
                 </group>
+
                 <mesh
                     name="floor"
                     position={[0, -0.125, 0]}
@@ -226,7 +319,9 @@ export const Gazebo = ({ groupGazeboRef }) => {
                 >
                     <planeGeometry args={[1000, 1000]} />
                     {/* <meshStandardMaterial color={'black'} /> */}
-                    <meshStandardMaterial color={'#837e4f'} />
+                    {/* <meshStandardMaterial color={'hsl(54, 24%, 41%)'} /> */}
+                    {/* <meshStandardMaterial color={'hsl(55, 30%, 23%)'} /> */}
+                    <meshStandardMaterial color={'hsl(50, 40%, 36%)'} />
                 </mesh>
             </group>
         </>

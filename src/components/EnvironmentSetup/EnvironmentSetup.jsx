@@ -16,19 +16,20 @@ export const EnvironmentSetup = () => {
 
     return (
         <>
-            <color attach="background" args={['#e9e7cf']} />
-            {/* <color attach="background" args={['#2e2d1f']} /> */}
+            {/* <color attach="background" args={['hsl(55, 45%, 82%)']} /> */}
+            {/* <color attach="background" args={['hsl(55, 37%, 86%)']} /> */}
+            <color attach="background" args={['#2e2d1f']} />
 
             {/* <SoftShadows size={60} samples={20} /> */}
 
             <ambientLight intensity={0.5} />
 
-            <Environment preset="studio" environmentIntensity={1} />
+            <Environment preset="studio" environmentIntensity={0.8} />
 
             <directionalLight
                 castShadow
                 position={[2.5, 5, 5]}
-                intensity={8}
+                intensity={20}
                 shadow-mapSize={[1024, 1024]}
             >
                 <orthographicCamera

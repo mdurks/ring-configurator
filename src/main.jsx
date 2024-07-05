@@ -17,14 +17,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
         <Canvas
             className="r3fCanvas"
-            camera={
-                {
-                    // fov: settings.camera.fov,
-                    // position: isDesktop
-                    //     ? [...settings.camera.introPos]
-                    //     : [...settings.camera.introPosMobile],
-                }
-            }
+            camera={{
+                fov: 75,
+                // position: isDesktop
+                //     ? [...settings.camera.introPos]
+                //     : [...settings.camera.introPosMobile],
+            }}
             shadows={true}
         >
             <ScrollControlsHOC>

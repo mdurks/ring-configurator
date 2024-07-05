@@ -1,13 +1,19 @@
 import { useEffect, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
+import { configStages, useAppStore } from '../../store/store'
 
 export const ProductRotator = ({ meshRef }) => {
+    const configStage = useAppStore((state) => state.configStage)
+    console.log('configStage', configStage)
+
     const friction = 0.95
     const sensitivity = 0.0035
 
     const isDraggingRef = useRef(false)
     const previousPointerPositionRef = useRef({ x: 0, y: 0 })
     const rotationVelocityRef = useRef({ x: 0, y: 0 })
+
+    const autoRotateYAmount = configStage == configStages.tryon.name ? 0 : 0.002
 
     const onPointerDown = (e) => {
         const { clientX, clientY } = e.touches ? e.touches[0] : e
@@ -61,7 +67,7 @@ export const ProductRotator = ({ meshRef }) => {
                 meshRef.current.rotation.y += rotationVelocityRef.current.y
             } else {
                 meshRef.current.rotation.y +=
-                    rotationVelocityRef.current.y + 0.002
+                    rotationVelocityRef.current.y + autoRotateYAmount
                 meshRef.current.rotation.x += rotationVelocityRef.current.x
             }
 

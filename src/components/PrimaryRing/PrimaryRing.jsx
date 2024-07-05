@@ -14,6 +14,7 @@ export const PrimaryRing = ({ ringRef, name }) => {
 
     const material = nodes[chosenRing.meshName].material
     material.color = new THREE.Color(chosenMetalColor?.value)
+    material.environmentIntensity = 0.1
 
     const markerGemNodes = Object.entries(nodes)
         .filter(([key, value]) => value.name.includes('MarkerGem'))
@@ -35,7 +36,15 @@ export const PrimaryRing = ({ ringRef, name }) => {
                 geometry={nodes[chosenRing.meshName].geometry}
                 material={material}
                 castShadow
-            ></mesh>
+            >
+                {/* <meshPhysicalMaterial
+                    roughness={0}
+                    metalness={1}
+                    clearcoat={0.5}
+                    clearcoatRoughness={0.5}
+                    color={chosenMetalColor?.value}
+                /> */}
+            </mesh>
         </group>
     )
 }

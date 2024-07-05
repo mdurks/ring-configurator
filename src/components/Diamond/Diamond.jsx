@@ -8,6 +8,7 @@ import {
 } from '@react-three/drei'
 import { useControls } from 'leva'
 import { RGBELoader } from 'three/examples/jsm/Addons.js'
+import { isMobile } from '../../utilities/isMobile'
 import { configStages, useAppStore } from '../../store/store'
 
 export const Diamond = (props) => {
@@ -52,7 +53,11 @@ export const Diamond = (props) => {
         : false
 
     useFrame(() => {
-        if (isThisACarouselItem && configStage == configStages.gemColor.name)
+        if (
+            isThisACarouselItem &&
+            configStage == configStages.gemColor.name &&
+            isMobile() == false
+        )
             ref.current.rotation.y += 0.00075
     })
 

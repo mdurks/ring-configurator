@@ -332,12 +332,10 @@ function App() {
         //
         // END of timeline:
         tl_intro.current.add(() => {
-            // console.log('END of timeline')
             if (isIntroActive) storeActions.setIsIntroActive(false)
             document.body.classList.remove('introActive')
             document.body.classList.add('introEnded')
             document.body.style.cursor = 'grab'
-            // isRingReadyForScroll.current = false
         })
     }, [])
 
@@ -347,7 +345,7 @@ function App() {
 
             {isIntroActive == false && <ProductRotator meshRef={ringRef} />}
 
-            {/* <OrbitControls
+            <OrbitControls
                 makeDefault
                 dampingFactor={0.1}
                 // minPolarAngle={0}
@@ -355,11 +353,11 @@ function App() {
                 // autoRotate
                 // autoRotateSpeed={1.5}
                 // enableZoom={false}
-            /> */}
+            />
 
             <PrimaryRing ringRef={ringRef} name={'Primary Ring'} />
 
-            <Gazebo groupGazeboRef={groupGazeboRef} />
+            <Gazebo groupGazeboRef={groupGazeboRef} ringRef={ringRef} />
 
             {/* <MiscExperiments /> */}
         </>

@@ -13,7 +13,7 @@
     --uiBorderInnerCream: #e3ded1;
     --uiBodyText: #664b2e;
 
-    --ziAboveCanvas: 1;
+    --ziAboveCanvas: 9999999999999999999;
 }
 
 * {
@@ -86,11 +86,11 @@ a:hover {
     border-radius: 4px;
 }
 
-h1 {
+/* h1 {
     margin: 0;
     line-height: 0;
     text-transform: capitalize;
-}
+} */
 
 /*
 the ScrollControls div created to scroll the page
@@ -133,8 +133,8 @@ now the intro is over, remove the ability to scroll the page
     text-align: center;
     user-select: none;
 
-    .introActive & {
-        display: none;
+    .introEnded & {
+        z-index: var(--ziAboveCanvas);
     }
 
     > button {
@@ -143,5 +143,91 @@ now the intro is over, remove the ability to scroll the page
         border-radius: 8px;
         border: 2px solid gray;
         user-select: none;
+    }
+}
+
+.letterForm {
+    width: 370px;
+    /* height: 300px; */
+    padding: 50px 50px;
+    background-color: #e7dfca;
+    color: #634308;
+    user-select: none;
+    text-align: center;
+    backface-visibility: hidden;
+
+    h1 {
+        margin: 0 0 10px;
+    }
+
+    p {
+        margin: 0 0 30px;
+        line-height: 22px;
+    }
+
+    /* .form {
+        width: 80%;
+        margin: auto;
+    } */
+
+    textarea,
+    input {
+        display: block;
+        width: 100%;
+        margin: 14px 0;
+        padding: 10px;
+        /* border: 1px solid gray; */
+        border: none;
+        border-radius: 4px;
+        background-color: #fffbf1;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #7c6740;
+
+        &::placeholder {
+            color: #7c6740;
+        }
+    }
+
+    button {
+        margin: 5px 0 0;
+        padding: 10px 30px;
+        border: none;
+        border-radius: 100px;
+        background-color: #a0780b;
+        color: white;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: bold;
+    }
+}
+
+.tryItOnWindow {
+    position: relative;
+    width: 200px;
+    height: 350px;
+    padding: 30px 30px;
+    background-color: #e7dfca;
+    color: #634308;
+    user-select: none;
+    text-align: center;
+    backface-visibility: hidden;
+    pointer-events: none;
+
+    h1 {
+        margin: 0 0 10px;
+    }
+
+    img {
+        width: 100%;
+        height: 80%;
+    }
+
+    button {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 10px 20px;
+        pointer-events: all;
     }
 }
