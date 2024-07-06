@@ -1,19 +1,99 @@
 import { useEffect, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { configStages, useAppStore } from '../../store/store'
+import { isMobile } from '../../utilities/isMobile'
 
 export const ProductRotator = ({ meshRef }) => {
-    const configStage = useAppStore((state) => state.configStage)
-    console.log('configStage', configStage)
+    // const isDragging = useRef(false)
+    // const rotation = useRef({ x: 0, y: 0 })
+    // const velocity = useRef({ x: 0, y: 0 })
+    // const ampingFactor = 0.95
 
-    const friction = 0.95
-    const sensitivity = 0.0035
+    // const handleMouseMove = (e) => {
+    //     if (isDragging.current) {
+    //         rotation.current.x += e.movementY * 0.01
+    //         rotation.current.y += e.movementX * 0.01
+    //         velocity.current = {
+    //             x: e.movementY * 0.01,
+    //             y: e.movementX * 0.01,
+    //         }
+    //     }
+    // }
+
+    // const handleTouchMove = (e) => {
+    //     if (isDragging.current) {
+    //         const touch = e.touches[0]
+    //         const touchX = touch.clientX
+    //         const touchY = touch.clientY
+    //         const movementX = touchX - (rotation.current.lastTouchX || touchX)
+    //         const movementY = touchY - (rotation.current.lastTouchY || touchY)
+    //         rotation.current.x += movementY * 0.01
+    //         rotation.current.y += movementX * 0.01
+    //         velocity.current = { x: movementY * 0.01, y: movementX * 0.01 }
+    //         rotation.current.lastTouchX = touchX
+    //         rotation.current.lastTouchY = touchY
+    //     }
+    // }
+
+    // useEffect(() => {
+    //     const handleMouseDown = () => (isDragging.current = true)
+    //     const handleMouseUp = () => (isDragging.current = false)
+    //     const handleTouchStart = () => (isDragging.current = true)
+    //     const handleTouchEnd = () => {
+    //         isDragging.current = false
+    //         delete rotation.current.lastTouchX
+    //         delete rotation.current.lastTouchY
+    //     }
+
+    //     window.addEventListener('mousemove', handleMouseMove)
+    //     window.addEventListener('mousedown', handleMouseDown)
+    //     window.addEventListener('mouseup', handleMouseUp)
+    //     window.addEventListener('touchmove', handleTouchMove)
+    //     window.addEventListener('touchstart', handleTouchStart)
+    //     window.addEventListener('touchend', handleTouchEnd)
+
+    //     return () => {
+    //         window.removeEventListener('mousemove', handleMouseMove)
+    //         window.removeEventListener('mousedown', handleMouseDown)
+    //         window.removeEventListener('mouseup', handleMouseUp)
+    //         window.removeEventListener('touchmove', handleTouchMove)
+    //         window.removeEventListener('touchstart', handleTouchStart)
+    //         window.removeEventListener('touchend', handleTouchEnd)
+    //     }
+    // }, [])
+
+    // useFrame(() => {
+    //     if (meshRef.current) {
+    //         meshRef.current.rotation.x = rotation.current.x
+    //         meshRef.current.rotation.y = rotation.current.y
+
+    //         if (!isDragging.current) {
+    //             rotation.current.x += velocity.current.x
+    //             rotation.current.y += velocity.current.y
+    //             velocity.current.x *= dampingFactor // Apply damping factor for inertia
+    //             velocity.current.y *= dampingFactor
+    //         }
+    //     }
+    // })
+
+    const configStage = useAppStore((state) => state.configStage)
+    const checkMobile = isMobile()
 
     const isDraggingRef = useRef(false)
     const previousPointerPositionRef = useRef({ x: 0, y: 0 })
     const rotationVelocityRef = useRef({ x: 0, y: 0 })
+    const friction = 0.95
 
-    const autoRotateYAmount = configStage == configStages.tryon.name ? 0 : 0.002
+    let sensitivity
+    let autoRotateYAmount = 0
+
+    if (checkMobile) {
+        sensitivity = 0.01
+        if (configStage != configStages.tryon.name) autoRotateYAmount = 0.008
+    } else {
+        sensitivity = 0.0035
+        if (configStage != configStages.tryon.name) autoRotateYAmount = 0.001
+    }
 
     const onPointerDown = (e) => {
         const { clientX, clientY } = e.touches ? e.touches[0] : e

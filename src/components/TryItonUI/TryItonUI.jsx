@@ -10,7 +10,7 @@ export const TryItonUI = ({ ringRef }) => {
     const phoneModelNodes = Object.keys(phoneModel.nodes).map((key) => {
         return phoneModel.nodes[key]
     })
-    console.log('phoneModelNodes', phoneModelNodes)
+    // console.log('phoneModelNodes', phoneModelNodes)
 
     useEffect(() => {
         const clockMarkerMesh = three.scene.getObjectByName('ClockMarker')
@@ -53,6 +53,7 @@ export const TryItonUI = ({ ringRef }) => {
                 position={[-1.75, 1.75, 0.175]}
                 rotation={[degToRad(25), degToRad(-90), degToRad(22)]}
                 scale={[0.08, 0.08, 0.08]}
+                visible={false}
             >
                 <mesh
                     position={[0, 0, -0.001]}

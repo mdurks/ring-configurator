@@ -50,7 +50,7 @@ export const CarouselRing = ({
                     rotation={marker.rotation}
                     scale={marker.scale}
                     color={chosenGemColor?.value}
-                    name={'Gem'}
+                    name={'Carousel Gem'}
                 />
             ))}
             <mesh

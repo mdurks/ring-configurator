@@ -1,20 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { Canvas } from '@react-three/fiber'
-import { Leva } from 'leva'
+import { XR, InteractionManager } from '@react-three/xr'
 
 import App from './App.jsx'
 import './index.css'
 
 import { ScrollControlsHOC } from './components/ScrollControlsHOC/ScrollControlsHOC.jsx'
-import { HtmlUIContainer } from './components/HtmlUI/HtmlUIContainer/HtmlUIContainer.jsx'
+import { OutOfCanvasElements } from './components/OutOfCanvasElements/OutOfCanvasElements.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
-        <Leva collapsed={false} />
-
-        <HtmlUIContainer />
-
+        <OutOfCanvasElements />
         <Canvas
             className="r3fCanvas"
             camera={{
@@ -25,9 +22,17 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             }}
             shadows={true}
         >
-            <ScrollControlsHOC>
-                <App />
-            </ScrollControlsHOC>
+            <XR
+                // onSessionStart={() => (window.myARStarted = true)}
+                // onSessionEnd={() => (window.myARStarted = false)}
+                frameRate={72}
+            >
+                <InteractionManager>
+                    <ScrollControlsHOC>
+                        <App />
+                    </ScrollControlsHOC>
+                </InteractionManager>
+            </XR>
         </Canvas>
     </React.StrictMode>,
 )

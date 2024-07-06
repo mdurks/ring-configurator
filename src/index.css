@@ -14,6 +14,7 @@
     --uiBodyText: #664b2e;
 
     --ziAboveCanvas: 9999999999999999999;
+    --arAboveCanvas: 99999999999999999999;
 }
 
 * {
@@ -107,6 +108,7 @@ now the intro is over, remove the ability to scroll the page
     color: #926d1d;
     opacity: 0; /* gsap sets back to 1 */
     pointer-events: none;
+    user-select: none;
     z-index: var(--ziAboveCanvas);
 }
 .introTitle1 {
@@ -127,14 +129,20 @@ now the intro is over, remove the ability to scroll the page
 .configStageNavButtons {
     position: absolute;
     z-index: 10;
-    bottom: 30px;
+    bottom: 10px;
     left: 50%;
+    width: 100%;
     transform: translateX(-50%);
     text-align: center;
     user-select: none;
+    pointer-events: none;
 
     .introEnded & {
         z-index: var(--ziAboveCanvas);
+    }
+
+    @media screen and (min-width: 1024px) {
+        bottom: 30px;
     }
 
     > button {
@@ -143,6 +151,15 @@ now the intro is over, remove the ability to scroll the page
         border-radius: 8px;
         border: 2px solid gray;
         user-select: none;
+
+        .introEnded & {
+            pointer-events: all;
+            z-index: var(--ziAboveCanvas);
+        }
+    }
+
+    h1 {
+        margin-top: 0;
     }
 }
 
@@ -230,4 +247,10 @@ now the intro is over, remove the ability to scroll the page
         padding: 10px 20px;
         pointer-events: all;
     }
+}
+
+.ar_button {
+    top: 50px !important;
+    bottom: auto !important;
+    z-index: var(--arAboveCanvas) !important;
 }

@@ -1,22 +1,18 @@
 import { useEffect, useLayoutEffect, useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
-import {
-    OrbitControls,
-    Scroll,
-    ScrollControls,
-    useScroll,
-} from '@react-three/drei'
+import { useScroll } from '@react-three/drei'
 import gsap from 'gsap'
 
 import { degToRad } from 'three/src/math/MathUtils.js'
 
 import { useAppStore, gazeboFinalPosition, storeActions } from './store/store'
 
-import { MiscExperiments } from './components/Experiments/MiscExperiments'
+// import { MiscExperiments } from './components/Experiments/MiscExperiments'
 import { EnvironmentSetup } from './components/EnvironmentSetup/EnvironmentSetup'
 import { PrimaryRing } from './components/PrimaryRing/PrimaryRing'
 import { Gazebo } from './components/Gazebo/Gazebo'
 import { ProductRotator } from './components/ProductRotator/ProductRotator'
+import { useXR } from '@react-three/xr'
 
 function App() {
     //
@@ -25,6 +21,7 @@ function App() {
     const three = useThree()
     const isIntroActive = useAppStore((state) => state.isIntroActive)
     const scroll = useScroll()
+    const { isPresenting } = useXR()
 
     // Local init:
     const groupGazeboRef = useRef()
@@ -46,7 +43,7 @@ function App() {
     }, [])
 
     useFrame(() => {
-        if (isRingReadyForScroll.current)
+        if (isRingReadyForScroll.current && isPresenting == false)
             tl_intro.current.seek(
                 scroll.offset *
                     (tl_intro.current.duration() -
@@ -343,9 +340,11 @@ function App() {
         <>
             <EnvironmentSetup />
 
-            {isIntroActive == false && <ProductRotator meshRef={ringRef} />}
+            {isIntroActive == false && isPresenting == false && (
+                <ProductRotator meshRef={ringRef} />
+            )}
 
-            <OrbitControls
+            {/* <OrbitControls
                 makeDefault
                 dampingFactor={0.1}
                 // minPolarAngle={0}
@@ -353,11 +352,13 @@ function App() {
                 // autoRotate
                 // autoRotateSpeed={1.5}
                 // enableZoom={false}
-            />
+            /> */}
 
             <PrimaryRing ringRef={ringRef} name={'Primary Ring'} />
 
-            <Gazebo groupGazeboRef={groupGazeboRef} ringRef={ringRef} />
+            {isPresenting == false && (
+                <Gazebo groupGazeboRef={groupGazeboRef} ringRef={ringRef} />
+            )}
 
             {/* <MiscExperiments /> */}
         </>

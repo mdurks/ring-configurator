@@ -52,6 +52,30 @@ export const Diamond = (props) => {
         ? props.name.includes('Carousel')
         : false
 
+    let optimisedMaterial
+
+    if (isMobile()) {
+        if (isThisACarouselItem) {
+            optimisedMaterial = <meshStandardMaterial color={props.color} />
+        } else {
+            optimisedMaterial = (
+                <MeshRefractionMaterial
+                    envMap={texture}
+                    {...materialSettings}
+                    toneMapped={false}
+                />
+            )
+        }
+    } else {
+        optimisedMaterial = (
+            <MeshRefractionMaterial
+                envMap={texture}
+                {...materialSettings}
+                toneMapped={false}
+            />
+        )
+    }
+
     useFrame(() => {
         if (
             isThisACarouselItem &&
@@ -80,11 +104,16 @@ export const Diamond = (props) => {
             geometry={nodes.Diamond_1_0.geometry}
             {...props}
         >
-            <MeshRefractionMaterial
-                envMap={texture}
-                {...materialSettings}
-                toneMapped={false}
-            />
+            {/* {isThisACarouselItem ? (
+                <meshStandardMaterial color={props.color} />
+            ) : (
+                <MeshRefractionMaterial
+                    envMap={texture}
+                    {...materialSettings}
+                    toneMapped={false}
+                />
+            )} */}
+            {optimisedMaterial}
         </mesh>
         //         </Caustics>
         //     )}

@@ -13,6 +13,8 @@
         "@react-three/drei": "^9.107.0",
         "@react-three/fiber": "^8.16.8",
         "@react-three/postprocessing": "^2.16.2",
+        "@react-three/xr": "^5.7.1",
+        "@vitejs/plugin-basic-ssl": "^1.1.0",
         "gsap": "^3.12.5",
         "immer": "^10.1.1",
         "leva": "^0.9.35",
