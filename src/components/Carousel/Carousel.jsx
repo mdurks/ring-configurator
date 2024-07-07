@@ -11,6 +11,7 @@ import { configStages, storeActions, useAppStore } from '../../store/store'
 
 import { Diamond } from '../Diamond/Diamond'
 import { CarouselRing } from '../CarouselRing/CarouselRing'
+import { hexToHSL } from '../../utilities/hexToHSL'
 
 export const Carousel = ({
     carouselName,
@@ -339,10 +340,15 @@ export const Carousel = ({
                                 >
                                     <sphereGeometry args={[0.065, 16, 16]} />
                                     <meshStandardMaterial
+                                        // color={adjustLightnessFromHSL(
+                                        //     item.value,
+                                        //     -30,
+                                        // )}
                                         color={adjustLightnessFromHSL(
-                                            item.value,
+                                            hexToHSL(item.value),
                                             -30,
                                         )}
+                                        // color={item.value}
                                         envMapIntensity={0.1}
                                     />
                                 </mesh>

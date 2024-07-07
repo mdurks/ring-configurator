@@ -38,21 +38,21 @@ export const Gazebo = ({ groupGazeboRef, ringRef }) => {
     const gemData = [
         { value: '#419aff', label: 'Sky blue' },
         { value: '#bcedff', label: 'Light blue' },
-        { value: 'white', label: 'white' },
+        { value: '#ffffff', label: 'white' },
         { value: '#474747', label: 'Black' },
-        { value: 'teal', label: 'teal' },
-        { value: 'green', label: 'green' },
-        { value: 'lime', label: 'lime' },
+        { value: '#008080', label: 'teal' },
+        { value: '#008000', label: 'green' },
+        { value: '#00ff00', label: 'lime' },
         { value: '#fff27d', label: 'Light yellow' },
-        { value: 'yellow', label: 'yellow' },
-        { value: 'orange', label: 'orange' },
-        { value: 'red', label: 'red' },
-        { value: 'brown', label: 'brown' },
-        { value: 'pink', label: 'pink' },
-        { value: 'violet', label: 'violet' },
-        { value: 'purple', label: 'purple' },
-        { value: 'navy', label: 'navy' },
-        { value: 'blue', label: 'blue' },
+        { value: '#ffff00', label: 'yellow' },
+        { value: '#ffa500', label: 'orange' },
+        { value: '#ff0000', label: 'red' },
+        { value: '#a52a2a', label: 'brown' },
+        { value: '#ffc0cb', label: 'pink' },
+        { value: '#ee82ee', label: 'violet' },
+        { value: '#800080', label: 'purple' },
+        { value: '#000080', label: 'navy' },
+        { value: '#0000ff', label: 'blue' },
     ]
     const ringData = [
         defaultRingData,
@@ -78,12 +78,12 @@ export const Gazebo = ({ groupGazeboRef, ringRef }) => {
         },
     ]
     const metalData = [
-        { value: 'hsl(0, 0%, 100%)', label: 'white' },
-        { value: 'hsl(0, 0%, 90%)', label: 'light gray' },
-        { value: 'hsl(0, 0%, 75%)', label: 'gray' },
-        { value: 'hsl(0, 0%, 50%)', label: 'black' },
-        { value: 'hsl(39, 100%, 87%)', label: 'gold' },
-        { value: 'hsl(11, 54%, 83%)', label: 'rose gold' },
+        { value: '#ffffff', label: 'white' },
+        { value: '#e6e6e6', label: 'light gray' },
+        { value: '#bfbfbf', label: 'gray' },
+        { value: '#808080', label: 'black' },
+        { value: '#ffe8bd', label: 'gold' },
+        { value: '#ebc5bc', label: 'rose gold' },
     ]
 
     useEffect(() => {

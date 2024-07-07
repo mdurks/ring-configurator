@@ -230,19 +230,19 @@ now the intro is over, remove the ability to scroll the page
     height: 650px;
     padding: 90px 110px;
     /* background-color: #e7dfca; */
-    background-color: transparent;
+    /* background-color: transparent;
     background-color: hsl(0, 0%, 98%);
     background: rgb(255, 194, 253);
     background: linear-gradient(
         0deg,
         hsl(302, 100%, 97%) 25%,
         hsl(302, 100%, 80%) 100%
-    );
+    ); */
     color: #634308;
     user-select: none;
     text-align: center;
     backface-visibility: hidden;
-    text-rendering: 'optimizeLegibility';
+    /* text-rendering: 'optimizeLegibility'; */
 
     .leftCol {
         width: 50%;
@@ -251,16 +251,17 @@ now the intro is over, remove the ability to scroll the page
     h1 {
         margin: 0 0 10px;
         font-size: 5rem;
-        color: #fff;
+        /* color: #fff;
         color: #ff53e8;
-        color: #630056;
+        color: #630056; */
     }
 
     p {
         font-size: 1.25rem;
         line-height: 2rem;
-        color: #c411a9;
-        color: #410037;
+        /* color: #c411a9;
+        color: #410037; */
+        text-transform: uppercase;
     }
 
     img {
@@ -274,7 +275,7 @@ now the intro is over, remove the ability to scroll the page
         padding: 15px 30px;
         border: none;
         border-radius: 10px;
-        background: #c7008b;
+        /* background: #c7008b; */
         color: white;
         font-size: 1.75rem;
         text-transform: uppercase;

@@ -8,12 +8,15 @@ import {
     useAppStore,
 } from '../../store/store'
 import gsap from 'gsap'
+import { hexToHSL } from '../../utilities/hexToHSL'
 
 export const TryItonUI = ({ ringRef }) => {
     //
     //
     // Global state:
     const configStage = useAppStore((state) => state.configStage)
+    const gemColor = useAppStore((state) => state.gemColor.chosenItem)
+    const metalColor = useAppStore((state) => state.metal.chosenItem)
 
     // Local state:
     const [isTryonStage, setIsTryonStage] = useState(false)
@@ -246,6 +249,21 @@ export const TryItonUI = ({ ringRef }) => {
         }
     }, [configStage])
 
+    const gradientStyle = {
+        backgroundImage: `linear-gradient(0deg, hsl(${hexToHSL(
+            metalColor?.value,
+            'h',
+        )}, 65%, 97%) 25%, hsl(${hexToHSL(
+            metalColor?.value,
+            'h',
+        )}, 65%, 80%) 100%)`,
+    }
+    // const gradientStyle = {
+    //     backgroundImage:
+    //         'linear-gradient(0deg, hsl(50, 100%, 97%) 25%, hsl(50, 100%, 80%) 100%)',
+    // }
+    const themeColor = gemColor?.value || '#000'
+
     return (
         <>
             <group
@@ -280,17 +298,17 @@ export const TryItonUI = ({ ringRef }) => {
                             className={`tryItOnWindow ${
                                 isTryonStage && 'isTryonStage'
                             }`}
+                            style={gradientStyle}
                         >
                             <div className="leftCol">
-                                <h1>Try it on</h1>
-                                <p>
-                                    Lorem ipsum dolor sit amet consectetur
-                                    adipisicing elit. Ab veniam officiis dolorum
-                                    dolor quisquam quasi accusantium nihil? Vero
-                                    aut repudiandae tempora, laborum fugit
-                                    illum, ducimus harum.
+                                <h1 style={{ color: themeColor }}>Try it on</h1>
+                                <p style={{ color: themeColor }}>
+                                    See this ring on your own hand using your
+                                    phones camera
                                 </p>
-                                <button>&gt;&gt; Start now</button>
+                                <button style={{ backgroundColor: themeColor }}>
+                                    &gt;&gt; Start now
+                                </button>
                             </div>
                         </div>
                     </Html>
