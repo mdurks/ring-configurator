@@ -363,7 +363,6 @@ export const TryItonUI = ({ ringRef }) => {
                 // rotation={[degToRad(-86), degToRad(-171), degToRad(-81)]}
             >
                 {phoneModelNodes.map((item) => {
-                    console.log('item', item)
                     const material = item.material
                     if (item.name == 'PhoneBody')
                         material?.color.set(phoneColor)
