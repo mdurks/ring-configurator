@@ -8,7 +8,6 @@ import {
     useAppStore,
 } from '../../store/store'
 import gsap from 'gsap'
-import { hexToHSL } from '../../utilities/hexToHSL'
 import { getHSLValues } from '../../utilities/getHSLValues'
 
 export const TryItonUI = ({ ringRef }) => {

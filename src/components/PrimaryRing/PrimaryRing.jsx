@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { useGLTF } from '@react-three/drei'
 
-import { configStages, useAppStore } from '../../store/store'
+import { useAppStore } from '../../store/store'
 
 import { Diamond } from '../Diamond/Diamond'
 import { useFrame, useThree } from '@react-three/fiber'

@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import * as THREE from 'three'
-import { Html, Stars, useGLTF } from '@react-three/drei'
+import { Stars, useGLTF } from '@react-three/drei'
 import gsap from 'gsap'
 
 import { degToRad } from 'three/src/math/MathUtils.js'

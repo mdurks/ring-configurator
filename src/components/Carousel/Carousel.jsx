@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { useThree } from '@react-three/fiber'
 import gsap from 'gsap'
 
-import { degToRad, radToDeg } from 'three/src/math/MathUtils.js'
+import { degToRad } from 'three/src/math/MathUtils.js'
 import { adjustLightnessFromHSL } from '../../utilities/adjustLightnessFromHSL'
 import { generateRandomPositions } from '../../utilities/generateRandomPositions'
 import { randomNumberWithinRange } from '../../utilities/randomNumberWithinRange'
@@ -11,8 +11,6 @@ import { configStages, storeActions, useAppStore } from '../../store/store'
 
 import { Diamond } from '../Diamond/Diamond'
 import { CarouselRing } from '../CarouselRing/CarouselRing'
-import { hexToHSL } from '../../utilities/hexToHSL'
-import { getHSLValues } from '../../utilities/getHSLValues'
 
 export const Carousel = ({
     carouselName,
