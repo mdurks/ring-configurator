@@ -36,23 +36,23 @@ export const Gazebo = ({ groupGazeboRef, ringRef }) => {
     )
 
     const gemData = [
-        { value: '#419aff', label: 'Sky blue' },
-        { value: '#bcedff', label: 'Light blue' },
-        { value: '#ffffff', label: 'white' },
-        { value: '#474747', label: 'Black' },
-        { value: '#008080', label: 'teal' },
-        { value: '#008000', label: 'green' },
-        { value: '#00ff00', label: 'lime' },
-        { value: '#fff27d', label: 'Light yellow' },
-        { value: '#ffff00', label: 'yellow' },
-        { value: '#ffa500', label: 'orange' },
-        { value: '#ff0000', label: 'red' },
-        { value: '#a52a2a', label: 'brown' },
-        { value: '#ffc0cb', label: 'pink' },
-        { value: '#ee82ee', label: 'violet' },
-        { value: '#800080', label: 'purple' },
-        { value: '#000080', label: 'navy' },
-        { value: '#0000ff', label: 'blue' },
+        { value: 'hsl(211, 100%, 62%)', label: 'Sky blue' },
+        { value: 'hsl(196, 100%, 86%)', label: 'Light blue' },
+        { value: 'hsl(0, 0%, 100%)', label: 'white' },
+        { value: 'hsl(0, 0%, 27%)', label: 'Black' },
+        { value: 'hsl(180, 100%, 25%)', label: 'teal' },
+        { value: 'hsl(120, 100%, 25%)', label: 'green' },
+        { value: 'hsl(120, 100%, 50%)', label: 'lime' },
+        { value: 'hsl(54, 100%, 74%)', label: 'Light yellow' },
+        { value: 'hsl(60, 100%, 50%)', label: 'yellow' },
+        { value: 'hsl(38, 100%, 50%)', label: 'orange' },
+        { value: 'hsl(0, 100%, 50%)', label: 'red' },
+        { value: 'hsl(0, 59%, 40%)', label: 'brown' },
+        { value: 'hsl(349, 100%, 87%)', label: 'pink' },
+        { value: 'hsl(300, 76%, 72%)', label: 'violet' },
+        { value: 'hsl(300, 100%, 25%)', label: 'purple' },
+        { value: 'hsl(240, 100%, 25%)', label: 'navy' },
+        { value: 'hsl(240, 100%, 50%)', label: 'blue' },
     ]
     const ringData = [
         defaultRingData,
@@ -78,12 +78,12 @@ export const Gazebo = ({ groupGazeboRef, ringRef }) => {
         },
     ]
     const metalData = [
-        { value: '#ffffff', label: 'white' },
-        { value: '#e6e6e6', label: 'light gray' },
-        { value: '#bfbfbf', label: 'gray' },
-        { value: '#808080', label: 'black' },
-        { value: '#ffe8bd', label: 'gold' },
-        { value: '#ebc5bc', label: 'rose gold' },
+        { value: 'hsl(0, 0%, 100%)', label: 'white' },
+        { value: 'hsl(0, 0%, 90%)', label: 'light gray' },
+        { value: 'hsl(0, 0%, 75%)', label: 'gray' },
+        { value: 'hsl(0, 0%, 50%)', label: 'black' },
+        { value: 'hsl(39, 100%, 87%)', label: 'gold' },
+        { value: 'hsl(11, 54%, 82%)', label: 'rose gold' },
     ]
 
     useEffect(() => {
@@ -188,70 +188,6 @@ export const Gazebo = ({ groupGazeboRef, ringRef }) => {
                         castShadow
                         receiveShadow
                     />
-                    {/* <mesh
-                        name="table_front_left"
-                        position={[-1.2, 0.75, 1.2]}
-                        rotation={[0, degToRad(-45), 0]}
-                        receiveShadow
-                        castShadow
-                    >
-                        <boxGeometry args={[2.5, 1.25, 1]} />
-                        <meshStandardMaterial
-                            transparent
-                            opacity={0.5}
-                            wireframe
-                            // color={'IndianRed'}
-                            color={'black'}
-                        />
-                    </mesh>
-                    <mesh
-                        name="table_front_right"
-                        position={[1.2, 0.75, 1.2]}
-                        rotation={[0, degToRad(45), 0]}
-                        receiveShadow
-                        castShadow
-                    >
-                        <boxGeometry args={[2.5, 1.25, 1]} />
-                        <meshStandardMaterial
-                            transparent
-                            opacity={0.5}
-                            wireframe
-                            // color={'DarkOliveGreen'}
-                            color={'black'}
-                        />
-                    </mesh>
-                    <mesh
-                        name="table_back_right"
-                        position={[1.2, 0.75, -1.2]}
-                        rotation={[0, degToRad(-45), 0]}
-                        receiveShadow
-                        castShadow
-                    >
-                        <boxGeometry args={[2.5, 1.25, 1]} />
-                        <meshStandardMaterial
-                            transparent
-                            opacity={0.5}
-                            wireframe
-                            // color={'CadetBlue'}
-                            color={'black'}
-                        />
-                    </mesh>
-                    <mesh
-                        name="table_back_left"
-                        position={[-1.2, 0.75, -1.2]}
-                        rotation={[0, degToRad(45), 0]}
-                        receiveShadow
-                        castShadow
-                    >
-                        <boxGeometry args={[2.5, 1.25, 1]} />
-                        <meshStandardMaterial
-                            transparent
-                            opacity={0.5}
-                            wireframe
-                            // color={'BurlyWood'}
-                            color={'black'}
-                        />
-                    </mesh> */}
                     <mesh
                         name="gazebo_dome"
                         position={[0, 5.1, 0]}

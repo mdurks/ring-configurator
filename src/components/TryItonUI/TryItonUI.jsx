@@ -9,6 +9,7 @@ import {
 } from '../../store/store'
 import gsap from 'gsap'
 import { hexToHSL } from '../../utilities/hexToHSL'
+import { getHSLValues } from '../../utilities/getHSLValues'
 
 export const TryItonUI = ({ ringRef }) => {
     //
@@ -249,20 +250,49 @@ export const TryItonUI = ({ ringRef }) => {
         }
     }, [configStage])
 
-    const gradientStyle = {
-        backgroundImage: `linear-gradient(0deg, hsl(${hexToHSL(
-            metalColor?.value,
-            'h',
-        )}, 65%, 97%) 25%, hsl(${hexToHSL(
-            metalColor?.value,
-            'h',
-        )}, 65%, 80%) 100%)`,
+    const metalHSL = metalColor?.value ? getHSLValues(metalColor.value) : null
+
+    let backgroundColor = {
+        backgroundImage:
+            'linear-gradient(0deg, hsl(50, 100%, 97%) 25%, hsl(50, 100%, 80%) 100%',
     }
-    // const gradientStyle = {
-    //     backgroundImage:
-    //         'linear-gradient(0deg, hsl(50, 100%, 97%) 25%, hsl(50, 100%, 80%) 100%)',
-    // }
-    const themeColor = gemColor?.value || '#000'
+
+    if (metalHSL) {
+        // vertical gradient:
+        // backgroundColor = {
+        //     backgroundImage: `linear-gradient(0deg, hsl(${metalHSL.h}, ${
+        //         metalHSL.s
+        //     }%, ${metalHSL.l * 0.925}%) 0%, hsl(${metalHSL.h}, ${
+        //         metalHSL.s
+        //     }%, ${metalHSL.l * 1.12}%) 70%)`,
+        // }
+
+        // box shadow:
+        backgroundColor = {
+            backgroundColor: `hsl(${metalHSL.h} ${metalHSL.s}% ${
+                metalHSL.l * 1.13
+            }%)`,
+            boxShadow: `hsl(${metalHSL.h} ${metalHSL.s}% ${
+                metalHSL.l * 0.8
+            }%) 0px 0px 180px 0px inset`,
+        }
+    }
+
+    const gemHSL = gemColor?.value ? getHSLValues(gemColor.value) : null
+    let contentColor = '#000'
+
+    if (gemHSL) {
+        contentColor = `hsl(${gemHSL.h}, ${gemHSL.s * 0.7}%, ${
+            gemHSL.l * 0.65
+        }%)`
+    }
+
+    const phoneHSL = metalColor?.value ? getHSLValues(metalColor.value) : null
+    let phoneColor = '#000'
+
+    if (phoneHSL) {
+        phoneColor = `hsl(${phoneHSL.h}, ${phoneHSL.s}%, ${phoneHSL.l * 0.25}%)`
+    }
 
     return (
         <>
@@ -298,15 +328,19 @@ export const TryItonUI = ({ ringRef }) => {
                             className={`tryItOnWindow ${
                                 isTryonStage && 'isTryonStage'
                             }`}
-                            style={gradientStyle}
+                            style={backgroundColor}
                         >
                             <div className="leftCol">
-                                <h1 style={{ color: themeColor }}>Try it on</h1>
-                                <p style={{ color: themeColor }}>
+                                <h1 style={{ color: contentColor }}>
+                                    Try it on
+                                </h1>
+                                <p style={{ color: contentColor }}>
                                     See this ring on your own hand using your
                                     phones camera
                                 </p>
-                                <button style={{ backgroundColor: themeColor }}>
+                                <button
+                                    style={{ backgroundColor: contentColor }}
+                                >
                                     &gt;&gt; Start now
                                 </button>
                             </div>
@@ -322,6 +356,10 @@ export const TryItonUI = ({ ringRef }) => {
                 // rotation={[degToRad(-86), degToRad(-171), degToRad(-81)]}
             >
                 {phoneModelNodes.map((item) => {
+                    console.log('item', item)
+                    const material = item.material
+                    if (item.name == 'PhoneBody')
+                        material?.color.set(phoneColor)
                     return (
                         <mesh
                             key={item.uuid}
@@ -330,7 +368,7 @@ export const TryItonUI = ({ ringRef }) => {
                             position={item.position}
                             rotation={item.rotation}
                             scale={item.scale}
-                            material={item.material}
+                            material={material}
                             castShadow
                             receiveShadow
                         />
