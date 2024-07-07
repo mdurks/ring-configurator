@@ -23,7 +23,8 @@ export const ConfigStageNavButtons = () => {
     //
     // Local functions:
 
-    const handleCategoryClick = (key) => {
+    const handleCategoryClick = (e, key) => {
+        e.stopPropagation()
         storeActions.setConfigStagePrevious(configStage)
         storeActions.setConfigStage(configStages[key].name)
     }
@@ -80,7 +81,7 @@ export const ConfigStageNavButtons = () => {
                         key={`stageNav${configStages[stage].name}`}
                         type="button"
                         className={`stageNavBtn_${configStages[stage].name}`}
-                        onClick={() => handleCategoryClick(stage)}
+                        onClick={(e) => handleCategoryClick(e, stage)}
                     >
                         {configStages[stage].label}
                     </button>

@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
-import { useScroll } from '@react-three/drei'
+import { OrbitControls, useScroll } from '@react-three/drei'
 import gsap from 'gsap'
 
 import { degToRad } from 'three/src/math/MathUtils.js'

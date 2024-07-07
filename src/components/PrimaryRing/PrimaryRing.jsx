@@ -33,7 +33,7 @@ export const PrimaryRing = ({ ringRef, name }) => {
         if (ringRef.current && isPresenting) {
             ringRef.current.position.setFromMatrixPosition(camera.matrixWorld)
             ringRef.current.quaternion.setFromRotationMatrix(camera.matrixWorld)
-            ringRef.current.translateZ(-2.15)
+            ringRef.current.translateZ(-3)
             ringRef.current.translateX(-0.05)
         }
     })

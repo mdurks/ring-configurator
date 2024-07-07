@@ -218,20 +218,49 @@ now the intro is over, remove the ability to scroll the page
     }
 }
 
+.dreiHtml {
+    pointer-events: none;
+}
+
 .tryItOnWindow {
     position: relative;
-    width: 200px;
-    height: 350px;
-    padding: 30px 30px;
-    background-color: #e7dfca;
+    display: flex;
+    align-items: center;
+    width: 1000px;
+    height: 650px;
+    padding: 90px 110px;
+    /* background-color: #e7dfca; */
+    background-color: transparent;
+    background-color: hsl(0, 0%, 98%);
+    background: rgb(255, 194, 253);
+    background: linear-gradient(
+        0deg,
+        hsl(302, 100%, 97%) 25%,
+        hsl(302, 100%, 80%) 100%
+    );
     color: #634308;
     user-select: none;
     text-align: center;
     backface-visibility: hidden;
-    pointer-events: none;
+    text-rendering: 'optimizeLegibility';
+
+    .leftCol {
+        width: 50%;
+    }
 
     h1 {
         margin: 0 0 10px;
+        font-size: 5rem;
+        color: #fff;
+        color: #ff53e8;
+        color: #630056;
+    }
+
+    p {
+        font-size: 1.25rem;
+        line-height: 2rem;
+        color: #c411a9;
+        color: #410037;
     }
 
     img {
@@ -240,13 +269,27 @@ now the intro is over, remove the ability to scroll the page
     }
 
     button {
+        /* display: block; */
+        margin: 15px 0 10px;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 10px;
+        background: #c7008b;
+        color: white;
+        font-size: 1.75rem;
+        text-transform: uppercase;
+    }
+    &.isTryonStage button {
+        pointer-events: all;
+    }
+    /* button {
         position: absolute;
         bottom: 20px;
         left: 50%;
         transform: translateX(-50%);
         padding: 10px 20px;
         pointer-events: all;
-    }
+    } */
 }
 
 .ar_button {

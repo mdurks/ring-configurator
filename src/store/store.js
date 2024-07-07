@@ -5,11 +5,17 @@ import { degToRad } from 'three/src/math/MathUtils.js'
 
 export const gazeboFinalPosition = { x: 0, y: -1.75, z: 2.5 }
 export const carouselPosition = { height: 1.45, radiusFromGazeeboCenter: 1.3 }
+export const ringDefaultState = {
+    position: { x: 0, y: -0.07, z: 4.25 },
+    rotation: { x: 0.9615264128772747, y: 13.746184150432903, z: 0 },
+    scale: { x: 0.5, y: 0.5, z: 0.5 },
+}
 export const defaultRingData = {
     value: '/WavyRing.glb',
     meshName: 'WavyRing',
     label: 'Wavy Ring',
 }
+export const tableTopYPos = 1.39
 
 export const configStages = {
     gemColor: {
