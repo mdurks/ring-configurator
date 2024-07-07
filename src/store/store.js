@@ -4,7 +4,11 @@ import { devtools } from 'zustand/middleware'
 import { degToRad } from 'three/src/math/MathUtils.js'
 
 export const gazeboFinalPosition = { x: 0, y: -1.75, z: 2.5 }
-export const carouselPosition = { height: 1.45, radiusFromGazeeboCenter: 1.3 }
+export const tableTopYPos = 1.39
+export const carouselPosition = {
+    height: tableTopYPos,
+    radiusFromGazeeboCenter: 1.3,
+}
 export const ringDefaultState = {
     position: { x: 0, y: -0.07, z: 4.25 },
     rotation: { x: 0.9615264128772747, y: 13.746184150432903, z: 0 },
@@ -15,7 +19,6 @@ export const defaultRingData = {
     meshName: 'WavyRing',
     label: 'Wavy Ring',
 }
-export const tableTopYPos = 1.39
 
 export const configStages = {
     gemColor: {
@@ -23,7 +26,7 @@ export const configStages = {
         label: 'Gem',
         carouselPosition: [
             0,
-            carouselPosition.height,
+            carouselPosition.height + 0.025,
             carouselPosition.radiusFromGazeeboCenter,
         ],
         carouselRotation: [0, 0, 0],
@@ -34,7 +37,7 @@ export const configStages = {
         label: 'Ring',
         carouselPosition: [
             carouselPosition.radiusFromGazeeboCenter + 0.15,
-            carouselPosition.height + 0.04,
+            carouselPosition.height + 0.08,
             0,
         ],
         carouselRotation: [0, degToRad(90), 0],

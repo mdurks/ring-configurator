@@ -292,12 +292,12 @@ export const TryItonUI = ({ ringRef }) => {
         }%)`
     }
 
-    const phoneHSL = metalColor?.value ? getHSLValues(metalColor.value) : null
+    const phoneHSL = gemColor?.value ? getHSLValues(gemColor.value) : null
     let phoneColor = '#000'
 
     if (phoneHSL) {
         phoneColor = `hsl(${phoneHSL.h}, ${phoneHSL.s * 1.25}%, ${
-            phoneHSL.l * 0.2
+            phoneHSL.l * 0.3
         }%)`
     }
 

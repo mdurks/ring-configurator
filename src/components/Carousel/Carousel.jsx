@@ -231,7 +231,7 @@ export const Carousel = ({
             itemMeshes.forEach((item, index) => {
                 const staggerDelay = randomNumberWithinRange(0, duration / 2)
 
-                // some values can be 360 here, so better rotatin from 0 instead or item will jump
+                // some values can be 360 here, so better rotate from 0 instead or item will jump
                 gsap.set(item.rotation, {
                     x: 0,
                     z: 0,
@@ -255,7 +255,7 @@ export const Carousel = ({
                 gsap.to(item.position, {
                     delay: staggerDelay + duration * 0.5,
                     duration: duration * 0.75,
-                    y: -0.05,
+                    y: -0.01,
                     ease: 'power1.out',
                 })
 
@@ -265,7 +265,7 @@ export const Carousel = ({
                     duration: staggerDelay + duration * 0.7,
                     x:
                         carouselName == configStages.gemColor.name
-                            ? degToRad(45)
+                            ? degToRad(39)
                             : degToRad(85),
                     y: 0,
                     z:
