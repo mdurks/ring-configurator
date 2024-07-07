@@ -37,9 +37,9 @@ export const TryItonUI = ({ ringRef }) => {
     const orientations = {
         message: {
             start: {
-                position: [-1.7, tableTopYPos, -0.3],
+                position: [-1.6, tableTopYPos, -0.5],
                 rotation: [0, degToRad(-80), 0],
-                scale: [0.025, 0.025, 0.025],
+                scale: [0.015, 0.015, 0.015],
             },
             end: {
                 position: [-1.75, 1.75, 0.01],
@@ -57,8 +57,8 @@ export const TryItonUI = ({ ringRef }) => {
         },
         phone: {
             start: {
-                position: [-1.75, tableTopYPos, 0.175],
-                rotation: [0, degToRad(-110), 0],
+                position: [-1.75, tableTopYPos, 0.3],
+                rotation: [0, degToRad(-160), 0],
             },
             end: {
                 position: [-1.9, 1.775, 0.23],
@@ -90,6 +90,7 @@ export const TryItonUI = ({ ringRef }) => {
             //
             // message:
             gsap.to(messageRef.current.position, {
+                delay: duration * 0.2,
                 duration: duration,
                 x: orientations.message.end.position[0],
                 y: orientations.message.end.position[1],
@@ -97,6 +98,7 @@ export const TryItonUI = ({ ringRef }) => {
                 ease: 'power1.inOut',
             })
             gsap.to(messageRef.current.rotation, {
+                delay: duration * 0.2,
                 duration: duration,
                 x: orientations.message.end.rotation[0],
                 y: orientations.message.end.rotation[1],
@@ -104,6 +106,7 @@ export const TryItonUI = ({ ringRef }) => {
                 ease: 'power1.inOut',
             })
             gsap.to(messageRef.current.scale, {
+                delay: duration * 0.2,
                 duration: duration,
                 x: orientations.message.end.scale[0],
                 y: orientations.message.end.scale[1],
@@ -111,6 +114,7 @@ export const TryItonUI = ({ ringRef }) => {
                 ease: 'power1.inOut',
             })
             gsap.to(messageXRef.current.rotation, {
+                delay: duration * 0.2,
                 duration: duration,
                 x: orientations.messageX.end.rotation[0],
                 y: orientations.messageX.end.rotation[1],
@@ -121,6 +125,7 @@ export const TryItonUI = ({ ringRef }) => {
             //
             // phone:
             gsap.to(phoneRef.current.position, {
+                delay: duration * 0.3,
                 duration: duration,
                 x: orientations.phone.end.position[0],
                 y: orientations.phone.end.position[1],
@@ -128,6 +133,7 @@ export const TryItonUI = ({ ringRef }) => {
                 ease: 'power1.inOut',
             })
             gsap.to(phoneRef.current.rotation, {
+                delay: duration * 0.3,
                 duration: duration,
                 x: orientations.phone.end.rotation[0],
                 y: orientations.phone.end.rotation[1],
@@ -272,7 +278,7 @@ export const TryItonUI = ({ ringRef }) => {
                 metalHSL.l * 1.13
             }%)`,
             boxShadow: `hsl(${metalHSL.h} ${metalHSL.s}% ${
-                metalHSL.l * 0.8
+                metalHSL.l * 0.75
             }%) 0px 0px 180px 0px inset`,
         }
     }
@@ -290,7 +296,9 @@ export const TryItonUI = ({ ringRef }) => {
     let phoneColor = '#000'
 
     if (phoneHSL) {
-        phoneColor = `hsl(${phoneHSL.h}, ${phoneHSL.s}%, ${phoneHSL.l * 0.25}%)`
+        phoneColor = `hsl(${phoneHSL.h}, ${phoneHSL.s * 1.25}%, ${
+            phoneHSL.l * 0.2
+        }%)`
     }
 
     return (

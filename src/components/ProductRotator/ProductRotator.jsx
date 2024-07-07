@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { configStages, useAppStore } from '../../store/store'
+import { configStages, storeActions, useAppStore } from '../../store/store'
 import { isMobile } from '../../utilities/isMobile'
 
 export const ProductRotator = ({ meshRef }) => {
@@ -26,6 +26,8 @@ export const ProductRotator = ({ meshRef }) => {
     const onPointerDown = (e) => {
         if (configStage == configStages.tryon.name) return
 
+        storeActions.setIsPointerDown(true)
+
         const { clientX, clientY } = e.touches ? e.touches[0] : e
         previousPointerPositionRef.current = { x: clientX, y: clientY }
         isDraggingRef.current = true
@@ -50,6 +52,7 @@ export const ProductRotator = ({ meshRef }) => {
     const onPointerUp = () => {
         isDraggingRef.current = false
         document.body.style.cursor = 'grab'
+        storeActions.setIsPointerDown(false)
     }
 
     useEffect(() => {

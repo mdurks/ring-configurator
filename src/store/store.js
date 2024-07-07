@@ -74,6 +74,8 @@ export const useAppStore = create(
 
         isIntroActive: true,
 
+        isPointerDown: false,
+
         configStage: configStages.gemColor.name,
         configStagePrevious: null,
 
@@ -126,6 +128,15 @@ export const useAppStore = create(
                 }),
                 false,
                 `setIsIntroActive: ${value}`,
+            ),
+
+        setIsPointerDown: (value) =>
+            set(
+                produce((state) => {
+                    state.isPointerDown = value
+                }),
+                false,
+                `setIsPointerDown: ${value}`,
             ),
 
         setConfigStage: (value) =>
@@ -203,6 +214,7 @@ export const useAppStore = create(
 
 export const storeActions = {
     setIsIntroActive: useAppStore.getState().setIsIntroActive,
+    setIsPointerDown: useAppStore.getState().setIsPointerDown,
 
     setConfigStage: useAppStore.getState().setConfigStage,
     setConfigStagePrevious: useAppStore.getState().setConfigStagePrevious,

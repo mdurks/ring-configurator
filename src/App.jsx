@@ -13,6 +13,7 @@ import { PrimaryRing } from './components/PrimaryRing/PrimaryRing'
 import { Gazebo } from './components/Gazebo/Gazebo'
 import { ProductRotator } from './components/ProductRotator/ProductRotator'
 import { useXR } from '@react-three/xr'
+import { CameraController } from './components/CameraController/CameraController'
 
 function App() {
     //
@@ -341,7 +342,10 @@ function App() {
             <EnvironmentSetup />
 
             {isIntroActive == false && isPresenting == false && (
-                <ProductRotator meshRef={ringRef} />
+                <>
+                    <CameraController camera={three.camera} />
+                    <ProductRotator meshRef={ringRef} />
+                </>
             )}
 
             {/* <OrbitControls
