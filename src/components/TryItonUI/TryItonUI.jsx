@@ -9,6 +9,7 @@ import {
 } from '../../store/store'
 import gsap from 'gsap'
 import { getHSLValues } from '../../utilities/getHSLValues'
+import { checkIsMobile } from '../../utilities/checkIsMobile'
 
 export const TryItonUI = ({ ringRef }) => {
     //
@@ -17,6 +18,7 @@ export const TryItonUI = ({ ringRef }) => {
     const configStage = useAppStore((state) => state.configStage)
     const gemColor = useAppStore((state) => state.gemColor.chosenItem)
     const metalColor = useAppStore((state) => state.metal.chosenItem)
+    const isMobile = checkIsMobile()
 
     // Local state:
     const [isTryonStage, setIsTryonStage] = useState(false)

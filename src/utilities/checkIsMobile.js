@@ -1,4 +1,4 @@
-export const isMobile = () => {
+export const checkIsMobile = () => {
     const userAgent = navigator.userAgent
     return /Mobi|Android/i.test(userAgent)
 }

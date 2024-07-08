@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { configStages, storeActions, useAppStore } from '../../store/store'
-import { isMobile } from '../../utilities/isMobile'
+import { checkIsMobile } from '../../utilities/checkIsMobile'
 
 export const ProductRotator = ({ meshRef }) => {
     const configStage = useAppStore((state) => state.configStage)
-    const checkMobile = isMobile()
+    const isMobile = checkIsMobile()
 
     const isDraggingRef = useRef(false)
     const previousPointerPositionRef = useRef({ x: 0, y: 0 })
@@ -15,7 +15,7 @@ export const ProductRotator = ({ meshRef }) => {
     let sensitivity
     let autoRotateYAmount = 0
 
-    if (checkMobile) {
+    if (isMobile) {
         sensitivity = 0.01
         if (configStage != configStages.tryon.name) autoRotateYAmount = 0.008
     } else {

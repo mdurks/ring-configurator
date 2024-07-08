@@ -4,7 +4,7 @@ import { Stars, useGLTF } from '@react-three/drei'
 import gsap from 'gsap'
 
 import { degToRad } from 'three/src/math/MathUtils.js'
-import { isMobile } from '../../utilities/isMobile'
+import { checkIsMobile } from '../../utilities/checkIsMobile'
 
 import { configStages, defaultRingData, useAppStore } from '../../store/store'
 
@@ -16,6 +16,7 @@ export const Gazebo = ({ groupGazeboRef, ringRef }) => {
     //
     // Global state:
     const configStage = useAppStore((state) => state.configStage)
+    const isMobile = checkIsMobile()
 
     //
     //
@@ -101,19 +102,19 @@ export const Gazebo = ({ groupGazeboRef, ringRef }) => {
                 <Carousel
                     carouselName={configStages.gemColor.name}
                     data={gemData}
-                    radius={isMobile() ? 0.5 : 0.6}
+                    radius={isMobile ? 0.5 : 0.6}
                     meshScale={0.07}
                 />
                 <Carousel
                     carouselName={configStages.ring.name}
                     data={ringData}
-                    radius={isMobile() ? 0.4 : 0.5}
+                    radius={isMobile ? 0.4 : 0.5}
                     meshScale={0.175}
                 />
                 <Carousel
                     carouselName={configStages.metal.name}
                     data={metalData}
-                    radius={isMobile() ? 0.35 : 0.45}
+                    radius={isMobile ? 0.35 : 0.45}
                 />
 
                 <Stars

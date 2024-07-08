@@ -8,11 +8,13 @@ import {
 } from '@react-three/drei'
 import { useControls } from 'leva'
 import { RGBELoader } from 'three/examples/jsm/Addons.js'
-import { isMobile } from '../../utilities/isMobile'
+import { checkIsMobile } from '../../utilities/checkIsMobile'
 import { configStages, useAppStore } from '../../store/store'
 
 export const Diamond = (props) => {
     const ref = useRef()
+    const isMobile = checkIsMobile()
+
     const { nodes } = useGLTF('/diamond.glb')
     // Use a custom envmap/scene-backdrop for the diamond material
     // This way we can have a clear BG while cube-cam can still film other objects
@@ -54,7 +56,7 @@ export const Diamond = (props) => {
 
     let optimisedMaterial
 
-    if (isMobile()) {
+    if (isMobile) {
         if (isThisACarouselItem) {
             optimisedMaterial = <meshStandardMaterial color={props.color} />
         } else {
@@ -80,7 +82,7 @@ export const Diamond = (props) => {
         if (
             isThisACarouselItem &&
             configStage == configStages.gemColor.name &&
-            isMobile() == false
+            isMobile == false
         )
             ref.current.rotation.y += 0.00075
     })
