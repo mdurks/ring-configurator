@@ -65,11 +65,12 @@ export const ConfigStageNavButtons = () => {
                 <>
                     <h1>{chosenItem?.label}</h1>
                     <button type="button" onClick={decrement}>
-                        Next
-                    </button>
-                    {carouselIndex + 1} / {carouselLength}
-                    <button type="button" onClick={increment}>
                         Prev
+                    </button>
+                    {/* <span>{chosenItem?.label}</span> */}
+                    {/* {carouselIndex + 1} / {carouselLength} */}
+                    <button type="button" onClick={increment}>
+                        Next
                     </button>
                     <br />
                 </>

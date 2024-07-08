@@ -1,15 +1,17 @@
 import { Html, useGLTF } from '@react-three/drei'
 import { useEffect, useRef, useState } from 'react'
+import gsap from 'gsap'
+
 import { degToRad } from 'three/src/math/MathUtils.js'
+import { getHSLValues } from '../../utilities/getHSLValues'
+import { checkIsMobile } from '../../utilities/checkIsMobile'
+
 import {
     configStages,
     ringDefaultState,
     tableTopYPos,
     useAppStore,
 } from '../../store/store'
-import gsap from 'gsap'
-import { getHSLValues } from '../../utilities/getHSLValues'
-import { checkIsMobile } from '../../utilities/checkIsMobile'
 
 export const TryItonUI = ({ ringRef }) => {
     //
@@ -29,14 +31,28 @@ export const TryItonUI = ({ ringRef }) => {
     const phoneRef = useRef()
 
     const phoneModel = useGLTF('/RringConfiguratorPhone.glb')
-
     const phoneModelNodes = Object.keys(phoneModel.nodes).map((key) => {
         return phoneModel.nodes[key]
     })
     const clockMarkerMesh = phoneModel.nodes['ClockMarker']
     clockMarkerMesh.visible = false
 
-    const orientations = {
+    const orientationsMobile = {
+        message: {
+            position: [-1.75, 1.75, 0.01],
+            rotation: [0, degToRad(-87), 0],
+            scale: [0.05, 0.05, 0.05],
+        },
+        messageX: {
+            rotation: [degToRad(-3), 0, 0],
+        },
+        ring: {
+            position: [0.005, -0.11, 4.5],
+            rotation: [degToRad(30), degToRad(15), degToRad(0)],
+            scale: [0.19, 0.19, 0.19],
+        },
+    }
+    const orientationsDesktop = {
         message: {
             start: {
                 position: [-1.6, tableTopYPos, -0.5],
@@ -80,180 +96,250 @@ export const TryItonUI = ({ ringRef }) => {
         const duration = 1.5
         const ringDelay = duration
 
-        if (configStage == configStages.tryon.name) {
-            //
-            //
-            // Enter tryon animation:
-            //
-            //
-            document.body.style.cursor = 'default'
-            setIsTryonStage(true)
-            //
-            //
-            // message:
-            gsap.to(messageRef.current.position, {
-                delay: duration * 0.2,
-                duration: duration,
-                x: orientations.message.end.position[0],
-                y: orientations.message.end.position[1],
-                z: orientations.message.end.position[2],
-                ease: 'power1.inOut',
-            })
-            gsap.to(messageRef.current.rotation, {
-                delay: duration * 0.2,
-                duration: duration,
-                x: orientations.message.end.rotation[0],
-                y: orientations.message.end.rotation[1],
-                z: orientations.message.end.rotation[2],
-                ease: 'power1.inOut',
-            })
-            gsap.to(messageRef.current.scale, {
-                delay: duration * 0.2,
-                duration: duration,
-                x: orientations.message.end.scale[0],
-                y: orientations.message.end.scale[1],
-                z: orientations.message.end.scale[2],
-                ease: 'power1.inOut',
-            })
-            gsap.to(messageXRef.current.rotation, {
-                delay: duration * 0.2,
-                duration: duration,
-                x: orientations.messageX.end.rotation[0],
-                y: orientations.messageX.end.rotation[1],
-                z: orientations.messageX.end.rotation[2],
-                ease: 'power1.inOut',
-            })
-            //
-            //
-            // phone:
-            gsap.to(phoneRef.current.position, {
-                delay: duration * 0.3,
-                duration: duration,
-                x: orientations.phone.end.position[0],
-                y: orientations.phone.end.position[1],
-                z: orientations.phone.end.position[2],
-                ease: 'power1.inOut',
-            })
-            gsap.to(phoneRef.current.rotation, {
-                delay: duration * 0.3,
-                duration: duration,
-                x: orientations.phone.end.rotation[0],
-                y: orientations.phone.end.rotation[1],
-                z: orientations.phone.end.rotation[2],
-                ease: 'power1.inOut',
-            })
-            //
-            //
-            // ring:
-            gsap.to(ringRef.current.position, {
-                delay: ringDelay * 0.5,
-                duration: duration,
-                x: orientations.ring.end.position[0],
-                y: orientations.ring.end.position[1],
-                z: orientations.ring.end.position[2],
-                ease: 'power1.inOut',
-            })
-            gsap.to(ringRef.current.rotation, {
-                delay: ringDelay * 0.5,
-                duration: duration,
-                x: orientations.ring.end.rotation[0],
-                y: orientations.ring.end.rotation[1],
-                z: orientations.ring.end.rotation[2],
-                ease: 'power1.inOut',
-            })
-            gsap.to(ringRef.current.scale, {
-                delay: ringDelay * 0.5,
-                duration: duration,
-                x: orientations.ring.end.scale[0],
-                y: orientations.ring.end.scale[1],
-                z: orientations.ring.end.scale[2],
-                ease: 'power1.inOut',
-            })
-            //
-            //
-            //
-        } else {
-            //
-            // Leave tryon animation:
-            //
-            //
-            // document.body.style.cursor = ''
-            //
-            //
-            gsap.to(messageRef.current.position, {
-                duration: duration,
-                x: orientations.message.start.position[0],
-                y: orientations.message.start.position[1],
-                z: orientations.message.start.position[2],
-                ease: 'power1.inOut',
-            })
-            gsap.to(messageRef.current.rotation, {
-                duration: duration,
-                x: orientations.message.start.rotation[0],
-                y: orientations.message.start.rotation[1],
-                z: orientations.message.start.rotation[2],
-                ease: 'power1.inOut',
-            })
-            gsap.to(messageRef.current.scale, {
-                duration: duration,
-                x: orientations.message.start.scale[0],
-                y: orientations.message.start.scale[1],
-                z: orientations.message.start.scale[2],
-                ease: 'power1.inOut',
-            })
-            gsap.to(messageXRef.current.rotation, {
-                duration: duration,
-                x: orientations.messageX.start.rotation[0],
-                y: orientations.messageX.start.rotation[1],
-                z: orientations.messageX.start.rotation[2],
-                ease: 'power1.inOut',
-            })
-            //
-            //
-            // phone:
-            gsap.to(phoneRef.current.position, {
-                duration: duration,
-                x: orientations.phone.start.position[0],
-                y: orientations.phone.start.position[1],
-                z: orientations.phone.start.position[2],
-                ease: 'power1.inOut',
-            })
-            gsap.to(phoneRef.current.rotation, {
-                duration: duration,
-                x: orientations.phone.start.rotation[0],
-                y: orientations.phone.start.rotation[1],
-                z: orientations.phone.start.rotation[2],
-                ease: 'power1.inOut',
-            })
-            //
-            //
-            // ring:
-            if (isTryonStage) {
+        if (isMobile) {
+            if (configStage == configStages.tryon.name) {
+                //
+                //
+                // Enter tryon animation:
+                //
+                //
+                document.body.style.cursor = 'default'
+                setIsTryonStage(true)
+                //
                 gsap.to(ringRef.current.position, {
+                    delay: ringDelay * 0.5,
                     duration: duration,
-                    x: ringDefaultState.position.x,
-                    y: ringDefaultState.position.y,
-                    z: ringDefaultState.position.z,
+                    x: orientationsMobile.ring.position[0],
+                    y: orientationsMobile.ring.position[1],
+                    z: orientationsMobile.ring.position[2],
                     ease: 'power1.inOut',
                 })
                 gsap.to(ringRef.current.rotation, {
+                    delay: ringDelay * 0.5,
                     duration: duration,
-                    x: ringDefaultState.rotation.x,
-                    y: ringDefaultState.rotation.y,
-                    z: ringDefaultState.rotation.z,
+                    x: orientationsMobile.ring.rotation[0],
+                    y: orientationsMobile.ring.rotation[1],
+                    z: orientationsMobile.ring.rotation[2],
                     ease: 'power1.inOut',
                 })
                 gsap.to(ringRef.current.scale, {
+                    delay: ringDelay * 0.5,
                     duration: duration,
-                    x: ringDefaultState.scale.x,
-                    y: ringDefaultState.scale.y,
-                    z: ringDefaultState.scale.z,
+                    x: orientationsMobile.ring.scale[0],
+                    y: orientationsMobile.ring.scale[1],
+                    z: orientationsMobile.ring.scale[2],
                     ease: 'power1.inOut',
                 })
+                //
+                //
+                //
+            } else {
+                //
+                // Leave tryon animation:
+                //
+                if (isTryonStage) {
+                    gsap.to(ringRef.current.position, {
+                        duration: duration,
+                        x: ringDefaultState.position.x,
+                        y: ringDefaultState.position.y,
+                        z: ringDefaultState.position.z,
+                        ease: 'power1.inOut',
+                    })
+                    gsap.to(ringRef.current.rotation, {
+                        duration: duration,
+                        x: ringDefaultState.rotation.x,
+                        y: ringDefaultState.rotation.y,
+                        z: ringDefaultState.rotation.z,
+                        ease: 'power1.inOut',
+                    })
+                    gsap.to(ringRef.current.scale, {
+                        duration: duration,
+                        x: ringDefaultState.scale.x,
+                        y: ringDefaultState.scale.y,
+                        z: ringDefaultState.scale.z,
+                        ease: 'power1.inOut',
+                    })
+                }
+                setIsTryonStage(false)
+                //
+                //
             }
-            setIsTryonStage(false)
-            //
-            //
+        } else {
+            if (configStage == configStages.tryon.name) {
+                //
+                //
+                // Enter tryon animation:
+                //
+                //
+                document.body.style.cursor = 'default'
+                setIsTryonStage(true)
+                //
+                //
+                // message:
+                gsap.to(messageRef.current.position, {
+                    delay: duration * 0.2,
+                    duration: duration,
+                    x: orientationsDesktop.message.end.position[0],
+                    y: orientationsDesktop.message.end.position[1],
+                    z: orientationsDesktop.message.end.position[2],
+                    ease: 'power1.inOut',
+                })
+                gsap.to(messageRef.current.rotation, {
+                    delay: duration * 0.2,
+                    duration: duration,
+                    x: orientationsDesktop.message.end.rotation[0],
+                    y: orientationsDesktop.message.end.rotation[1],
+                    z: orientationsDesktop.message.end.rotation[2],
+                    ease: 'power1.inOut',
+                })
+                gsap.to(messageRef.current.scale, {
+                    delay: duration * 0.2,
+                    duration: duration,
+                    x: orientationsDesktop.message.end.scale[0],
+                    y: orientationsDesktop.message.end.scale[1],
+                    z: orientationsDesktop.message.end.scale[2],
+                    ease: 'power1.inOut',
+                })
+                gsap.to(messageXRef.current.rotation, {
+                    delay: duration * 0.2,
+                    duration: duration,
+                    x: orientationsDesktop.messageX.end.rotation[0],
+                    y: orientationsDesktop.messageX.end.rotation[1],
+                    z: orientationsDesktop.messageX.end.rotation[2],
+                    ease: 'power1.inOut',
+                })
+                //
+                //
+                // phone:
+                gsap.to(phoneRef.current.position, {
+                    delay: duration * 0.3,
+                    duration: duration,
+                    x: orientationsDesktop.phone.end.position[0],
+                    y: orientationsDesktop.phone.end.position[1],
+                    z: orientationsDesktop.phone.end.position[2],
+                    ease: 'power1.inOut',
+                })
+                gsap.to(phoneRef.current.rotation, {
+                    delay: duration * 0.3,
+                    duration: duration,
+                    x: orientationsDesktop.phone.end.rotation[0],
+                    y: orientationsDesktop.phone.end.rotation[1],
+                    z: orientationsDesktop.phone.end.rotation[2],
+                    ease: 'power1.inOut',
+                })
+                //
+                //
+                // ring:
+                gsap.to(ringRef.current.position, {
+                    delay: ringDelay * 0.5,
+                    duration: duration,
+                    x: orientationsDesktop.ring.end.position[0],
+                    y: orientationsDesktop.ring.end.position[1],
+                    z: orientationsDesktop.ring.end.position[2],
+                    ease: 'power1.inOut',
+                })
+                gsap.to(ringRef.current.rotation, {
+                    delay: ringDelay * 0.5,
+                    duration: duration,
+                    x: orientationsDesktop.ring.end.rotation[0],
+                    y: orientationsDesktop.ring.end.rotation[1],
+                    z: orientationsDesktop.ring.end.rotation[2],
+                    ease: 'power1.inOut',
+                })
+                gsap.to(ringRef.current.scale, {
+                    delay: ringDelay * 0.5,
+                    duration: duration,
+                    x: orientationsDesktop.ring.end.scale[0],
+                    y: orientationsDesktop.ring.end.scale[1],
+                    z: orientationsDesktop.ring.end.scale[2],
+                    ease: 'power1.inOut',
+                })
+                //
+                //
+                //
+            } else {
+                //
+                // Leave tryon animation:
+                //
+                //
+                // document.body.style.cursor = ''
+                //
+                //
+                gsap.to(messageRef.current.position, {
+                    duration: duration,
+                    x: orientationsDesktop.message.start.position[0],
+                    y: orientationsDesktop.message.start.position[1],
+                    z: orientationsDesktop.message.start.position[2],
+                    ease: 'power1.inOut',
+                })
+                gsap.to(messageRef.current.rotation, {
+                    duration: duration,
+                    x: orientationsDesktop.message.start.rotation[0],
+                    y: orientationsDesktop.message.start.rotation[1],
+                    z: orientationsDesktop.message.start.rotation[2],
+                    ease: 'power1.inOut',
+                })
+                gsap.to(messageRef.current.scale, {
+                    duration: duration,
+                    x: orientationsDesktop.message.start.scale[0],
+                    y: orientationsDesktop.message.start.scale[1],
+                    z: orientationsDesktop.message.start.scale[2],
+                    ease: 'power1.inOut',
+                })
+                gsap.to(messageXRef.current.rotation, {
+                    duration: duration,
+                    x: orientationsDesktop.messageX.start.rotation[0],
+                    y: orientationsDesktop.messageX.start.rotation[1],
+                    z: orientationsDesktop.messageX.start.rotation[2],
+                    ease: 'power1.inOut',
+                })
+                //
+                //
+                // phone:
+                gsap.to(phoneRef.current.position, {
+                    duration: duration,
+                    x: orientationsDesktop.phone.start.position[0],
+                    y: orientationsDesktop.phone.start.position[1],
+                    z: orientationsDesktop.phone.start.position[2],
+                    ease: 'power1.inOut',
+                })
+                gsap.to(phoneRef.current.rotation, {
+                    duration: duration,
+                    x: orientationsDesktop.phone.start.rotation[0],
+                    y: orientationsDesktop.phone.start.rotation[1],
+                    z: orientationsDesktop.phone.start.rotation[2],
+                    ease: 'power1.inOut',
+                })
+                //
+                //
+                // ring:
+                if (isTryonStage) {
+                    gsap.to(ringRef.current.position, {
+                        duration: duration,
+                        x: ringDefaultState.position.x,
+                        y: ringDefaultState.position.y,
+                        z: ringDefaultState.position.z,
+                        ease: 'power1.inOut',
+                    })
+                    gsap.to(ringRef.current.rotation, {
+                        duration: duration,
+                        x: ringDefaultState.rotation.x,
+                        y: ringDefaultState.rotation.y,
+                        z: ringDefaultState.rotation.z,
+                        ease: 'power1.inOut',
+                    })
+                    gsap.to(ringRef.current.scale, {
+                        duration: duration,
+                        x: ringDefaultState.scale.x,
+                        y: ringDefaultState.scale.y,
+                        z: ringDefaultState.scale.z,
+                        ease: 'power1.inOut',
+                    })
+                }
+                setIsTryonStage(false)
+                //
+                //
+            }
         }
     }, [configStage])
 
@@ -265,6 +351,7 @@ export const TryItonUI = ({ ringRef }) => {
     }
 
     if (metalHSL) {
+        //
         // vertical gradient:
         // backgroundColor = {
         //     backgroundImage: `linear-gradient(0deg, hsl(${metalHSL.h}, ${
@@ -308,14 +395,30 @@ export const TryItonUI = ({ ringRef }) => {
             <group
                 ref={messageRef}
                 name="TryItOn"
-                position={orientations.message.start.position}
-                rotation={orientations.message.start.rotation}
-                scale={orientations.message.start.scale}
+                position={
+                    isMobile
+                        ? orientationsMobile.message.position
+                        : orientationsDesktop.message.start.position
+                }
+                rotation={
+                    isMobile
+                        ? orientationsMobile.message.rotation
+                        : orientationsDesktop.message.start.rotation
+                }
+                scale={
+                    isMobile
+                        ? orientationsMobile.message.scale
+                        : orientationsDesktop.message.start.scale
+                }
                 // visible={false}
             >
                 <group
                     ref={messageXRef}
-                    rotation={orientations.messageX.start.rotation}
+                    rotation={
+                        isMobile
+                            ? orientationsMobile.messageX.rotation
+                            : orientationsDesktop.messageX.start.rotation
+                    }
                 >
                     <mesh
                         position={[0, 0, -0.001]}
@@ -347,42 +450,44 @@ export const TryItonUI = ({ ringRef }) => {
                                     See this ring on your own hand using your
                                     phones camera
                                 </p>
-                                <button
+                                {/* <button
                                     style={{ backgroundColor: contentColor }}
                                 >
-                                    &gt;&gt; Start now
-                                </button>
+                                    View now
+                                </button> */}
                             </div>
                         </div>
                     </Html>
                 </group>
             </group>
-            <group
-                ref={phoneRef}
-                name="MobilePhoneModel"
-                position={orientations.phone.start.position}
-                rotation={orientations.phone.start.rotation}
-                // rotation={[degToRad(-86), degToRad(-171), degToRad(-81)]}
-            >
-                {phoneModelNodes.map((item) => {
-                    const material = item.material
-                    if (item.name == 'PhoneBody')
-                        material?.color.set(phoneColor)
-                    return (
-                        <mesh
-                            key={item.uuid}
-                            name={item.name}
-                            geometry={item.geometry}
-                            position={item.position}
-                            rotation={item.rotation}
-                            scale={item.scale}
-                            material={material}
-                            castShadow
-                            receiveShadow
-                        />
-                    )
-                })}
-            </group>
+            {isMobile == false && (
+                <group
+                    ref={phoneRef}
+                    name="MobilePhoneModel"
+                    position={orientationsDesktop.phone.start.position}
+                    rotation={orientationsDesktop.phone.start.rotation}
+                    // rotation={[degToRad(-86), degToRad(-171), degToRad(-81)]}
+                >
+                    {phoneModelNodes.map((item) => {
+                        const material = item.material
+                        if (item.name == 'PhoneBody')
+                            material?.color.set(phoneColor)
+                        return (
+                            <mesh
+                                key={item.uuid}
+                                name={item.name}
+                                geometry={item.geometry}
+                                position={item.position}
+                                rotation={item.rotation}
+                                scale={item.scale}
+                                material={material}
+                                castShadow
+                                receiveShadow
+                            />
+                        )
+                    })}
+                </group>
+            )}
 
             {/* <group
                 position={[-1.75, 1.7, -0.5]}

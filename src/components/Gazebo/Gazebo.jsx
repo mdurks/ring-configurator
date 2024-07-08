@@ -6,7 +6,12 @@ import gsap from 'gsap'
 import { degToRad } from 'three/src/math/MathUtils.js'
 import { checkIsMobile } from '../../utilities/checkIsMobile'
 
-import { configStages, defaultRingData, useAppStore } from '../../store/store'
+import {
+    configStages,
+    defaultRingData,
+    storeActions,
+    useAppStore,
+} from '../../store/store'
 
 import { Carousel } from '../Carousel/Carousel'
 import { TryItonUI } from '../TryItonUI/TryItonUI'
@@ -93,6 +98,8 @@ export const Gazebo = ({ groupGazeboRef, ringRef }) => {
             duration: 1.5,
             y: configStages[configStage].yRotationPos,
             ease: 'power1.inOut',
+            onComplete: () =>
+                storeActions.setConfigAnimationComplete(configStage),
         })
     }, [configStage])
 

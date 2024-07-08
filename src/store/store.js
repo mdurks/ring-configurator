@@ -81,6 +81,7 @@ export const useAppStore = create(
 
         configStage: configStages.gemColor.name,
         configStagePrevious: null,
+        configAnimationComplete: null,
 
         gemColor: {
             carouselLength: 0,
@@ -160,6 +161,15 @@ export const useAppStore = create(
                 `setConfigStagePrevious: ${value}`,
             ),
 
+        setConfigAnimationComplete: (value) =>
+            set(
+                produce((state) => {
+                    state.configAnimationComplete = value
+                }),
+                false,
+                `setConfigAnimationComplete: ${value}`,
+            ),
+
         //
         //
         //
@@ -221,6 +231,8 @@ export const storeActions = {
 
     setConfigStage: useAppStore.getState().setConfigStage,
     setConfigStagePrevious: useAppStore.getState().setConfigStagePrevious,
+    setConfigAnimationComplete:
+        useAppStore.getState().setConfigAnimationComplete,
 
     setCarouselLength: useAppStore.getState().setCarouselLength,
     setCarouselIndex: useAppStore.getState().setCarouselIndex,

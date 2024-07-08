@@ -225,43 +225,45 @@ now the intro is over, remove the ability to scroll the page
 .tryItOnWindow {
     position: relative;
     display: flex;
-    align-items: center;
-    width: 1000px;
-    height: 650px;
-    padding: 90px 110px;
-    /* background-color: #e7dfca; */
-    /* background-color: transparent;
-    background-color: hsl(0, 0%, 98%);
-    background: rgb(255, 194, 253);
-    background: linear-gradient(
-        0deg,
-        hsl(302, 100%, 97%) 25%,
-        hsl(302, 100%, 80%) 100%
-    ); */
+    width: 350px;
+    height: 600px;
+    padding: 55px 30px 0;
     color: #634308;
     user-select: none;
     text-align: center;
-    backface-visibility: hidden;
-    /* text-rendering: 'optimizeLegibility'; */
+
+    @media screen and (min-width: 1024px) {
+        align-items: center;
+        width: 1000px;
+        height: 650px;
+        padding: 90px 110px;
+    }
 
     .leftCol {
-        width: 50%;
+        @media screen and (min-width: 1024px) {
+            width: 50%;
+        }
     }
 
     h1 {
-        margin: 0 0 10px;
-        font-size: 5rem;
-        /* color: #fff;
-        color: #ff53e8;
-        color: #630056; */
+        margin: 0 0 25px;
+        font-size: 4rem;
+
+        @media screen and (min-width: 1024px) {
+            margin: 0 0 10px;
+            font-size: 5rem;
+        }
     }
 
     p {
         font-size: 1.25rem;
+        font-weight: bold;
         line-height: 2rem;
-        /* color: #c411a9;
-        color: #410037; */
         text-transform: uppercase;
+
+        @media screen and (min-width: 1024px) {
+            font-weight: normal;
+        }
     }
 
     img {
@@ -270,15 +272,19 @@ now the intro is over, remove the ability to scroll the page
     }
 
     button {
-        /* display: block; */
-        margin: 15px 0 10px;
-        padding: 15px 30px;
-        border: none;
-        border-radius: 10px;
-        /* background: #c7008b; */
-        color: white;
-        font-size: 1.75rem;
-        text-transform: uppercase;
+        display: none;
+
+        @media screen and (min-width: 1024px) {
+            display: block;
+            margin: 20px 0 0;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 1.75rem;
+            text-transform: uppercase;
+            margin: 15px 0 10px;
+        }
     }
     &.isTryonStage button {
         pointer-events: all;
@@ -294,7 +300,20 @@ now the intro is over, remove the ability to scroll the page
 }
 
 .ar_button {
-    top: 50px !important;
+    top: 48% !important;
     bottom: auto !important;
     z-index: var(--arAboveCanvas) !important;
+
+    margin: 225px 0 0 !important;
+    padding: 0 !important;
+    background: none !important;
+    border: none !important;
+}
+
+.ar_buttonContent {
+    padding: 15px 30px !important;
+    border: none !important;
+    border-radius: 10px !important;
+    font-size: 1.2rem !important;
+    text-transform: uppercase;
 }

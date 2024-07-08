@@ -1,19 +1,19 @@
+import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
+import { useFrame, useThree } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
+import { useXR } from '@react-three/xr'
+
+import { degToRad } from 'three/src/math/MathUtils.js'
 
 import { useAppStore } from '../../store/store'
 
 import { Diamond } from '../Diamond/Diamond'
-import { useFrame, useThree } from '@react-three/fiber'
-import { degToRad } from 'three/src/math/MathUtils.js'
-import { useEffect, useRef } from 'react'
-import { useXR } from '@react-three/xr'
 
 export const PrimaryRing = ({ ringRef, name }) => {
     const { camera } = useThree()
     const { isPresenting } = useXR()
 
-    const configStage = useAppStore((state) => state.configStage)
     const chosenGemColor = useAppStore((state) => state.gemColor.chosenItem)
     const chosenMetalColor = useAppStore((state) => state.metal.chosenItem)
     const chosenRing = useAppStore((state) => state.ring.chosenItem)
@@ -33,7 +33,7 @@ export const PrimaryRing = ({ ringRef, name }) => {
         if (ringRef.current && isPresenting) {
             ringRef.current.position.setFromMatrixPosition(camera.matrixWorld)
             ringRef.current.quaternion.setFromRotationMatrix(camera.matrixWorld)
-            ringRef.current.translateZ(-3)
+            ringRef.current.translateZ(-1)
             ringRef.current.translateX(-0.05)
         }
     })

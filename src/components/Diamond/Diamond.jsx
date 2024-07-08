@@ -26,7 +26,7 @@ export const Diamond = (props) => {
         '/blue_photo_studio_1k.hdr',
     )
     const materialSettings = {
-        bounces: 3,
+        bounces: isMobile ? 2 : 3,
         aberrationStrength: 0.01,
         ior: 2.75,
         fresnel: 1,
