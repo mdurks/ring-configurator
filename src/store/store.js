@@ -2,6 +2,9 @@ import { create } from 'zustand'
 import { produce } from 'immer'
 import { devtools } from 'zustand/middleware'
 import { degToRad } from 'three/src/math/MathUtils.js'
+import { checkIsMobile } from '../utilities/checkIsMobile'
+
+const isMobile = checkIsMobile()
 
 export const gazeboFinalPosition = { x: 0, y: -1.75, z: 2.5 }
 export const tableTopYPos = 1.39
@@ -10,7 +13,11 @@ export const carouselPosition = {
     radiusFromGazeeboCenter: 1.3,
 }
 export const ringDefaultState = {
-    position: { x: 0, y: -0.05, z: 4.25 },
+    position: {
+        x: 0,
+        y: isMobile ? -0.01 : -0.05,
+        z: isMobile ? 4.1 : 4.25,
+    },
     rotation: { x: 0.9615264128772747, y: 13.746184150432903, z: 0 },
     scale: { x: 0.5, y: 0.5, z: 0.5 },
 }
@@ -29,6 +36,8 @@ export const configStages = {
             carouselPosition.height + 0.025,
             carouselPosition.radiusFromGazeeboCenter,
         ],
+        carouselMeshScale: isMobile ? 0.05 : 0.07,
+        carouselRadius: isMobile ? 0.35 : 0.6,
         carouselRotation: [0, 0, 0],
         itemTableYPosition: -0.01,
         itemCarouselYPosition: 0,
@@ -42,6 +51,8 @@ export const configStages = {
             carouselPosition.height + 0.08,
             0,
         ],
+        carouselMeshScale: isMobile ? 0.125 : 0.175,
+        carouselRadius: isMobile ? 0.3 : 0.5,
         carouselRotation: [0, degToRad(90), 0],
         itemTableYPosition: -0.06,
         itemCarouselYPosition: 0,
@@ -55,9 +66,11 @@ export const configStages = {
             carouselPosition.height,
             -carouselPosition.radiusFromGazeeboCenter,
         ],
+        carouselMeshScale: isMobile ? 0.35 : 0.45,
+        carouselRadius: isMobile ? 0.35 : 0.45,
         carouselRotation: [0, degToRad(180), 0],
         itemTableYPosition: 0.055,
-        itemCarouselYPosition: 0.06,
+        itemCarouselYPosition: 0.055,
         yRotationPos: degToRad(-180),
     },
     tryon: {
@@ -68,6 +81,8 @@ export const configStages = {
             carouselPosition.height,
             0,
         ],
+        carouselMeshScale: isMobile ? 0 : 0,
+        carouselRadius: isMobile ? 0 : 0,
         carouselRotation: [0, degToRad(270), 0],
         itemTableYPosition: 0,
         itemCarouselYPosition: 0,

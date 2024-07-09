@@ -109,14 +109,14 @@ export const Gazebo = ({ groupGazeboRef, ringRef }) => {
                 <Carousel
                     carouselName={configStages.gemColor.name}
                     data={gemData}
-                    radius={isMobile ? 0.5 : 0.6}
-                    meshScale={0.07}
+                    radius={configStages.gemColor.carouselRadius}
+                    meshScale={configStages.gemColor.carouselMeshScale}
                 />
                 <Carousel
                     carouselName={configStages.ring.name}
                     data={ringData}
-                    radius={isMobile ? 0.4 : 0.5}
-                    meshScale={0.175}
+                    radius={configStages.ring.carouselRadius}
+                    meshScale={configStages.ring.carouselMeshScale}
                 />
                 <Carousel
                     carouselName={configStages.metal.name}

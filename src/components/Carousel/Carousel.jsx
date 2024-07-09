@@ -130,7 +130,8 @@ export const Carousel = ({
         if (previouslyFocussedItem) {
             gsap.to(previouslyFocussedItem.position, {
                 duration: rotationSpeed,
-                y: 0,
+                // y: 0,
+                y: configStages[carouselName].itemCarouselYPosition,
                 ease: 'power1.inOut',
             })
             gsap.to(previouslyFocussedItem.scale, {

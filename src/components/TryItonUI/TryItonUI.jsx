@@ -48,7 +48,7 @@ export const TryItonUI = ({ ringRef }) => {
         },
         ring: {
             position: [-0.003, -0.075, 4.5],
-            rotation: [degToRad(40), degToRad(15), degToRad(0)],
+            rotation: [degToRad(42.5), degToRad(17), degToRad(0)],
             scale: [0.18, 0.18, 0.18],
         },
     }
