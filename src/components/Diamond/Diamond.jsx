@@ -85,7 +85,6 @@ export const Diamond = (props) => {
         )
     }
 
-    console.log('configStage', configStage, configStages.gemColor.name)
     const isCarouselGemOnDesktop =
         isThisACarouselItem &&
         configStage == configStages.gemColor.name &&
