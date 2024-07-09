@@ -5,7 +5,12 @@ import gsap from 'gsap'
 
 import { degToRad } from 'three/src/math/MathUtils.js'
 
-import { useAppStore, gazeboFinalPosition, storeActions } from './store/store'
+import {
+    useAppStore,
+    gazeboFinalPosition,
+    storeActions,
+    ringDefaultState,
+} from './store/store'
 
 // import { MiscExperiments } from './components/Experiments/MiscExperiments'
 import { EnvironmentSetup } from './components/EnvironmentSetup/EnvironmentSetup'
@@ -207,7 +212,7 @@ function App() {
             ringRef.current.position,
             {
                 duration: 8,
-                x: 0,
+                x: ringDefaultState.position.x,
                 ease: 'power1.inOut',
             },
             'message three',
@@ -295,8 +300,8 @@ function App() {
             {
                 delay: 4,
                 duration: 8,
-                y: -0.07,
-                z: 4.25,
+                y: ringDefaultState.position.y,
+                z: ringDefaultState.position.z,
                 ease: 'power1.inOut',
             },
             'down to gazebo',

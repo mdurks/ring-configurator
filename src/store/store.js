@@ -10,7 +10,7 @@ export const carouselPosition = {
     radiusFromGazeeboCenter: 1.3,
 }
 export const ringDefaultState = {
-    position: { x: 0, y: -0.07, z: 4.25 },
+    position: { x: 0, y: -0.05, z: 4.25 },
     rotation: { x: 0.9615264128772747, y: 13.746184150432903, z: 0 },
     scale: { x: 0.5, y: 0.5, z: 0.5 },
 }
@@ -30,6 +30,8 @@ export const configStages = {
             carouselPosition.radiusFromGazeeboCenter,
         ],
         carouselRotation: [0, 0, 0],
+        itemTableYPosition: -0.01,
+        itemCarouselYPosition: 0,
         yRotationPos: 0,
     },
     ring: {
@@ -41,6 +43,8 @@ export const configStages = {
             0,
         ],
         carouselRotation: [0, degToRad(90), 0],
+        itemTableYPosition: -0.06,
+        itemCarouselYPosition: 0,
         yRotationPos: degToRad(-90),
     },
     metal: {
@@ -52,6 +56,8 @@ export const configStages = {
             -carouselPosition.radiusFromGazeeboCenter,
         ],
         carouselRotation: [0, degToRad(180), 0],
+        itemTableYPosition: 0.055,
+        itemCarouselYPosition: 0.06,
         yRotationPos: degToRad(-180),
     },
     tryon: {
@@ -63,6 +69,8 @@ export const configStages = {
             0,
         ],
         carouselRotation: [0, degToRad(270), 0],
+        itemTableYPosition: 0,
+        itemCarouselYPosition: 0,
         yRotationPos: degToRad(-270),
     },
 }

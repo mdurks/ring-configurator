@@ -78,13 +78,13 @@ export const Diamond = (props) => {
         )
     }
 
+    const isCarouselGemOnDesktop =
+        isThisACarouselItem &&
+        configStage == configStages.gemColor.name &&
+        isMobile == false
+
     useFrame(() => {
-        if (
-            isThisACarouselItem &&
-            configStage == configStages.gemColor.name &&
-            isMobile == false
-        )
-            ref.current.rotation.y += 0.00075
+        if (isCarouselGemOnDesktop) ref.current.rotation.y += 0.00075
     })
 
     return (

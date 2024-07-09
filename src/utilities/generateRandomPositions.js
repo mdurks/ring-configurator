@@ -1,4 +1,9 @@
-export const generateRandomPositions = (amount, widthRange, depthRange) => {
+export const generateRandomPositions = (
+    amount,
+    widthRange,
+    depthRange,
+    itemOnTableYPosition,
+) => {
     const positions = []
     const occupied = new Set()
 
@@ -15,7 +20,7 @@ export const generateRandomPositions = (amount, widthRange, depthRange) => {
             key = getKey(x, z)
         } while (occupied.has(key))
         occupied.add(key)
-        positions.push([x, 0, z])
+        positions.push([x, itemOnTableYPosition, z])
     }
 
     return positions

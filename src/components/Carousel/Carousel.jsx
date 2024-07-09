@@ -70,16 +70,20 @@ export const Carousel = ({
 
     const tableInfo = {
         centerPos: [0, 0, 0.475],
-        leftEdge: -1,
-        rightEdge: 1,
+        leftEdge: -0.8,
+        rightEdge: 0.8,
         backEdge: 0.05,
-        frontEdge: 0.7,
+        frontEdge: 0.5,
     }
     tableInfo.widthRange = [tableInfo.leftEdge, tableInfo.rightEdge]
     tableInfo.depthRange = [tableInfo.backEdge, tableInfo.frontEdge]
 
     const [randomItemPositions, setRandomItemPositions] = useState(
-        Array.from({ length: data.length }, () => [0, 0, 0]),
+        Array.from({ length: data.length }, () => [
+            0,
+            configStages[carouselName].itemTableYPosition,
+            0,
+        ]),
     )
 
     useEffect(() => {
@@ -193,7 +197,7 @@ export const Carousel = ({
                 gsap.to(item.position, {
                     delay: staggerDelay + duration * 0.5,
                     duration: duration * 0.5,
-                    y: 0,
+                    y: configStages[carouselName].itemCarouselYPosition,
                     ease: 'power1.inOut',
                 })
 
@@ -255,7 +259,7 @@ export const Carousel = ({
                 gsap.to(item.position, {
                     delay: staggerDelay + duration * 0.5,
                     duration: duration * 0.75,
-                    y: -0.01,
+                    y: configStages[configStagePrevious].itemTableYPosition,
                     ease: 'power1.out',
                 })
 
@@ -292,6 +296,7 @@ export const Carousel = ({
                 data.length,
                 tableInfo.widthRange,
                 tableInfo.depthRange,
+                configStages[carouselName].itemTableYPosition,
             ),
         )
     }, [])
