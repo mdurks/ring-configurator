@@ -264,12 +264,14 @@ export const TryItonUI = ({ ringRef }) => {
                 //
                 //
                 // phone shadow:
-                gsap.to('.phoneShadow', {
-                    delay: ringDelay * 0.5,
-                    duration: duration,
-                    opacity: 0.2,
-                    ease: 'power1.inOut',
-                })
+                if (document.querySelector('.phoneShadow')) {
+                    gsap.to('.phoneShadow', {
+                        delay: ringDelay * 0.5,
+                        duration: duration,
+                        opacity: 0.2,
+                        ease: 'power1.inOut',
+                    })
+                }
                 //
                 //
                 //
@@ -330,11 +332,13 @@ export const TryItonUI = ({ ringRef }) => {
                 //
                 //
                 // phone shadow:
-                gsap.to('.phoneShadow', {
-                    duration: 0.5,
-                    opacity: 0,
-                    ease: 'power1.inOut',
-                })
+                if (document.querySelector('.phoneShadow')) {
+                    gsap.to('.phoneShadow', {
+                        duration: 0.5,
+                        opacity: 0,
+                        ease: 'power1.inOut',
+                    })
+                }
                 //
                 //
                 // ring:

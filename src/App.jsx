@@ -105,8 +105,8 @@ function App() {
         tl_intro.current.to(
             ringRef.current.position,
             {
-                // duration: 2,
-                duration: 0.2,
+                duration: 2,
+                // duration: 0.2,
                 x: 1.5,
                 y: -0.5,
                 ease: 'power1.inOut',
@@ -116,8 +116,8 @@ function App() {
         tl_intro.current.to(
             ringRef.current.rotation,
             {
-                // duration: 2,
-                duration: 0.2,
+                duration: 2,
+                // duration: 0.2,
                 y: degToRad(180),
                 ease: 'power1.inOut',
             },
@@ -126,8 +126,8 @@ function App() {
         tl_intro.current.to(
             introTitle1El,
             {
-                // duration: 2,
-                duration: 0.2,
+                duration: 2,
+                // duration: 0.2,
                 left: '10%',
                 ease: 'power1.inOut',
             },
