@@ -17,10 +17,10 @@ export const ProductRotator = ({ meshRef }) => {
 
     if (isMobile) {
         sensitivity = 0.01
-        if (configStage != configStages.tryon.name) autoRotateYAmount = 0.008
+        if (configStage != configStages.tryon.name) autoRotateYAmount = 0.005
     } else {
         sensitivity = 0.0035
-        if (configStage != configStages.tryon.name) autoRotateYAmount = 0.001
+        if (configStage != configStages.tryon.name) autoRotateYAmount = 0.0015
     }
 
     const onPointerDown = (e) => {

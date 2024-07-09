@@ -42,12 +42,12 @@ export const OutOfCanvasElements = () => {
                         }}
                     >
                         {/* {(status) => console.log(`WebXR ${status}`)} */}
-                        <div
+                        {/* <div
                             className="ar_buttonContent"
                             style={{ background: contentColor }}
                         >
                             View now
-                        </div>
+                        </div> */}
                     </ARButton>
                 )}
 

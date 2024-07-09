@@ -226,8 +226,8 @@ now the intro is over, remove the ability to scroll the page
     position: relative;
     display: flex;
     width: 350px;
-    height: 600px;
-    padding: 55px 30px 0;
+    height: 650px;
+    padding: 50px 30px 0;
     color: #634308;
     user-select: none;
     text-align: center;
@@ -240,13 +240,19 @@ now the intro is over, remove the ability to scroll the page
     }
 
     .leftCol {
+        display: flex;
+        flex-direction: column;
+        height: calc(100% - 50px);
+
         @media screen and (min-width: 1024px) {
+            display: block;
             width: 50%;
+            height: auto;
         }
     }
 
     h1 {
-        margin: 0 0 25px;
+        margin: 0 0 5px;
         font-size: 4rem;
 
         @media screen and (min-width: 1024px) {
@@ -256,6 +262,7 @@ now the intro is over, remove the ability to scroll the page
     }
 
     p {
+        flex: 1;
         font-size: 1.25rem;
         font-weight: bold;
         line-height: 2rem;
@@ -272,23 +279,24 @@ now the intro is over, remove the ability to scroll the page
     }
 
     button {
-        display: none;
+        /* display: block; */
+        margin: 20px 0 0;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 10px;
+        color: white;
+        font-size: 1.75rem;
+        text-transform: uppercase;
+        margin: 15px 0 10px;
 
         @media screen and (min-width: 1024px) {
-            display: block;
-            margin: 20px 0 0;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 10px;
-            color: white;
-            font-size: 1.75rem;
-            text-transform: uppercase;
-            margin: 15px 0 10px;
+            display: none;
         }
     }
     &.isTryonStage button {
         pointer-events: all;
     }
+
     /* button {
         position: absolute;
         bottom: 20px;
@@ -300,6 +308,14 @@ now the intro is over, remove the ability to scroll the page
 }
 
 .ar_button {
+    top: -45% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+/* .ar_button {
     top: 48% !important;
     bottom: auto !important;
     z-index: var(--arAboveCanvas) !important;
@@ -316,4 +332,4 @@ now the intro is over, remove the ability to scroll the page
     border-radius: 10px !important;
     font-size: 1.2rem !important;
     text-transform: uppercase;
-}
+} */

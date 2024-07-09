@@ -39,7 +39,7 @@ export const TryItonUI = ({ ringRef }) => {
 
     const orientationsMobile = {
         message: {
-            position: [-1.75, 1.75, 0.01],
+            position: [-1.75, 1.75, -0.01],
             rotation: [0, degToRad(-87), 0],
             scale: [0.05, 0.05, 0.05],
         },
@@ -47,9 +47,9 @@ export const TryItonUI = ({ ringRef }) => {
             rotation: [degToRad(-3), 0, 0],
         },
         ring: {
-            position: [0.005, -0.11, 4.5],
-            rotation: [degToRad(30), degToRad(15), degToRad(0)],
-            scale: [0.19, 0.19, 0.19],
+            position: [-0.003, -0.075, 4.5],
+            rotation: [degToRad(40), degToRad(15), degToRad(0)],
+            scale: [0.18, 0.18, 0.18],
         },
     }
     const orientationsDesktop = {
@@ -450,11 +450,16 @@ export const TryItonUI = ({ ringRef }) => {
                                     See this ring on your own hand using your
                                     phones camera
                                 </p>
-                                {/* <button
+                                <button
                                     style={{ backgroundColor: contentColor }}
+                                    onClick={() =>
+                                        document
+                                            .querySelector('.ar_button')
+                                            .click()
+                                    }
                                 >
                                     View now
-                                </button> */}
+                                </button>
                             </div>
                         </div>
                     </Html>
