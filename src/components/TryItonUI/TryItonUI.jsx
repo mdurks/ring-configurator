@@ -423,11 +423,13 @@ export const TryItonUI = ({ ringRef }) => {
                     <mesh
                         position={[0, 0, -0.001]}
                         rotation={[0, degToRad(180), 0]}
-                        visible={false}
+                        // visible={false}
                     >
-                        <planeGeometry args={[9.3, 12.5]} />
-                        {/* <meshBasicMaterial color={'#ddd1b2'} /> */}
-                        <meshBasicMaterial color={'#503a03'} />
+                        <planeGeometry
+                            args={isMobile ? [8.7, 16.3] : [25, 16.3]}
+                        />
+                        <meshBasicMaterial color={'#dad6ce'} />
+                        {/* <meshBasicMaterial color={'#503a03'} /> */}
                     </mesh>
                     <Html
                         className="dreiHtml"
