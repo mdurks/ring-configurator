@@ -334,6 +334,7 @@ export const Carousel = ({
                                     modelPath={item.value}
                                     meshName={item.meshName}
                                     carouselRingScale={meshScale}
+                                    preventGemRotation={true}
                                 />
                             )}
                             {carouselName == configStages.metal.name && (

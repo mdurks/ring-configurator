@@ -50,11 +50,11 @@ export const PrimaryRing = ({ ringRef, name }) => {
                 {markerGemNodes.map((marker) => (
                     <Diamond
                         key={marker.uuid}
+                        name={'Ring diamond gem'}
                         position={marker.position}
                         rotation={marker.rotation}
                         scale={marker.scale}
                         color={chosenGemColor?.value}
-                        name={'Ring diamond gem'}
                     />
                 ))}
                 <mesh

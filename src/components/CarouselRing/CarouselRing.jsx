@@ -14,6 +14,7 @@ export const CarouselRing = ({
     position,
     rotation,
     carouselRingScale,
+    preventGemRotation = false,
 }) => {
     const configStage = useAppStore((state) => state.configStage)
     const chosenGemColor = useAppStore((state) => state.gemColor.chosenItem)
@@ -46,11 +47,11 @@ export const CarouselRing = ({
             {markerGemNodes.map((marker) => (
                 <Diamond
                     key={marker.uuid}
+                    name={preventGemRotation ? 'Gem' : 'Carousel Gem'}
                     position={marker.position}
                     rotation={marker.rotation}
                     scale={marker.scale}
                     color={chosenGemColor?.value}
-                    name={'Gem'}
                 />
             ))}
             <mesh

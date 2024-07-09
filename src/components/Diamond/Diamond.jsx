@@ -10,6 +10,7 @@ import { useControls } from 'leva'
 import { RGBELoader } from 'three/examples/jsm/Addons.js'
 import { checkIsMobile } from '../../utilities/checkIsMobile'
 import { configStages, useAppStore } from '../../store/store'
+import { getHSLValues } from '../../utilities/getHSLValues'
 
 export const Diamond = (props) => {
     const ref = useRef()
@@ -54,11 +55,17 @@ export const Diamond = (props) => {
         ? props.name.includes('Carousel')
         : false
 
-    let optimisedMaterial
+    let optimisedMaterial, colorHSL, optimisedColor
+    if (props.color) {
+        colorHSL = props.color && getHSLValues(props.color)
+        optimisedColor = `hsl(${colorHSL.h}, ${colorHSL.s}%, ${
+            colorHSL.l * 0.3
+        }%)`
+    }
 
     if (isMobile) {
         if (isThisACarouselItem) {
-            optimisedMaterial = <meshStandardMaterial color={props.color} />
+            optimisedMaterial = <meshStandardMaterial color={optimisedColor} />
         } else {
             optimisedMaterial = (
                 <MeshRefractionMaterial
@@ -78,6 +85,7 @@ export const Diamond = (props) => {
         )
     }
 
+    console.log('configStage', configStage, configStages.gemColor.name)
     const isCarouselGemOnDesktop =
         isThisACarouselItem &&
         configStage == configStages.gemColor.name &&
