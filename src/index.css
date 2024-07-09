@@ -305,6 +305,28 @@ now the intro is over, remove the ability to scroll the page
         padding: 10px 20px;
         pointer-events: all;
     } */
+
+    .phoneShadow {
+        display: none;
+
+        @media screen and (min-width: 1024px) {
+            display: block;
+            position: absolute;
+            bottom: 18px;
+            right: 225px;
+
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(
+                circle,
+                rgba(0, 0, 0, 1) 0%,
+                rgba(0, 0, 0, 0) 70%
+            );
+
+            opacity: 0;
+            transform: scale(3.75, 0.3);
+        }
+    }
 }
 
 .ar_button {

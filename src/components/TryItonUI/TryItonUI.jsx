@@ -164,6 +164,12 @@ export const TryItonUI = ({ ringRef }) => {
                 //
                 //
             }
+
+            //
+            //
+            //
+            // Desktop:
+            //
         } else {
             if (configStage == configStages.tryon.name) {
                 //
@@ -257,6 +263,16 @@ export const TryItonUI = ({ ringRef }) => {
                 //
                 //
                 //
+                // phone shadow:
+                gsap.to('.phoneShadow', {
+                    delay: ringDelay * 0.5,
+                    duration: duration,
+                    opacity: 0.2,
+                    ease: 'power1.inOut',
+                })
+                //
+                //
+                //
             } else {
                 //
                 // Leave tryon animation:
@@ -308,6 +324,15 @@ export const TryItonUI = ({ ringRef }) => {
                     x: orientationsDesktop.phone.start.rotation[0],
                     y: orientationsDesktop.phone.start.rotation[1],
                     z: orientationsDesktop.phone.start.rotation[2],
+                    ease: 'power1.inOut',
+                })
+                //
+                //
+                //
+                // phone shadow:
+                gsap.to('.phoneShadow', {
+                    duration: 0.5,
+                    opacity: 0,
                     ease: 'power1.inOut',
                 })
                 //
@@ -463,6 +488,7 @@ export const TryItonUI = ({ ringRef }) => {
                                     View now
                                 </button>
                             </div>
+                            <div className="phoneShadow"></div>
                         </div>
                     </Html>
                 </group>
