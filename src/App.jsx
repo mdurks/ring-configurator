@@ -1,3 +1,4 @@
+/* eslint-disable no-unreachable */
 import { useEffect, useLayoutEffect, useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import { OrbitControls, useScroll } from '@react-three/drei'
@@ -32,6 +33,7 @@ function App() {
     // Local init:
     const groupGazeboRef = useRef()
     const ringRef = useRef()
+    const gazeboFloorRef = useRef()
     const tl_intro = useRef(gsap.timeline())
 
     const isRingReadyForScroll = useRef(false)
@@ -68,6 +70,7 @@ function App() {
         const introTitle1El = document.querySelector('.introTitle1')
         const introTitle2El = document.querySelector('.introTitle2')
         const introTitle3El = document.querySelector('.introTitle3')
+        const introScrollMsgEl = document.querySelector('.introScrollMsg')
 
         //
         //
@@ -78,20 +81,23 @@ function App() {
         groupGazeboRef.current.position.y = -15
         groupGazeboRef.current.rotation.y = degToRad(-90)
 
-        ringRef.current.position.x = -10
+        ringRef.current.position.set(-17, -0.3, -1.85)
+        ringRef.current.rotation.set(degToRad(90), degToRad(360), degToRad(0))
         ringRef.current.scale.set(6, 6, 6)
+
+        // return
 
         gsap.set(introTitle1El, {
             left: -introTitle1El.offsetWidth,
-            opacity: 1,
+            // opacity: 1,
         })
         gsap.set(introTitle2El, {
             right: -introTitle2El.offsetWidth,
-            opacity: 1,
+            // opacity: 1,
         })
         gsap.set(introTitle3El, {
             top: -introTitle3El.offsetHeight,
-            opacity: 1,
+            // opacity: 1,
         })
 
         //
@@ -105,10 +111,11 @@ function App() {
         tl_intro.current.to(
             ringRef.current.position,
             {
-                duration: 2,
+                duration: 4,
                 // duration: 0.2,
-                x: 1.5,
-                y: -0.5,
+                x: 2.08,
+                y: -0.3,
+                z: -1.85,
                 ease: 'power1.inOut',
             },
             'pre animation setup',
@@ -116,9 +123,11 @@ function App() {
         tl_intro.current.to(
             ringRef.current.rotation,
             {
-                duration: 2,
+                duration: 4,
                 // duration: 0.2,
-                y: degToRad(180),
+                x: 1.29,
+                y: -0.94,
+                z: 0,
                 ease: 'power1.inOut',
             },
             'pre animation setup',
@@ -126,9 +135,22 @@ function App() {
         tl_intro.current.to(
             introTitle1El,
             {
-                duration: 2,
+                delay: 2.85,
+                duration: 2.5,
                 // duration: 0.2,
-                left: '10%',
+                left: '14%',
+                opacity: 1,
+                ease: 'power1.inOut',
+            },
+            'pre animation setup',
+        )
+        tl_intro.current.to(
+            introScrollMsgEl,
+            {
+                delay: 5.25,
+                duration: 1.5,
+                opacity: 1,
+                top: 0,
                 ease: 'power1.inOut',
             },
             'pre animation setup',
@@ -157,7 +179,9 @@ function App() {
             ringRef.current.position,
             {
                 duration: 8,
-                x: -2,
+                x: -2.8,
+                y: -0.38,
+                z: -1.85,
                 ease: 'power1.inOut',
             },
             'ready for scrolling',
@@ -166,7 +190,9 @@ function App() {
             ringRef.current.rotation,
             {
                 duration: 8,
-                y: degToRad(360),
+                x: 1.41,
+                y: 0.82,
+                z: -0.35,
                 ease: 'power1.inOut',
             },
             'ready for scrolling',
@@ -185,11 +211,15 @@ function App() {
             {
                 delay: 3,
                 duration: 4,
-                right: '10%',
+                right: '18%',
+                opacity: 1,
                 ease: 'power1.inOut',
             },
             'ready for scrolling',
         )
+
+        // add empty time:
+        tl_intro.current.to({}, { duration: 1 })
 
         //
         //
@@ -202,7 +232,7 @@ function App() {
             introTitle2El,
             {
                 delay: 1,
-                duration: 8,
+                duration: 10,
                 right: -introTitle2El.offsetWidth,
                 ease: 'power1.inOut',
             },
@@ -211,8 +241,10 @@ function App() {
         tl_intro.current.to(
             ringRef.current.position,
             {
-                duration: 8,
-                x: ringDefaultState.position.x,
+                duration: 10,
+                x: 0,
+                y: -2.5,
+                z: -1.82,
                 ease: 'power1.inOut',
             },
             'message three',
@@ -220,19 +252,10 @@ function App() {
         tl_intro.current.to(
             ringRef.current.rotation,
             {
-                duration: 8,
-                y: degToRad(540),
-                ease: 'power1.inOut',
-            },
-            'message three',
-        )
-        tl_intro.current.to(
-            ringRef.current.scale,
-            {
-                duration: 8,
-                x: 3,
-                y: 3,
-                z: 3,
+                duration: 10,
+                x: 0.82,
+                y: 6.32,
+                z: 0,
                 ease: 'power1.inOut',
             },
             'message three',
@@ -240,16 +263,17 @@ function App() {
         tl_intro.current.to(
             introTitle3El,
             {
-                delay: 3,
-                duration: 4,
-                top: '10%',
+                delay: 4,
+                duration: 5,
+                top: '13%',
+                opacity: 1,
                 ease: 'power1.inOut',
             },
             'message three',
         )
 
         // add empty time:
-        // tl_intro.current.to({}, { duration: 2 })
+        tl_intro.current.to({}, { duration: 1 })
 
         //
         //
@@ -300,6 +324,7 @@ function App() {
             {
                 delay: 4,
                 duration: 8,
+                x: ringDefaultState.position.x,
                 y: ringDefaultState.position.y,
                 z: ringDefaultState.position.z,
                 ease: 'power1.inOut',
@@ -327,6 +352,16 @@ function App() {
             },
             'down to gazebo',
         )
+        tl_intro.current.to(
+            gazeboFloorRef.current.material,
+            {
+                delay: 4,
+                duration: 8,
+                opacity: 1,
+                ease: 'power1.inOut',
+            },
+            'down to gazebo',
+        )
 
         //
         //
@@ -346,11 +381,15 @@ function App() {
         <>
             <EnvironmentSetup />
 
+            {isPresenting == false && (
+                <CameraController
+                    camera={three.camera}
+                    inertia={0.075}
+                    moveAmount={0.03}
+                />
+            )}
             {isIntroActive == false && isPresenting == false && (
-                <>
-                    <CameraController camera={three.camera} />
-                    <ProductRotator meshRef={ringRef} />
-                </>
+                <ProductRotator meshRef={ringRef} />
             )}
 
             {/* <OrbitControls
@@ -366,7 +405,11 @@ function App() {
             <PrimaryRing ringRef={ringRef} name={'Primary Ring'} />
 
             {isPresenting == false && (
-                <Gazebo groupGazeboRef={groupGazeboRef} ringRef={ringRef} />
+                <Gazebo
+                    groupGazeboRef={groupGazeboRef}
+                    ringRef={ringRef}
+                    gazeboFloorRef={gazeboFloorRef}
+                />
             )}
 
             {/* <MiscExperiments /> */}

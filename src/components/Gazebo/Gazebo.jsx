@@ -16,7 +16,7 @@ import {
 import { Carousel } from '../Carousel/Carousel'
 import { TryItonUI } from '../TryItonUI/TryItonUI'
 
-export const Gazebo = ({ groupGazeboRef, ringRef }) => {
+export const Gazebo = ({ groupGazeboRef, ringRef, gazeboFloorRef }) => {
     //
     //
     // Global state:
@@ -257,6 +257,7 @@ export const Gazebo = ({ groupGazeboRef, ringRef }) => {
                 </group>
 
                 <mesh
+                    ref={gazeboFloorRef}
                     name="floor"
                     position={[0, -0.125, 0]}
                     rotation={[degToRad(-90), 0, 0]}
@@ -266,7 +267,11 @@ export const Gazebo = ({ groupGazeboRef, ringRef }) => {
                     {/* <meshStandardMaterial color={'black'} /> */}
                     {/* <meshStandardMaterial color={'hsl(54, 24%, 41%)'} /> */}
                     {/* <meshStandardMaterial color={'hsl(55, 30%, 23%)'} /> */}
-                    <meshStandardMaterial color={'hsl(50, 40%, 36%)'} />
+                    <meshStandardMaterial
+                        color={'hsl(50, 40%, 36%)'}
+                        transparent
+                        opacity={0}
+                    />
                 </mesh>
             </group>
         </>

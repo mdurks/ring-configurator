@@ -3,14 +3,12 @@ import { useFrame } from '@react-three/fiber'
 import { useAppStore } from '../../store/store'
 import { checkIsMobile } from '../../utilities/checkIsMobile'
 
-export const CameraController = ({ camera }) => {
+export const CameraController = ({ camera, inertia, moveAmount }) => {
     const isPointerDown = useAppStore((state) => state.isPointerDown)
     const isMobile = checkIsMobile()
 
     const mouse = useRef({ x: 0, y: 0 })
     const target = useRef({ x: 0, y: 0 })
-    const inertia = 0.075
-    const moveAmount = 0.03
 
     useEffect(() => {
         const handleMouseMove = (event) => {
