@@ -4,7 +4,9 @@ export const HtmlUIContainer = () => {
     return (
         <>
             <div className="introTitle1">
-                <h1>Timeless Elegance Awaits</h1>
+                <h1>
+                    <span>Timeless</span> Elegance Awaits
+                </h1>
                 <p>Discover the art of bespoke jewellery</p>
                 {/* <p>
                     Discover the art of bespoke jewellery, where your vision
@@ -25,7 +27,9 @@ export const HtmlUIContainer = () => {
                 </p> */}
             </div>
             <div className="introTitle3">
-                <h1>Beauty Tailored to You</h1>
+                <h1>
+                    <span>Beauty</span> Tailored to You
+                </h1>
                 <p>
                     Embrace the elegance of personal style and exceptional
                     artistry
