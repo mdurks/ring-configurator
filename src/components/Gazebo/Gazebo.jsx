@@ -26,10 +26,13 @@ export const Gazebo = ({ groupGazeboRef, ringRef, gazeboFloorRef }) => {
     //
     //
     // Local init:
+    const useGazeeboModel = true
 
     // const tableModel = useGLTF('/ClassicConsole_01_1k.glb')
     const tableModel = useGLTF('/ClassicConsole_01_2k.glb')
     // console.log('tableModel', tableModel)
+    const gazeeboModel = useGLTF('/Gazeebo.glb')
+    // console.log('gazeeboModel', gazeeboModel)
 
     const hemisphereGeometry = new THREE.SphereGeometry(
         3, // radius
@@ -137,17 +140,30 @@ export const Gazebo = ({ groupGazeboRef, ringRef, gazeboFloorRef }) => {
                 <TryItonUI ringRef={ringRef} />
 
                 <group rotation={[0, degToRad(45), 0]}>
-                    <mesh
-                        name="table_front_left"
-                        position={[-1.28, 0.1, 1.28]}
-                        rotation={[0, degToRad(-45), 0]}
-                        scale={[1.7, 1.35, 1.9]}
-                        geometry={tableModel.nodes.ClassicConsole_01.geometry}
-                        material={tableModel.materials.ClassicConsole_01}
-                        castShadow
+                    {/* Gazeebo model: */}
+                    <primitive
+                        object={gazeeboModel.scene}
+                        position={Object.values(gazeeboModel.scene.position)}
                         receiveShadow
-                    >
-                        {/* <meshPhysicalMaterial
+                        castShadow
+                        visble={useGazeeboModel}
+                    />
+
+                    {/* Tables: */}
+                    <group>
+                        <mesh
+                            name="table_front_left"
+                            position={[-1.28, 0.1, 1.28]}
+                            rotation={[0, degToRad(-45), 0]}
+                            scale={[1.7, 1.35, 1.9]}
+                            geometry={
+                                tableModel.nodes.ClassicConsole_01.geometry
+                            }
+                            material={tableModel.materials.ClassicConsole_01}
+                            castShadow
+                            receiveShadow
+                        >
+                            {/* <meshPhysicalMaterial
                             envMapIntensity={0.5}
                             metalness={0.5}
                             roughnes={0.5}
@@ -165,101 +181,112 @@ export const Gazebo = ({ groupGazeboRef, ringRef, gazeboFloorRef }) => {
                                     .roughnessMap
                             }
                         /> */}
-                    </mesh>
-                    <mesh
-                        name="table_front_right"
-                        position={[1.28, 0.1, 1.28]}
-                        rotation={[0, degToRad(45), 0]}
-                        scale={[1.7, 1.35, 1.9]}
-                        geometry={tableModel.nodes.ClassicConsole_01.geometry}
-                        material={tableModel.materials.ClassicConsole_01}
-                        castShadow
-                        receiveShadow
-                    />
-                    <mesh
-                        name="table_back_right"
-                        position={[1.28, 0.1, -1.28]}
-                        rotation={[0, degToRad(135), 0]}
-                        scale={[1.7, 1.35, 1.9]}
-                        geometry={tableModel.nodes.ClassicConsole_01.geometry}
-                        material={tableModel.materials.ClassicConsole_01}
-                        castShadow
-                        receiveShadow
-                    />
-                    <mesh
-                        name="table_back_left"
-                        position={[-1.28, 0.1, -1.28]}
-                        rotation={[0, degToRad(-135), 0]}
-                        scale={[1.7, 1.35, 1.9]}
-                        geometry={tableModel.nodes.ClassicConsole_01.geometry}
-                        material={tableModel.materials.ClassicConsole_01}
-                        castShadow
-                        receiveShadow
-                    />
-                    <mesh
-                        name="gazebo_dome"
-                        position={[0, 5.1, 0]}
-                        geometry={hemisphereGeometry}
-                        receiveShadow
-                        castShadow
-                    >
-                        <meshStandardMaterial color={'grey'} />
-                    </mesh>
-                    <mesh
-                        name="gazebo_roof"
-                        position={[0, 5.1, 0]}
-                        receiveShadow
-                        castShadow
-                    >
-                        <cylinderGeometry args={[3.5, 3.5, 0.25, 50]} />
-                        <meshStandardMaterial />
-                    </mesh>
-                    <mesh
-                        name="gazebo_pillar_top"
-                        position={[0, 2.5, -3]}
-                        receiveShadow
-                        castShadow
-                    >
-                        <cylinderGeometry args={[0.25, 0.25, 5, 10]} />
-                        <meshStandardMaterial color={'grey'} />
-                    </mesh>
-                    <mesh
-                        name="gazebo_pillar_bottom"
-                        position={[0, 2.5, 3]}
-                        receiveShadow
-                        castShadow
-                    >
-                        <cylinderGeometry args={[0.25, 0.25, 5, 10]} />
-                        <meshStandardMaterial color={'grey'} />
-                    </mesh>
-                    <mesh
-                        name="gazebo_pillar_right"
-                        position={[3, 2.5, 0]}
-                        receiveShadow
-                        castShadow
-                    >
-                        <cylinderGeometry args={[0.25, 0.25, 5, 10]} />
-                        <meshStandardMaterial color={'grey'} />
-                    </mesh>
-                    <mesh
-                        name="gazebo_pillar_left"
-                        position={[-3, 2.5, 0]}
-                        receiveShadow
-                        castShadow
-                    >
-                        <cylinderGeometry args={[0.25, 0.25, 5, 10]} />
-                        <meshStandardMaterial color={'grey'} />
-                    </mesh>
-                    <mesh name="gazebo_floor" receiveShadow castShadow>
-                        <cylinderGeometry args={[3.5, 3.5, 0.25, 50]} />
-                        <meshStandardMaterial color={'grey'} />
-                    </mesh>
+                        </mesh>
+                        <mesh
+                            name="table_front_right"
+                            position={[1.28, 0.1, 1.28]}
+                            rotation={[0, degToRad(45), 0]}
+                            scale={[1.7, 1.35, 1.9]}
+                            geometry={
+                                tableModel.nodes.ClassicConsole_01.geometry
+                            }
+                            material={tableModel.materials.ClassicConsole_01}
+                            castShadow
+                            receiveShadow
+                        />
+                        <mesh
+                            name="table_back_right"
+                            position={[1.28, 0.1, -1.28]}
+                            rotation={[0, degToRad(135), 0]}
+                            scale={[1.7, 1.35, 1.9]}
+                            geometry={
+                                tableModel.nodes.ClassicConsole_01.geometry
+                            }
+                            material={tableModel.materials.ClassicConsole_01}
+                            castShadow
+                            receiveShadow
+                        />
+                        <mesh
+                            name="table_back_left"
+                            position={[-1.28, 0.1, -1.28]}
+                            rotation={[0, degToRad(-135), 0]}
+                            scale={[1.7, 1.35, 1.9]}
+                            geometry={
+                                tableModel.nodes.ClassicConsole_01.geometry
+                            }
+                            material={tableModel.materials.ClassicConsole_01}
+                            castShadow
+                            receiveShadow
+                        />
+                    </group>
+
+                    {/* Mock Gazeebo: */}
+                    <group visible={!useGazeeboModel}>
+                        <mesh
+                            name="gazebo_dome"
+                            position={[0, 5.1, 0]}
+                            geometry={hemisphereGeometry}
+                            receiveShadow
+                            castShadow
+                        >
+                            <meshStandardMaterial color={'grey'} />
+                        </mesh>
+                        <mesh
+                            name="gazebo_roof"
+                            position={[0, 5.1, 0]}
+                            receiveShadow
+                            castShadow
+                        >
+                            <cylinderGeometry args={[3.5, 3.5, 0.25, 50]} />
+                            <meshStandardMaterial />
+                        </mesh>
+                        <mesh
+                            name="gazebo_pillar_top"
+                            position={[0, 2.5, -3]}
+                            receiveShadow
+                            castShadow
+                        >
+                            <cylinderGeometry args={[0.25, 0.25, 5, 10]} />
+                            <meshStandardMaterial color={'grey'} />
+                        </mesh>
+                        <mesh
+                            name="gazebo_pillar_bottom"
+                            position={[0, 2.5, 3]}
+                            receiveShadow
+                            castShadow
+                        >
+                            <cylinderGeometry args={[0.25, 0.25, 5, 10]} />
+                            <meshStandardMaterial color={'grey'} />
+                        </mesh>
+                        <mesh
+                            name="gazebo_pillar_right"
+                            position={[3, 2.5, 0]}
+                            receiveShadow
+                            castShadow
+                        >
+                            <cylinderGeometry args={[0.25, 0.25, 5, 10]} />
+                            <meshStandardMaterial color={'grey'} />
+                        </mesh>
+                        <mesh
+                            name="gazebo_pillar_left"
+                            position={[-3, 2.5, 0]}
+                            receiveShadow
+                            castShadow
+                        >
+                            <cylinderGeometry args={[0.25, 0.25, 5, 10]} />
+                            <meshStandardMaterial color={'grey'} />
+                        </mesh>
+                        <mesh name="gazebo_floor" receiveShadow castShadow>
+                            <cylinderGeometry args={[3.5, 3.5, 0.25, 50]} />
+                            <meshStandardMaterial color={'grey'} />
+                        </mesh>
+                    </group>
                 </group>
 
                 <mesh
                     ref={gazeboFloorRef}
                     name="floor"
-                    position={[0, -0.125, 0]}
+                    position={[0, -0.5, 0]}
                     rotation={[degToRad(-90), 0, 0]}
                     receiveShadow
                 >

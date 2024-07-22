@@ -63,7 +63,7 @@ export const ConfigStageNavButtons = () => {
         >
             {configStage != configStages.tryon.name && (
                 <>
-                    <h1>{chosenItem?.label}</h1>
+                    {/* <h1>{chosenItem?.label}</h1> */}
                     <button type="button" onClick={decrement}>
                         Prev
                     </button>

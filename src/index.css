@@ -276,7 +276,7 @@ now the intro is over, remove the ability to scroll the page
 
     .introEnded & {
         opacity: 1;
-        bottom: 20px;
+        bottom: 10px;
         z-index: var(--ziAboveCanvas);
     }
 
@@ -285,11 +285,13 @@ now the intro is over, remove the ability to scroll the page
     }
 
     > button {
-        margin: 0 5px 10px;
-        padding: 8px 15px;
+        margin: 0 4px 8px;
+        padding: 9px 16px;
         border-radius: 8px;
         border: 2px solid gray;
         user-select: none;
+        font-weight: bold;
+        font-size: 15px;
 
         .introEnded & {
             pointer-events: all;

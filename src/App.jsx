@@ -75,7 +75,11 @@ function App() {
     }, [])
 
     useFrame(() => {
-        if (isRingReadyForScroll.current && isPresenting == false)
+        if (
+            isRingReadyForScroll.current &&
+            isPresenting == false &&
+            isDebugging == false
+        )
             tl_intro.current.seek(
                 scroll.offset *
                     (tl_intro.current.duration() -
@@ -85,6 +89,7 @@ function App() {
     })
 
     useLayoutEffect(() => {
+        if (isDebugging) return
         //
         //
         //
@@ -401,11 +406,13 @@ function App() {
         })
     }, [])
 
+    const isDebugging = false
+
     return (
         <>
             <EnvironmentSetup />
 
-            {isPresenting == false && (
+            {isDebugging == false && isPresenting == false && (
                 <CameraController
                     camera={three.camera}
                     inertia={0.075}
@@ -416,15 +423,17 @@ function App() {
                 <ProductRotator meshRef={ringRef} />
             )}
 
-            {/* <OrbitControls
-                makeDefault
-                dampingFactor={0.1}
-                // minPolarAngle={0}
-                // maxPolarAngle={degToRad(85)}
-                // autoRotate
-                // autoRotateSpeed={1.5}
-                // enableZoom={false}
-            /> */}
+            {isDebugging && (
+                <OrbitControls
+                    makeDefault
+                    dampingFactor={0.1}
+                    // minPolarAngle={0}
+                    // maxPolarAngle={degToRad(85)}
+                    // autoRotate
+                    // autoRotateSpeed={1.5}
+                    // enableZoom={false}
+                />
+            )}
 
             <PrimaryRing ringRef={ringRef} name={'Primary Ring'} />
 
