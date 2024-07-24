@@ -106,6 +106,15 @@ export const Gazebo = ({ groupGazeboRef, ringRef, gazeboFloorRef }) => {
         })
     }, [configStage])
 
+    useEffect(() => {
+        gazeeboModel.scene.traverse((child) => {
+            if (child.isMesh) {
+                child.castShadow = true
+                child.receiveShadow = true
+            }
+        })
+    }, [gazeeboModel])
+
     return (
         <>
             <group ref={groupGazeboRef} name="Gazebo" visible={true}>
