@@ -21,6 +21,7 @@ export const Gazebo = ({ groupGazeboRef, ringRef, gazeboFloorRef }) => {
     //
     // Global state:
     const configStage = useAppStore((state) => state.configStage)
+    const isIntroActive = useAppStore((state) => state.isIntroActive)
     const isMobile = checkIsMobile()
 
     //
@@ -96,6 +97,8 @@ export const Gazebo = ({ groupGazeboRef, ringRef, gazeboFloorRef }) => {
     ]
 
     useEffect(() => {
+        if (isIntroActive) return
+
         // table button clicked, so rotate the gazebo to the right table
         gsap.to(groupGazeboRef.current.rotation, {
             duration: 1.5,

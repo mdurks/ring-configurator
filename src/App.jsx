@@ -107,7 +107,7 @@ function App() {
         //
         // move elements into position:
         groupGazeboRef.current.position.y = -20
-        groupGazeboRef.current.position.z = -2.5
+        groupGazeboRef.current.position.z = -6
         groupGazeboRef.current.rotation.y = degToRad(-90)
 
         ringRef.current.position.set(-17, -0.3, -1.85)
@@ -322,7 +322,7 @@ function App() {
         tl_intro.current.to(
             groupGazeboRef.current.rotation,
             {
-                duration: 12,
+                duration: 14,
                 y: 0,
                 ease: 'power1.inOut',
             },
@@ -343,7 +343,7 @@ function App() {
             {
                 duration: 5,
                 y: 2,
-                z: -18,
+                z: -30,
                 ease: 'power1.inOut',
             },
             'down to gazebo',
