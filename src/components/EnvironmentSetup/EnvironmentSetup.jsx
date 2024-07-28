@@ -6,6 +6,7 @@ import {
 } from '@react-three/drei'
 import { EffectComposer, Bloom } from '@react-three/postprocessing'
 import { useControls } from 'leva'
+import { CameraHelper } from 'three'
 
 export const EnvironmentSetup = () => {
     // const bloomConfig = useControls({
@@ -31,6 +32,15 @@ export const EnvironmentSetup = () => {
                 position={[2.5, 5, 5]}
                 intensity={20}
                 shadow-mapSize={[1024, 1024]}
+                // shadow-mapSize={[2048, 2048]}
+
+                // shadow-camera-left={-200}
+                // shadow-camera-right={200}
+                // shadow-camera-top={200}
+                // shadow-camera-bottom={-200}
+                // shadow-camera-near={0.5}
+                // shadow-camera-far={500}
+                shadow-bias={0.002}
             >
                 <orthographicCamera
                     attach="shadow-camera"

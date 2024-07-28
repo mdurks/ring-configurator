@@ -116,6 +116,12 @@ export const Gazebo = ({ groupGazeboRef, ringRef, gazeboFloorRef }) => {
                 child.receiveShadow = true
             }
         })
+        const introPlaneMask =
+            gazeeboModel.scene.getObjectByName('IntroPlaneMask')
+        introPlaneMask.castShadow = false
+        introPlaneMask.receiveShadow = false
+        introPlaneMask.material.transparent = true
+        introPlaneMask.material.color = new THREE.Color('hsl(50, 40%, 29.5%)')
     }, [gazeeboModel])
 
     return (
@@ -311,6 +317,17 @@ export const Gazebo = ({ groupGazeboRef, ringRef, gazeboFloorRef }) => {
                         transparent
                         opacity={0}
                     />
+                </mesh>
+
+                <mesh
+                    name="floor"
+                    position={[0, -0.5, 0]}
+                    rotation={[degToRad(-90), 0, 0]}
+                    receiveShadow
+                    visible={false}
+                >
+                    <planeGeometry args={[1000, 1000]} />
+                    <meshStandardMaterial color={'hsl(50, 40%, 36%)'} />
                 </mesh>
             </group>
         </>

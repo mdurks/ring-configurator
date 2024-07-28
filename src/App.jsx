@@ -114,6 +114,8 @@ function App() {
         ringRef.current.rotation.set(degToRad(90), degToRad(360), degToRad(0))
         ringRef.current.scale.set(6, 6, 6)
 
+        const introPlaneMask = three.scene.getObjectByName('IntroPlaneMask')
+
         // return
 
         gsap.set(introTitle1El, { left: -introTitle1El.offsetWidth })
@@ -384,9 +386,18 @@ function App() {
         tl_intro.current.to(
             gazeboFloorRef.current.material,
             {
-                delay: 4,
-                duration: 8,
+                delay: 3,
+                duration: 5,
                 opacity: 1,
+                ease: 'power1.inOut',
+            },
+            'down to gazebo',
+        )
+        tl_intro.current.to(
+            introPlaneMask.material,
+            {
+                duration: 6,
+                opacity: 0,
                 ease: 'power1.inOut',
             },
             'down to gazebo',
@@ -403,6 +414,7 @@ function App() {
             document.body.classList.remove('introActive')
             document.body.classList.add('introEnded')
             document.body.style.cursor = 'grab'
+            introPlaneMask.visible = false
         })
     }, [])
 
