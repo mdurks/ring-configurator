@@ -35,5 +35,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 </InteractionManager>
             </XR>
         </Canvas>
+        <div className="skyGradient"></div>
     </React.StrictMode>,
 )

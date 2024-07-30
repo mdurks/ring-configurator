@@ -116,6 +116,20 @@ export const Gazebo = ({ groupGazeboRef, ringRef, gazeboFloorRef }) => {
                 child.receiveShadow = true
             }
         })
+
+        const reMaterialiseMountains = [
+            { name: 'Mountains01', color: 'hsl(45, 70%, 80%)' },
+            { name: 'Mountains02', color: 'hsl(45, 55%, 70%)' },
+            { name: 'Mountains03', color: 'hsl(45, 40%, 65%)' },
+        ]
+        reMaterialiseMountains.forEach(
+            (mountain) =>
+                (gazeeboModel.scene.getObjectByName(mountain.name).material =
+                    new THREE.MeshBasicMaterial({
+                        color: mountain.color,
+                    })),
+        )
+
         const introPlaneMask =
             gazeeboModel.scene.getObjectByName('IntroPlaneMask')
         introPlaneMask.castShadow = false
@@ -148,9 +162,9 @@ export const Gazebo = ({ groupGazeboRef, ringRef, gazeboFloorRef }) => {
                 />
 
                 <Stars
-                    radius={100}
+                    radius={180}
                     depth={50}
-                    count={1000}
+                    count={1500}
                     factor={5}
                     saturation={0}
                     fade

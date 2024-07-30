@@ -123,6 +123,7 @@ export const Diamond = (props) => {
                 />
             )} */}
             {optimisedMaterial}
+            {/* <meshStandardMaterial color={optimisedColor} /> */}
         </mesh>
         //         </Caustics>
         //     )}

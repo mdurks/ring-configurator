@@ -17,9 +17,7 @@ export const EnvironmentSetup = () => {
 
     return (
         <>
-            {/* <color attach="background" args={['hsl(55, 45%, 82%)']} /> */}
-            <color attach="background" args={['hsl(55, 45%, 86%)']} />
-            {/* <color attach="background" args={['hsl(55, 37%, 86%)']} /> */}
+            {/* <color attach="background" args={['hsl(55, 45%, 86%)']} /> */}
             {/* <color attach="background" args={['#2e2d1f']} /> */}
 
             {/* <SoftShadows size={60} samples={20} /> */}

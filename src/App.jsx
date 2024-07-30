@@ -106,8 +106,8 @@ function App() {
         //
         //
         // move elements into position:
-        groupGazeboRef.current.position.y = -35 // move down so out of view
-        groupGazeboRef.current.position.z = -18 // move back away from camera
+        groupGazeboRef.current.position.y = -110 // move down so out of view
+        groupGazeboRef.current.position.z = -25 // move back away from camera
         // groupGazeboRef.current.rotation.x = degToRad(-5)
         groupGazeboRef.current.rotation.y = degToRad(-135)
 
@@ -305,6 +305,15 @@ function App() {
         tl_intro.current.addLabel('down to gazebo')
 
         tl_intro.current.to(
+            '.skyGradient',
+            {
+                duration: 5,
+                opacity: 1,
+                ease: 'power1.inOut',
+            },
+            'down to gazebo',
+        )
+        tl_intro.current.to(
             introTitle3El,
             {
                 duration: 4,
@@ -336,7 +345,7 @@ function App() {
         tl_intro.current.to(
             groupGazeboRef.current.position,
             {
-                delay: 10,
+                delay: 9.25,
                 duration: 5,
                 z: gazeboFinalPosition.z,
                 ease: 'power1.inOut',
@@ -399,7 +408,7 @@ function App() {
         tl_intro.current.to(
             introPlaneMask.material,
             {
-                duration: 6,
+                duration: 4,
                 opacity: 0,
                 ease: 'power1.inOut',
             },
