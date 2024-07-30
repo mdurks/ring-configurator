@@ -14,7 +14,7 @@ export const ScrollControlsHOC = ({ children }) => {
     }, [isIntroActive])
 
     return (
-        <ScrollControls enabled={isIntroActive} pages={10} damping={0.3}>
+        <ScrollControls enabled={isIntroActive} pages={20} damping={0.3}>
             {children}
         </ScrollControls>
     )

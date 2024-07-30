@@ -196,7 +196,7 @@ now the intro is over, remove the ability to scroll the page
 
     @media screen and (min-width: 1024px) {
         bottom: auto;
-        top: 55%;
+        top: 48%;
     }
 
     h1 {

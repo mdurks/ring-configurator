@@ -121,7 +121,9 @@ export const Gazebo = ({ groupGazeboRef, ringRef, gazeboFloorRef }) => {
         introPlaneMask.castShadow = false
         introPlaneMask.receiveShadow = false
         introPlaneMask.material.transparent = true
-        introPlaneMask.material.color = new THREE.Color('hsl(50, 40%, 29.5%)')
+        // introPlaneMask.material.color = new THREE.Color('hsl(50, 40%, 29.5%)')
+        // introPlaneMask.material.color = new THREE.Color('hsl(54, 40%, 55%)')
+        introPlaneMask.material.color = new THREE.Color('hsl(54, 50%, 62%)')
     }, [gazeeboModel])
 
     return (
@@ -304,9 +306,10 @@ export const Gazebo = ({ groupGazeboRef, ringRef, gazeboFloorRef }) => {
                 <mesh
                     ref={gazeboFloorRef}
                     name="floor"
-                    position={[0, -0.5, 0]}
+                    position={[0, -1, 0]}
                     rotation={[degToRad(-90), 0, 0]}
                     receiveShadow
+                    visible={false}
                 >
                     <planeGeometry args={[1000, 1000]} />
                     {/* <meshStandardMaterial color={'black'} /> */}

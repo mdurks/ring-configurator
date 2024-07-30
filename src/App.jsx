@@ -106,9 +106,10 @@ function App() {
         //
         //
         // move elements into position:
-        groupGazeboRef.current.position.y = -20
-        groupGazeboRef.current.position.z = -6
-        groupGazeboRef.current.rotation.y = degToRad(-90)
+        groupGazeboRef.current.position.y = -35 // move down so out of view
+        groupGazeboRef.current.position.z = -18 // move back away from camera
+        // groupGazeboRef.current.rotation.x = degToRad(-5)
+        groupGazeboRef.current.rotation.y = degToRad(-135)
 
         ringRef.current.position.set(-17, -0.3, -1.85)
         ringRef.current.rotation.set(degToRad(90), degToRad(360), degToRad(0))
@@ -325,7 +326,9 @@ function App() {
             groupGazeboRef.current.rotation,
             {
                 duration: 14,
+                x: 0,
                 y: 0,
+                z: 0,
                 ease: 'power1.inOut',
             },
             'down to gazebo',
@@ -345,7 +348,7 @@ function App() {
             {
                 duration: 5,
                 y: 2,
-                z: -30,
+                z: -35,
                 ease: 'power1.inOut',
             },
             'down to gazebo',
@@ -428,7 +431,7 @@ function App() {
                 <CameraController
                     camera={three.camera}
                     inertia={0.075}
-                    moveAmount={0.03}
+                    moveAmount={isIntroActive ? 0.015 : 0.06}
                 />
             )}
             {isIntroActive == false && isPresenting == false && (

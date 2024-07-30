@@ -17,7 +17,8 @@ export const EnvironmentSetup = () => {
 
     return (
         <>
-            <color attach="background" args={['hsl(55, 45%, 82%)']} />
+            {/* <color attach="background" args={['hsl(55, 45%, 82%)']} /> */}
+            <color attach="background" args={['hsl(55, 45%, 86%)']} />
             {/* <color attach="background" args={['hsl(55, 37%, 86%)']} /> */}
             {/* <color attach="background" args={['#2e2d1f']} /> */}
 
@@ -25,12 +26,12 @@ export const EnvironmentSetup = () => {
 
             <ambientLight intensity={0.5} />
 
-            <Environment preset="studio" environmentIntensity={0.8} />
+            <Environment preset="studio" environmentIntensity={0.5} />
 
             <directionalLight
                 castShadow
                 position={[2.5, 5, 5]}
-                intensity={20}
+                intensity={1}
                 shadow-mapSize={[1024, 1024]}
                 // shadow-mapSize={[2048, 2048]}
 
