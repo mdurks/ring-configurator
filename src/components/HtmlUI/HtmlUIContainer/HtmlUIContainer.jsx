@@ -5,8 +5,9 @@ export const HtmlUIContainer = () => {
         <>
             <div className="introTitle1">
                 <h1>
-                    <span>Timeless</span> Elegance Awaits
+                    <span>Timeless</span>
                 </h1>
+                <h1>Elegance Awaits</h1>
                 <p>Discover the art of bespoke jewellery</p>
                 {/* <p>
                     Discover the art of bespoke jewellery, where your vision
@@ -15,7 +16,8 @@ export const HtmlUIContainer = () => {
                 <div className="introScrollMsg">Scroll&nbsp;&nbsp;down</div>
             </div>
             <div className="introTitle2">
-                <h1>Design Your Dream Ring</h1>
+                <h1>Design Your</h1>
+                <h1>Dream Ring</h1>
                 <p>
                     Experience the fusion of exquisite design and unparalleled
                     craftsmanship
@@ -28,8 +30,9 @@ export const HtmlUIContainer = () => {
             </div>
             <div className="introTitle3">
                 <h1>
-                    <span>Beauty</span> Tailored to You
+                    <span>Beauty</span>
                 </h1>
+                <h1>Tailored to You</h1>
                 <p>
                     Embrace the elegance of personal style and exceptional
                     artistry

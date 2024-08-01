@@ -21,7 +21,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 //     ? [...settings.camera.introPos]
                 //     : [...settings.camera.introPosMobile],
             }}
-            shadows={true}
+            // shadows={true}
         >
             <XR
                 // onSessionStart={() => (window.myARStarted = true)}

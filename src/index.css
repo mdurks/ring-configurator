@@ -159,12 +159,16 @@ now the intro is over, remove the ability to scroll the page
 
     h1 {
         margin: 0 0 5px;
-        color: #9b6a00;
         font-family: var(--headerFont);
         font-weight: normal;
         text-transform: uppercase;
         font-size: 2.25rem;
         line-height: 2.6rem;
+
+        color: #9b6a00;
+        background: linear-gradient(0deg, #9b6a00 30%, #c48600 90%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
 
         @media screen and (min-width: 1024px) {
             margin: 0 0 10px;
@@ -279,13 +283,15 @@ now the intro is over, remove the ability to scroll the page
 
     margin: 30px 0 0;
     padding: 15px 30px;
-    background-color: hsla(0, 0%, 100%, 0.4);
+    /* background-color: hsla(0, 0%, 100%, 0.4); */
+    background-color: #9b6a00;
 
     text-transform: uppercase;
     font-weight: bold;
     font-family: var(--subHeaderFont);
     font-size: 1.1rem;
-    color: #5a3e00;
+    /* color: #5a3e00; */
+    color: white;
     letter-spacing: 1px;
 
     border-radius: 100px;

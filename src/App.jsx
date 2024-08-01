@@ -21,6 +21,7 @@ import { ProductRotator } from './components/ProductRotator/ProductRotator'
 import { useXR } from '@react-three/xr'
 import { CameraController } from './components/CameraController/CameraController'
 import { checkIsMobile } from './utilities/checkIsMobile'
+import { RainingDiamonds } from './components/RainingDiamonds/RainingDiamonds'
 
 function App() {
     //
@@ -365,8 +366,8 @@ function App() {
         tl_intro.current.to(
             ringRef.current.position,
             {
-                delay: 5,
-                duration: 10,
+                delay: 5.1,
+                duration: 9.25,
                 x: ringDefaultState.position.x,
                 y: ringDefaultState.position.y,
                 z: ringDefaultState.position.z,
@@ -458,6 +459,8 @@ function App() {
                     // enableZoom={false}
                 />
             )}
+
+            {isIntroActive == true && <RainingDiamonds />}
 
             <PrimaryRing ringRef={ringRef} name={'Primary Ring'} />
 
