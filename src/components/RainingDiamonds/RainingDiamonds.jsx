@@ -58,26 +58,27 @@ export const RainingDiamonds = () => {
         scaleMax: 1.5,
 
         diamondOpacity: 0.5,
-        diamondColor: 'hsl(45, 80%, 78%)',
+        mobileDiamondColor: 'hsl(45, 80%, 78%)',
+        desktopDiamondColor: 'hsl(48, 100%, 65%)',
+
+        curtainColor: 'hsl(54, 50%, 72%)',
+        curtainOpacity: isMobile ? 0 : 0.66,
 
         fallingDiamondsTriggerEndPosition: 0.61,
     }
 
     // Diamond material setup:
-    const materialSettings = {
-        bounces: 3,
-        aberrationStrength: 0.01,
-        ior: 2.75,
-        fresnel: 1,
-        color: 'hsl(50, 100%, 90%)',
-    }
-    const texture = useLoader(RGBELoader, '/brown_photostudio_03_1k.hdr')
+    const diamondHDR = useLoader(RGBELoader, '/brown_photostudio_03_1k.hdr')
     const optimisedMaterial = isMobile ? (
-        <meshStandardMaterial color={settings.diamondColor} />
+        <meshStandardMaterial color={settings.mobileDiamondColor} />
     ) : (
         <MeshRefractionMaterial
-            envMap={texture}
-            {...materialSettings}
+            envMap={diamondHDR}
+            bounces={3}
+            aberrationStrength={0.01}
+            ior={2.75}
+            fresnel={1}
+            color={settings.desktopDiamondColor}
             toneMapped={false}
         />
     )
@@ -134,14 +135,33 @@ export const RainingDiamonds = () => {
         setTimeout(() => {
             diamondsCurtainRef.current.position.z = -5
         }, 100)
-
-        gsap.to(diamondsCurtainRef.current.material, {
-            duration: 7,
-            opacity: 0,
-            ease: 'power1.inOut',
-            onComplete: () => (diamondsCurtainRef.current.visible = false),
-        })
     }, [])
+
+    useEffect(() => {
+        if (isFallingdDiamondsActive == false) {
+            gsap.to(diamondsCurtainRef.current.material, {
+                duration: 2,
+                opacity: 0,
+                ease: 'power1.inOut',
+            })
+            gsap.to(diamondsCurtainRef.current.position, {
+                duration: 2,
+                y: -20,
+                ease: 'power1.inOut',
+            })
+        } else {
+            gsap.to(diamondsCurtainRef.current.material, {
+                duration: 2,
+                opacity: settings.curtainOpacity,
+                ease: 'power1.inOut',
+            })
+            gsap.to(diamondsCurtainRef.current.position, {
+                duration: 2,
+                y: 0,
+                ease: 'power1.inOut',
+            })
+        }
+    }, [isFallingdDiamondsActive])
 
     //
     //
@@ -199,7 +219,7 @@ export const RainingDiamonds = () => {
             <mesh ref={diamondsCurtainRef} position={[0, 0, 1]}>
                 <planeGeometry args={[100, 100]} />
                 <meshStandardMaterial
-                    color={'hsl(54, 50%, 72%)'}
+                    color={settings.curtainColor}
                     transparent={true}
                     opacity={1}
                 />

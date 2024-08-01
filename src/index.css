@@ -188,16 +188,16 @@ now the intro is over, remove the ability to scroll the page
     }
 
     p {
-        margin: 0;
+        margin: 10px 0 0;
         font-family: var(--subHeaderFont);
         font-weight: bold;
         font-size: 1.5rem;
-        line-height: 2rem;
+        line-height: 2.25rem;
         color: #000;
 
         @media screen and (min-width: 1024px) {
             font-size: 1.8rem;
-            line-height: 2.5rem;
+            line-height: 2.75rem;
         }
     }
 }
@@ -207,7 +207,7 @@ now the intro is over, remove the ability to scroll the page
 
     @media screen and (min-width: 1024px) {
         bottom: auto;
-        top: 50%;
+        top: 47%;
     }
 
     h1 {
@@ -231,7 +231,7 @@ now the intro is over, remove the ability to scroll the page
 
     @media screen and (min-width: 1024px) {
         bottom: auto;
-        top: 48%;
+        top: 44%;
     }
 
     h1 {
@@ -274,6 +274,15 @@ now the intro is over, remove the ability to scroll the page
         }
     }
 }
+.titleCopy {
+    position: absolute;
+    top: 0;
+    z-index: -1;
+
+    h1 {
+        text-shadow: 1px -1px 1px hsl(56, 49%, 83%), 0 0 7px #a59e76;
+    }
+}
 .introScrollMsg {
     position: relative;
     top: 50px; /* gsap sets back to 0 */
@@ -284,7 +293,8 @@ now the intro is over, remove the ability to scroll the page
     margin: 30px 0 0;
     padding: 15px 30px;
     /* background-color: hsla(0, 0%, 100%, 0.4); */
-    background-color: #9b6a00;
+    /* background-color: #9b6a00; */
+    background: linear-gradient(0deg, #9b6a00 30%, #c48600 90%);
 
     text-transform: uppercase;
     font-weight: bold;

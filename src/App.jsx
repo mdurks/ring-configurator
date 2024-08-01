@@ -110,7 +110,8 @@ function App() {
         groupGazeboRef.current.position.y = -110 // move down so out of view
         groupGazeboRef.current.position.z = -25 // move back away from camera
         // groupGazeboRef.current.rotation.x = degToRad(-5)
-        groupGazeboRef.current.rotation.y = degToRad(-135)
+        // groupGazeboRef.current.rotation.y = degToRad(-135)
+        groupGazeboRef.current.rotation.y = degToRad(-105)
 
         ringRef.current.position.set(-17, -0.3, -1.85)
         ringRef.current.rotation.set(degToRad(90), degToRad(360), degToRad(0))
@@ -138,7 +139,7 @@ function App() {
             ringRef.current.position,
             {
                 duration: 4,
-                x: isMobile ? 0 : 2.08,
+                x: isMobile ? 0 : 2.3,
                 y: isMobile ? 1.5 : -0.3,
                 z: isMobile ? -4 : -1.85,
                 ease: 'power1.inOut',
@@ -266,7 +267,7 @@ function App() {
             {
                 duration: 10,
                 x: isMobile ? 0.25 : 0,
-                y: -2.85,
+                y: -3.25,
                 z: isMobile ? -3.5 : -2.1,
                 ease: 'power1.inOut',
             },
