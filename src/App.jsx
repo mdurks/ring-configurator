@@ -11,6 +11,7 @@ import {
     gazeboFinalPosition,
     storeActions,
     ringDefaultState,
+    configStages,
 } from './store/store'
 
 // import { MiscExperiments } from './components/Experiments/MiscExperiments'
@@ -451,6 +452,15 @@ function App() {
             introPlaneMask.visible = false
         })
     }, [])
+
+    useEffect(() => {
+        // one time event to trigger the gem table animation to
+        // take gems off table and into carousel position
+        if (isIntroActive == false) {
+            storeActions.setConfigStagePrevious('intro')
+            storeActions.setConfigStage(configStages.gemColor.name)
+        }
+    }, [isIntroActive])
 
     const isDebugging = false
 

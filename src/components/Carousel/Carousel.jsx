@@ -300,6 +300,22 @@ export const Carousel = ({
                 configStages[carouselName].itemTableYPosition,
             ),
         )
+
+        // one time only, randomise rotation of gems on table
+        // ready to flip over and move to carousel when intro ends
+        // can't put rotation values on the JSX below as that seems
+        // to rotate the gems if you click the 'Gem' nav button
+        if (carouselName == configStages.gemColor.name) {
+            data.forEach((_, index) => {
+                scene
+                    .getObjectByName(itemNames[index])
+                    .rotation.set(
+                        degToRad(39),
+                        0,
+                        degToRad(randomNumberWithinRange(-45, 45)),
+                    )
+            })
+        }
     }, [])
 
     return (
@@ -319,7 +335,7 @@ export const Carousel = ({
                             {carouselName == configStages.gemColor.name && (
                                 <Diamond
                                     name={itemNames[index]}
-                                    position={carouselPositions[index]}
+                                    position={randomItemPositions[index]}
                                     scale={[meshScale, meshScale, meshScale]}
                                     castShadow
                                     receiveShadow

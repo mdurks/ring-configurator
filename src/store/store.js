@@ -109,9 +109,17 @@ export const useAppStore = create(
 
         isPointerDown: false,
 
-        configStage: configStages.gemColor.name,
+        configStage: 'intro',
         configStagePrevious: null,
         configAnimationComplete: null,
+
+        intro: {
+            carouselLength: 0,
+            carouselIndex: 0,
+            carouselRotation: 0,
+            carouselPreviousIndex: null,
+            chosenItem: null,
+        },
 
         gemColor: {
             carouselLength: 0,
