@@ -188,14 +188,15 @@ now the intro is over, remove the ability to scroll the page
     }
 
     p {
-        margin: 10px 0 0;
+        margin: 5px auto 0;
         font-family: var(--subHeaderFont);
         font-weight: bold;
-        font-size: 1.5rem;
-        line-height: 2.25rem;
+        font-size: 1.1rem;
+        line-height: 1.75rem;
         color: #000;
 
         @media screen and (min-width: 1024px) {
+            margin: 10px auto 0;
             font-size: 1.8rem;
             line-height: 2.75rem;
         }
@@ -218,7 +219,7 @@ now the intro is over, remove the ability to scroll the page
         }
     }
     p {
-        width: 330px;
+        width: 280px;
 
         @media screen and (min-width: 1024px) {
             width: 650px;
@@ -246,7 +247,7 @@ now the intro is over, remove the ability to scroll the page
         }
     }
     p {
-        width: 330px;
+        width: 300px;
 
         @media screen and (min-width: 1024px) {
             width: 675px;
@@ -267,7 +268,7 @@ now the intro is over, remove the ability to scroll the page
         }
     }
     p {
-        width: 330px;
+        width: 300px;
 
         @media screen and (min-width: 1024px) {
             width: 700px;

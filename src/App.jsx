@@ -23,6 +23,23 @@ import { CameraController } from './components/CameraController/CameraController
 import { checkIsMobile } from './utilities/checkIsMobile'
 import { RainingDiamonds } from './components/RainingDiamonds/RainingDiamonds'
 
+/*
+
+    Burndown:
+
+    Buttons UI
+    Add 2 more rings
+
+    Change filegree to be different from original
+    Get "Try it on" hand picture
+    Gems initially on table instead of carousel formation, then animate to carousel
+    Clouds
+    More garden stuff in the big empty areas
+    Music
+    Trees a little less pear shaped
+
+*/
+
 function App() {
     //
     //
@@ -42,15 +59,18 @@ function App() {
     const isRingReadyForScroll = useRef(false)
     const timeToSubtractForSetupAnimation = useRef()
 
-    // useEffect(() => {
-    //     const onKeyDown = (e) => {
-    //         if (e.key == 'l') console.log(three.scene)
-    //     }
-    //     window.addEventListener('keydown', onKeyDown)
-    //     return () => {
-    //         window.addEventListener('keydown', onKeyDown)
-    //     }
-    // }, [])
+    useEffect(() => {
+        const onKeyDown = (e) => {
+            if (e.key == 'l') {
+                console.log('camera:', three.camera)
+                console.log('scene:', three.scene)
+            }
+        }
+        window.addEventListener('keydown', onKeyDown)
+        return () => {
+            window.addEventListener('keydown', onKeyDown)
+        }
+    }, [])
 
     useEffect(() => {
         // prevent scrolling while scene is set so any scrolling amount doesn't make

@@ -481,6 +481,9 @@ export const TryItonUI = ({ ringRef }) => {
                                     See this ring on your own hand using your
                                     phones camera
                                 </p>
+                                <small style={{ color: contentColor }}>
+                                    Requires an Android phone that supports AR
+                                </small>
                                 <button
                                     style={{ backgroundColor: contentColor }}
                                     onClick={() =>

@@ -6,6 +6,13 @@ import { checkIsMobile } from '../utilities/checkIsMobile'
 
 const isMobile = checkIsMobile()
 
+export const zoomSettings = {
+    min: 4.75,
+    max: 5,
+    step: 0.04,
+    speed: 0.32,
+}
+
 export const gazeboFinalPosition = { x: 0, y: -1.75, z: 2.5 }
 export const tableTopYPos = 1.39
 export const carouselPosition = {

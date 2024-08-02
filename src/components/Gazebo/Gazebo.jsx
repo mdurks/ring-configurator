@@ -88,12 +88,13 @@ export const Gazebo = ({ groupGazeboRef, ringRef, gazeboFloorRef }) => {
         },
     ]
     const metalData = [
-        { value: 'hsl(0, 0%, 100%)', label: 'white' },
-        { value: 'hsl(0, 0%, 90%)', label: 'light gray' },
-        { value: 'hsl(0, 0%, 75%)', label: 'gray' },
-        { value: 'hsl(0, 0%, 50%)', label: 'black' },
-        { value: 'hsl(39, 100%, 87%)', label: 'gold' },
-        { value: 'hsl(11, 54%, 82%)', label: 'rose gold' },
+        { value: 'hsl(0, 0%, 100%)', roughness: 0, label: 'White Gold' },
+        { value: 'hsl(0, 0%, 90%)', roughness: 0, label: 'Silver' },
+        { value: 'hsl(0, 0%, 85%)', roughness: 0, label: 'Platinum' },
+        { value: 'hsl(0, 0%, 65%)', roughness: 0.3, label: 'Titanium' },
+        { value: 'hsl(0, 0%, 30%)', roughness: 0.8, label: 'Tungston' },
+        { value: 'hsl(39, 100%, 87%)', roughness: 0, label: 'Yellow Gold' },
+        { value: 'hsl(11, 54%, 82%)', roughness: 0, label: 'Rose Gold' },
     ]
 
     useEffect(() => {

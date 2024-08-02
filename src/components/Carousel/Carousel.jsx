@@ -350,6 +350,7 @@ export const Carousel = ({
                                             item.value,
                                             -30,
                                         )}
+                                        roughness={item.roughness}
                                         envMapIntensity={0.1}
                                     />
                                 </mesh>
