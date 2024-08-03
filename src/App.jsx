@@ -33,11 +33,9 @@ import { RainingDiamonds } from './components/RainingDiamonds/RainingDiamonds'
 
     Change filegree to be different from original
     Get "Try it on" hand picture
-    Gems initially on table instead of carousel formation, then animate to carousel
     Clouds
     More garden stuff in the big empty areas
     Music
-    Trees a little less pear shaped
 
 */
 

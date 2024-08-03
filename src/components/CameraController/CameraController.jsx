@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
-import { useAppStore, zoomSettings } from '../../store/store'
+import { configStages, useAppStore, zoomSettings } from '../../store/store'
 import { checkIsMobile } from '../../utilities/checkIsMobile'
 import gsap from 'gsap'
 
@@ -8,6 +8,7 @@ export const CameraController = ({ camera, inertia, moveAmount }) => {
     const three = useThree()
     const isPointerDown = useAppStore((state) => state.isPointerDown)
     const isIntroActive = useAppStore((state) => state.isIntroActive)
+    const configStage = useAppStore((state) => state.configStage)
     const isMobile = checkIsMobile()
 
     const mouse = useRef({ x: 0, y: 0 })
@@ -24,7 +25,7 @@ export const CameraController = ({ camera, inertia, moveAmount }) => {
         }
 
         const handleMouseWheel = (e) => {
-            if (isIntroActive) return
+            if (isIntroActive || configStage == configStages.tryon.name) return
 
             const direction = Math.sign(e.deltaY)
             const cameraZPos = three.camera.position.z
@@ -48,7 +49,7 @@ export const CameraController = ({ camera, inertia, moveAmount }) => {
             window.removeEventListener('mousemove', handleMouseMove)
             window.removeEventListener('wheel', handleMouseWheel)
         }
-    }, [isIntroActive])
+    }, [isIntroActive, configStage])
 
     useFrame(() => {
         if (isPointerDown || isMobile) return
