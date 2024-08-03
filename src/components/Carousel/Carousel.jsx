@@ -11,6 +11,7 @@ import { configStages, storeActions, useAppStore } from '../../store/store'
 
 import { Diamond } from '../Diamond/Diamond'
 import { CarouselRing } from '../CarouselRing/CarouselRing'
+import { checkIsMobile } from '../../utilities/checkIsMobile'
 
 export const Carousel = ({
     carouselName,
@@ -37,6 +38,7 @@ export const Carousel = ({
     const carouselPreviousIndex = useAppStore(
         (state) => state[carouselName].carouselPreviousIndex,
     )
+    const isMobile = checkIsMobile()
 
     //
     //
@@ -339,7 +341,14 @@ export const Carousel = ({
                                     scale={[meshScale, meshScale, meshScale]}
                                     castShadow
                                     receiveShadow
-                                    color={item.value}
+                                    color={
+                                        isMobile
+                                            ? adjustLightnessFromHSL(
+                                                  item.value,
+                                                  +30,
+                                              )
+                                            : item.value
+                                    }
                                 />
                             )}
                             {carouselName == configStages.ring.name && (

@@ -1,10 +1,12 @@
 /* eslint-disable no-unreachable */
 import { useEffect, useLayoutEffect, useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
+import { useXR } from '@react-three/xr'
 import { OrbitControls, useScroll } from '@react-three/drei'
 import gsap from 'gsap'
 
 import { degToRad } from 'three/src/math/MathUtils.js'
+import { checkIsMobile } from './utilities/checkIsMobile'
 
 import {
     useAppStore,
@@ -19,9 +21,7 @@ import { EnvironmentSetup } from './components/EnvironmentSetup/EnvironmentSetup
 import { PrimaryRing } from './components/PrimaryRing/PrimaryRing'
 import { Gazebo } from './components/Gazebo/Gazebo'
 import { ProductRotator } from './components/ProductRotator/ProductRotator'
-import { useXR } from '@react-three/xr'
 import { CameraController } from './components/CameraController/CameraController'
-import { checkIsMobile } from './utilities/checkIsMobile'
 import { RainingDiamonds } from './components/RainingDiamonds/RainingDiamonds'
 
 /*
@@ -33,9 +33,10 @@ import { RainingDiamonds } from './components/RainingDiamonds/RainingDiamonds'
 
     Change filegree to be different from original
     Get "Try it on" hand picture
+    Mobile gems are too dark
     Clouds
-    More garden stuff in the big empty areas
     Music
+    More garden stuff in the big empty areas
 
 */
 
@@ -346,7 +347,7 @@ function App() {
         tl_intro.current.to(
             groupGazeboRef.current.position,
             {
-                duration: 12,
+                duration: 12.25,
                 y: gazeboFinalPosition.y,
                 ease: 'power1.inOut',
             },
