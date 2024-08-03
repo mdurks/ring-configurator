@@ -86,6 +86,11 @@ export const Gazebo = ({ groupGazeboRef, ringRef, gazeboFloorRef }) => {
             meshName: 'RingOvalCenterAndShoulders',
             label: 'Oval and shoulders',
         },
+        {
+            value: '/HaloRing.glb',
+            meshName: 'Ring',
+            label: 'Halo Ring',
+        },
     ]
     const metalData = [
         { value: 'hsl(0, 0%, 100%)', roughness: 0, label: 'White Gold' },

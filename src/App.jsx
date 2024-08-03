@@ -33,7 +33,6 @@ import { RainingDiamonds } from './components/RainingDiamonds/RainingDiamonds'
 
     Change filegree to be different from original
     Get "Try it on" hand picture
-    Mobile gems are too dark
     Clouds
     Music
     More garden stuff in the big empty areas
