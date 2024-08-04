@@ -1,5 +1,6 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
+import { useFrame } from '@react-three/fiber'
 import { Stars, useGLTF } from '@react-three/drei'
 import gsap from 'gsap'
 
@@ -102,6 +103,9 @@ export const Gazebo = ({ groupGazeboRef, ringRef, gazeboFloorRef }) => {
         { value: 'hsl(11, 54%, 82%)', roughness: 0, label: 'Rose Gold' },
     ]
 
+    const cloudsLower = useRef()
+    const cloudsUpper = useRef()
+
     useEffect(() => {
         if (isIntroActive) return
 
@@ -138,13 +142,28 @@ export const Gazebo = ({ groupGazeboRef, ringRef, gazeboFloorRef }) => {
 
         const introPlaneMask =
             gazeeboModel.scene.getObjectByName('IntroPlaneMask')
-        introPlaneMask.castShadow = false
-        introPlaneMask.receiveShadow = false
         introPlaneMask.material.transparent = true
-        // introPlaneMask.material.color = new THREE.Color('hsl(50, 40%, 29.5%)')
-        // introPlaneMask.material.color = new THREE.Color('hsl(54, 40%, 55%)')
         introPlaneMask.material.color = new THREE.Color('hsl(54, 50%, 62%)')
+
+        cloudsLower.current = gazeeboModel.scene.getObjectByName('CloudsLower')
+        cloudsLower.current.material = new THREE.MeshBasicMaterial({
+            color: new THREE.Color('hsl(25, 100%, 77%)'),
+            transparent: true,
+            opacity: 0.5,
+        })
+
+        cloudsUpper.current = gazeeboModel.scene.getObjectByName('CloudsUpper')
+        cloudsUpper.current.material = new THREE.MeshBasicMaterial({
+            color: new THREE.Color('hsl(25, 100%, 77%)'),
+            transparent: true,
+            opacity: 0.3,
+        })
     }, [gazeeboModel])
+
+    useFrame(() => {
+        if (cloudsLower.current) cloudsLower.current.rotation.y += 0.000085
+        if (cloudsUpper.current) cloudsUpper.current.rotation.y += 0.0001
+    })
 
     return (
         <>
@@ -168,7 +187,7 @@ export const Gazebo = ({ groupGazeboRef, ringRef, gazeboFloorRef }) => {
                 />
 
                 <Stars
-                    radius={180}
+                    radius={250}
                     depth={50}
                     count={1500}
                     factor={5}

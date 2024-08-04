@@ -15,8 +15,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Canvas
             className="r3fCanvas"
             camera={{
-                // fov: 75,
-                fov: 80,
+                fov: 75,
                 // position: isDesktop
                 //     ? [...settings.camera.introPos]
                 //     : [...settings.camera.introPosMobile],

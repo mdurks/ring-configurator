@@ -64,7 +64,7 @@ export const Diamond = (props) => {
     }
 
     if (isMobile) {
-        if (isThisACarouselItem) {
+        if (props.name.includes('Carousel') || props.name.includes('Gem')) {
             optimisedMaterial = <meshStandardMaterial color={optimisedColor} />
         } else {
             optimisedMaterial = (

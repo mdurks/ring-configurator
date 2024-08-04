@@ -9,8 +9,8 @@ const isMobile = checkIsMobile()
 export const zoomSettings = {
     min: 4.75,
     max: 5,
-    step: 0.04,
-    speed: 0.32,
+    step: 0.06,
+    speed: 0.3,
 }
 
 export const gazeboFinalPosition = { x: 0, y: -1.75, z: 2.5 }

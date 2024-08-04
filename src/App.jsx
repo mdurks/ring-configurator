@@ -29,11 +29,9 @@ import { RainingDiamonds } from './components/RainingDiamonds/RainingDiamonds'
     Burndown:
 
     Buttons UI
-    Add 2 more rings
 
     Change filegree to be different from original
     Get "Try it on" hand picture
-    Clouds
     Music
     More garden stuff in the big empty areas
 
