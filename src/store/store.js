@@ -31,7 +31,7 @@ export const ringDefaultState = {
 export const defaultRingData = {
     value: '/WavyRing.glb',
     meshName: 'WavyRing',
-    label: 'Wavy Ring',
+    label: 'Cluster Ring',
 }
 
 export const configStages = {

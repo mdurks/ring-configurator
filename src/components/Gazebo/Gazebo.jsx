@@ -47,23 +47,22 @@ export const Gazebo = ({ groupGazeboRef, ringRef, gazeboFloorRef }) => {
     )
 
     const gemData = [
-        { value: 'hsl(211, 100%, 62%)', label: 'Sky blue' },
-        { value: 'hsl(196, 100%, 86%)', label: 'Light blue' },
-        { value: 'hsl(0, 0%, 100%)', label: 'white' },
-        { value: 'hsl(0, 0%, 27%)', label: 'Black' },
-        { value: 'hsl(180, 100%, 25%)', label: 'teal' },
-        { value: 'hsl(120, 100%, 25%)', label: 'green' },
-        { value: 'hsl(120, 100%, 50%)', label: 'lime' },
-        { value: 'hsl(54, 100%, 74%)', label: 'Light yellow' },
-        { value: 'hsl(60, 100%, 50%)', label: 'yellow' },
-        { value: 'hsl(38, 100%, 50%)', label: 'orange' },
-        { value: 'hsl(0, 100%, 50%)', label: 'red' },
-        { value: 'hsl(0, 59%, 40%)', label: 'brown' },
-        { value: 'hsl(349, 100%, 87%)', label: 'pink' },
-        { value: 'hsl(300, 76%, 72%)', label: 'violet' },
-        { value: 'hsl(300, 100%, 25%)', label: 'purple' },
-        { value: 'hsl(240, 100%, 25%)', label: 'navy' },
-        { value: 'hsl(240, 100%, 50%)', label: 'blue' },
+        { value: 'hsl(211, 100%, 62%)', label: 'blue diamond' },
+        { value: 'hsl(195, 100%, 82%)', label: 'Aquamarine' },
+        { value: 'hsl(0, 0%, 100%)', label: 'white diamond' },
+        { value: 'hsl(0, 0%, 27%)', label: 'Black diamond' },
+        { value: 'hsl(180, 100%, 28%)', label: 'Alexandrite' },
+        { value: 'hsl(120, 100%, 25%)', label: 'Emerald' },
+        { value: 'hsl(96, 65%, 60%)', label: 'Peridot' },
+        { value: 'hsl(54, 100%, 74%)', label: 'yellow diamond' },
+        { value: 'hsl(54, 100%, 50%)', label: 'sphalerite' },
+        { value: 'hsl(38, 100%, 50%)', label: 'Citrine' },
+        { value: 'hsl(0, 81%, 43%)', label: 'red garnet' },
+        { value: 'hsl(0, 59%, 40%)', label: 'Ruby' },
+        { value: 'hsl(349, 100%, 87%)', label: 'pink diamond' },
+        { value: 'hsl(300, 76%, 72%)', label: 'Rubellite' },
+        { value: 'hsl(243, 100%, 68%)', label: 'Tanzanite' },
+        { value: 'hsl(235, 100%, 35%)', label: 'Blue sapphire' },
     ]
     const ringData = [
         defaultRingData,
@@ -75,17 +74,17 @@ export const Gazebo = ({ groupGazeboRef, ringRef, gazeboFloorRef }) => {
         {
             value: '/Ring - Simple Oval Center.glb',
             meshName: 'RingSimpleOvalCenter',
-            label: 'Clasic Oval',
+            label: 'Clasic Oval Ring',
         },
         {
             value: '/RingKnot.glb',
             meshName: 'RingKnot',
-            label: 'Knot',
+            label: 'Interwoven Ring',
         },
         {
             value: '/RingOvalCenterAndShoulders.glb',
             meshName: 'RingOvalCenterAndShoulders',
-            label: 'Oval and shoulders',
+            label: 'Oval shoulders Ring',
         },
         {
             value: '/HaloRing.glb',
@@ -162,7 +161,7 @@ export const Gazebo = ({ groupGazeboRef, ringRef, gazeboFloorRef }) => {
 
     useFrame(() => {
         if (cloudsLower.current) cloudsLower.current.rotation.y += 0.000085
-        if (cloudsUpper.current) cloudsUpper.current.rotation.y += 0.0001
+        if (cloudsUpper.current) cloudsUpper.current.rotation.y -= 0.0001
     })
 
     return (

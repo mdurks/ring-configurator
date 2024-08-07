@@ -312,10 +312,11 @@ now the intro is over, remove the ability to scroll the page
 .configStageNavButtons {
     position: absolute;
     z-index: 10;
-    bottom: 0;
+    bottom: -10px;
     left: 50%;
-    width: 100%;
-    transform: translateX(-50%);
+    width: 723px;
+    /* outline: 1px solid red; */
+    transform: translateX(-50%) scale(0.5);
     text-align: center;
     user-select: none;
     pointer-events: none;
@@ -324,27 +325,80 @@ now the intro is over, remove the ability to scroll the page
 
     .introEnded & {
         opacity: 1;
-        bottom: 10px;
+        bottom: 0px;
         z-index: var(--ziAboveCanvas);
     }
 
     @media screen and (min-width: 1024px) {
-        bottom: 30px;
+        transform: translateX(-50%) scale(1);
+        bottom: 0px;
+
+        .introEnded & {
+            bottom: 15px;
+        }
     }
 
-    > button {
-        margin: 0 4px 8px;
-        padding: 9px 16px;
-        border-radius: 8px;
-        border: 2px solid gray;
+    button {
+        position: absolute;
+        border: none;
         user-select: none;
-        font-weight: bold;
-        font-size: 15px;
+        opacity: 0;
+        /* opacity: 0.5; */
+        /* background-color: #8a2424; */
+        /* color: orange; */
 
         .introEnded & {
             pointer-events: all;
             z-index: var(--ziAboveCanvas);
         }
+
+        &.prevBtn {
+            left: 50px;
+            top: 40px;
+            width: 160px;
+            height: 55px;
+        }
+        &.nextBtn {
+            left: 515px;
+            top: 40px;
+            width: 160px;
+            height: 55px;
+        }
+        &.stageNavBtn_gemColor {
+            left: 50px;
+            top: 107px;
+            width: 135px;
+            height: 55px;
+        }
+        &.stageNavBtn_ring {
+            left: 185px;
+            top: 110px;
+            width: 130px;
+            height: 55px;
+        }
+        &.stageNavBtn_metal {
+            left: 315px;
+            top: 110px;
+            width: 150px;
+            height: 55px;
+        }
+        &.stageNavBtn_tryon {
+            left: 465px;
+            top: 107px;
+            width: 200px;
+            height: 55px;
+        }
+    }
+
+    .chosenItemLabel {
+        position: absolute;
+        left: 50%;
+        top: 55px;
+        transform: translateX(-50%);
+        text-transform: capitalize;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 1.9rem;
+        letter-spacing: -0.5px;
     }
 
     h1 {

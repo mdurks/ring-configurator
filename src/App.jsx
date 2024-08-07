@@ -28,8 +28,6 @@ import { RainingDiamonds } from './components/RainingDiamonds/RainingDiamonds'
 
     Burndown:
 
-    Buttons UI
-
     Change filegree to be different from original
     Get "Try it on" hand picture
     Music
