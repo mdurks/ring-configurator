@@ -319,9 +319,13 @@ now the intro is over, remove the ability to scroll the page
     transform: translateX(-50%) scale(0.5);
     text-align: center;
     user-select: none;
-    pointer-events: none;
+    /* pointer-events: none; */
     opacity: 0;
     transition: all ease 0.5s;
+
+    &:hover {
+        cursor: default;
+    }
 
     .introEnded & {
         opacity: 1;
@@ -598,3 +602,26 @@ now the intro is over, remove the ability to scroll the page
     font-size: 1.2rem !important;
     text-transform: uppercase;
 } */
+
+/*
+Mute Audio button:
+----------------------------------------------------------
+*/
+
+.muteAudioBtn {
+    position: absolute;
+    z-index: var(--arAboveCanvas);
+    right: 16px;
+    top: 16px;
+    width: 40px;
+    border: none;
+    background: none;
+    transition: all ease 0.2s;
+    outline: none;
+
+    @media (min-width: 1024px) {
+        right: 30px;
+        top: 30px;
+        width: 55px;
+    }
+}

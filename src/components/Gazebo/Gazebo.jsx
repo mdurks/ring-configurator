@@ -36,15 +36,15 @@ export const Gazebo = ({ groupGazeboRef, ringRef, gazeboFloorRef }) => {
     const gazeeboModel = useGLTF('/Gazeebo.glb')
     // console.log('gazeeboModel', gazeeboModel)
 
-    const hemisphereGeometry = new THREE.SphereGeometry(
-        3, // radius
-        16, // widthSegments
-        16, // heightSegments
-        0,
-        Math.PI * 2,
-        0,
-        Math.PI / 2,
-    )
+    // const hemisphereGeometry = new THREE.SphereGeometry(
+    //     3, // radius
+    //     16, // widthSegments
+    //     16, // heightSegments
+    //     0,
+    //     Math.PI * 2,
+    //     0,
+    //     Math.PI / 2,
+    // )
 
     const gemData = [
         { value: 'hsl(211, 100%, 62%)', label: 'blue diamond' },
@@ -93,12 +93,12 @@ export const Gazebo = ({ groupGazeboRef, ringRef, gazeboFloorRef }) => {
         },
     ]
     const metalData = [
+        { value: 'hsl(39, 100%, 87%)', roughness: 0, label: 'Yellow Gold' },
         { value: 'hsl(0, 0%, 100%)', roughness: 0, label: 'White Gold' },
         { value: 'hsl(0, 0%, 90%)', roughness: 0, label: 'Silver' },
         { value: 'hsl(0, 0%, 85%)', roughness: 0, label: 'Platinum' },
         { value: 'hsl(0, 0%, 65%)', roughness: 0.3, label: 'Titanium' },
         { value: 'hsl(0, 0%, 30%)', roughness: 0.8, label: 'Tungston' },
-        { value: 'hsl(39, 100%, 87%)', roughness: 0, label: 'Yellow Gold' },
         { value: 'hsl(11, 54%, 82%)', roughness: 0, label: 'Rose Gold' },
     ]
 
@@ -279,7 +279,7 @@ export const Gazebo = ({ groupGazeboRef, ringRef, gazeboFloorRef }) => {
                     </group>
 
                     {/* Mock Gazeebo: */}
-                    <group visible={!useGazeeboModel}>
+                    {/* <group visible={!useGazeeboModel}>
                         <mesh
                             name="gazebo_dome"
                             position={[0, 5.1, 0]}
@@ -338,7 +338,7 @@ export const Gazebo = ({ groupGazeboRef, ringRef, gazeboFloorRef }) => {
                             <cylinderGeometry args={[3.5, 3.5, 0.25, 50]} />
                             <meshStandardMaterial color={'grey'} />
                         </mesh>
-                    </group>
+                    </group> */}
                 </group>
 
                 <mesh

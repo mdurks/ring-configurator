@@ -8,9 +8,11 @@ import './index.css'
 
 import { ScrollControlsHOC } from './components/ScrollControlsHOC/ScrollControlsHOC.jsx'
 import { OutOfCanvasElements } from './components/OutOfCanvasElements/OutOfCanvasElements.jsx'
+import { MuteAudioBtn } from './components/MuteAudioBtn/MuteAudioBtn.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
+        <MuteAudioBtn />
         <OutOfCanvasElements />
         <Canvas
             className="r3fCanvas"
