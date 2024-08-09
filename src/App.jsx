@@ -28,7 +28,7 @@ import { RainingDiamonds } from './components/RainingDiamonds/RainingDiamonds'
 
     Burndown:
 
-    Change filegree to be different from original
+    Fix mobile bug, try it on, ring in wrong position, behind the modal window
     Get "Try it on" hand picture
     Music
     More garden stuff in the big empty areas

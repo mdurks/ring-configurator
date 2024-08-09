@@ -393,11 +393,11 @@ now the intro is over, remove the ability to scroll the page
     .chosenItemLabel {
         position: absolute;
         left: 50%;
-        top: 55px;
+        top: 56px;
         transform: translateX(-50%);
         text-transform: capitalize;
-        font-family: 'Times New Roman', Times, serif;
-        font-size: 1.9rem;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-size: 1.75rem;
         letter-spacing: -0.5px;
     }
 
