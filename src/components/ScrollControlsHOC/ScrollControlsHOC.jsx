@@ -1,9 +1,11 @@
 import { ScrollControls } from '@react-three/drei'
 import { useAppStore } from '../../store/store'
 import { useEffect } from 'react'
+import { checkIsMobile } from '../../utilities/checkIsMobile'
 
 export const ScrollControlsHOC = ({ children }) => {
     const isIntroActive = useAppStore((state) => state.isIntroActive)
+    const isMobile = checkIsMobile()
 
     useEffect(() => {
         // some how scrolling down this page has made the Drei Html component scroll that far
@@ -14,7 +16,11 @@ export const ScrollControlsHOC = ({ children }) => {
     }, [isIntroActive])
 
     return (
-        <ScrollControls enabled={isIntroActive} pages={15} damping={0.3}>
+        <ScrollControls
+            enabled={isIntroActive}
+            pages={isMobile ? 5 : 14}
+            damping={isMobile ? 0.15 : 0.3}
+        >
             {children}
         </ScrollControls>
     )

@@ -41,7 +41,7 @@ export const RainingDiamonds = () => {
     )
 
     const settings = {
-        diamondCount: 20,
+        diamondCount: isMobile ? 10 : 20,
 
         xLeft: screenTo3DCoordinates.left - 10,
         xRight: screenTo3DCoordinates.right + 10,

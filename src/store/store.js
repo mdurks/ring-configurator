@@ -41,7 +41,10 @@ export const configStages = {
         carouselPosition: [
             0,
             carouselPosition.height + 0.025,
-            carouselPosition.radiusFromGazeeboCenter,
+            isMobile
+                ? carouselPosition.radiusFromGazeeboCenter
+                : // move gem carousel back away from nav buttons on desktop:
+                  carouselPosition.radiusFromGazeeboCenter - 0.05,
         ],
         carouselMeshScale: isMobile ? 0.05 : 0.07,
         carouselRadius: isMobile ? 0.35 : 0.6,

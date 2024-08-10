@@ -30,7 +30,6 @@ import { RainingDiamonds } from './components/RainingDiamonds/RainingDiamonds'
 
     Fix mobile bug, try it on, ring in wrong position, behind the modal window
     Get "Try it on" hand picture
-    Music
     More garden stuff in the big empty areas
 
 */
@@ -217,7 +216,7 @@ function App() {
         tl_intro.current.to(
             ringRef.current.position,
             {
-                duration: 8,
+                duration: isMobile ? 4 : 8,
                 x: isMobile ? -0.1 : -2.8,
                 y: isMobile ? 1.25 : -0.38,
                 z: isMobile ? -4 : -1.85,
@@ -228,7 +227,7 @@ function App() {
         tl_intro.current.to(
             ringRef.current.rotation,
             {
-                duration: 8,
+                duration: isMobile ? 4 : 8,
                 x: 1.41,
                 y: 0.82,
                 z: -0.35,
@@ -239,7 +238,7 @@ function App() {
         tl_intro.current.to(
             introTitle1El,
             {
-                duration: 4,
+                duration: isMobile ? 2 : 4,
                 left: -introTitle1El.offsetWidth,
                 ease: 'power1.inOut',
             },
@@ -248,8 +247,8 @@ function App() {
         tl_intro.current.to(
             introTitle2El,
             {
-                delay: 3,
-                duration: 7,
+                delay: isMobile ? 1 : 3,
+                duration: isMobile ? 3.5 : 7,
                 left: isMobile ? '50%' : '50%',
                 opacity: 1,
                 ease: 'power1.inOut',
@@ -258,7 +257,7 @@ function App() {
         )
 
         // add empty time:
-        tl_intro.current.to({}, { duration: 1 })
+        tl_intro.current.to({}, { duration: isMobile ? 0 : 1 })
 
         //
         //
@@ -270,8 +269,8 @@ function App() {
         tl_intro.current.to(
             introTitle2El,
             {
-                delay: 1,
-                duration: 10,
+                delay: isMobile ? 0.25 : 1,
+                duration: isMobile ? 4 : 10,
                 left: window.innerWidth + introTitle2El.offsetWidth,
                 ease: 'power1.inOut',
             },
@@ -280,7 +279,7 @@ function App() {
         tl_intro.current.to(
             ringRef.current.position,
             {
-                duration: 10,
+                duration: isMobile ? 5 : 10,
                 x: isMobile ? 0.25 : 0,
                 y: -3.25,
                 z: isMobile ? -3.5 : -2.1,
@@ -291,7 +290,7 @@ function App() {
         tl_intro.current.to(
             ringRef.current.rotation,
             {
-                duration: 10,
+                duration: isMobile ? 5 : 10,
                 x: 0.82,
                 y: isMobile ? 6.8 : 6.32,
                 z: 0,
@@ -302,8 +301,8 @@ function App() {
         tl_intro.current.to(
             introTitle3El,
             {
-                delay: 4,
-                duration: 5,
+                delay: isMobile ? 2 : 4,
+                duration: isMobile ? 2.5 : 5,
                 top: isMobile ? '11%' : '9%',
                 opacity: 1,
                 ease: 'power1.inOut',
@@ -312,7 +311,7 @@ function App() {
         )
 
         // add empty time:
-        tl_intro.current.to({}, { duration: 1 })
+        tl_intro.current.to({}, { duration: isMobile ? 0.5 : 1 })
 
         //
         //
@@ -324,7 +323,7 @@ function App() {
         tl_intro.current.to(
             '.skyGradient',
             {
-                duration: 5,
+                duration: isMobile ? 2.5 : 5,
                 opacity: 1,
                 ease: 'power1.inOut',
             },
@@ -333,7 +332,7 @@ function App() {
         tl_intro.current.to(
             introTitle3El,
             {
-                duration: 4,
+                duration: isMobile ? 2 : 4,
                 top: -introTitle3El.offsetHeight,
                 ease: 'power1.inOut',
             },
@@ -342,7 +341,7 @@ function App() {
         tl_intro.current.to(
             groupGazeboRef.current.position,
             {
-                duration: 12.25,
+                duration: isMobile ? 6 : 12.25,
                 y: gazeboFinalPosition.y,
                 ease: 'power1.inOut',
             },
@@ -351,7 +350,7 @@ function App() {
         tl_intro.current.to(
             groupGazeboRef.current.rotation,
             {
-                duration: 14,
+                duration: isMobile ? 7 : 14,
                 x: 0,
                 y: 0,
                 z: 0,
@@ -362,8 +361,8 @@ function App() {
         tl_intro.current.to(
             groupGazeboRef.current.position,
             {
-                delay: 9.25,
-                duration: 5,
+                delay: isMobile ? 4.5 : 9.25,
+                duration: isMobile ? 2.5 : 5,
                 z: gazeboFinalPosition.z,
                 ease: 'power1.inOut',
             },
@@ -372,7 +371,7 @@ function App() {
         tl_intro.current.to(
             ringRef.current.position,
             {
-                duration: 5,
+                duration: isMobile ? 2.5 : 5,
                 y: 2,
                 z: -35,
                 ease: 'power1.inOut',
@@ -382,8 +381,8 @@ function App() {
         tl_intro.current.to(
             ringRef.current.position,
             {
-                delay: 5.1,
-                duration: 9.25,
+                delay: isMobile ? 2.5 : 5.1,
+                duration: isMobile ? 4.5 : 9.25,
                 x: ringDefaultState.position.x,
                 y: ringDefaultState.position.y,
                 z: ringDefaultState.position.z,
@@ -394,7 +393,7 @@ function App() {
         tl_intro.current.to(
             ringRef.current.rotation,
             {
-                duration: 12,
+                duration: isMobile ? 7 : 12,
                 y: degToRad(720),
                 ease: 'power1.inOut',
             },
@@ -403,8 +402,8 @@ function App() {
         tl_intro.current.to(
             ringRef.current.scale,
             {
-                delay: 4,
-                duration: 8,
+                delay: isMobile ? 2 : 4,
+                duration: isMobile ? 4 : 8,
                 x: 0.5,
                 y: 0.5,
                 z: 0.5,
@@ -415,8 +414,8 @@ function App() {
         tl_intro.current.to(
             gazeboFloorRef.current.material,
             {
-                delay: 3,
-                duration: 5,
+                delay: isMobile ? 1.5 : 3,
+                duration: isMobile ? 2.5 : 5,
                 opacity: 1,
                 ease: 'power1.inOut',
             },
@@ -425,7 +424,7 @@ function App() {
         tl_intro.current.to(
             introPlaneMask.material,
             {
-                duration: 4,
+                duration: isMobile ? 2 : 4,
                 opacity: 0,
                 ease: 'power1.inOut',
             },
@@ -485,7 +484,7 @@ function App() {
                 />
             )}
 
-            {isIntroActive == true && <RainingDiamonds />}
+            {isMobile == false && isIntroActive == true && <RainingDiamonds />}
 
             <PrimaryRing ringRef={ringRef} name={'Primary Ring'} />
 
