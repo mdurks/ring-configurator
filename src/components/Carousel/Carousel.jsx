@@ -345,7 +345,7 @@ export const Carousel = ({
                                         isMobile
                                             ? adjustLightnessFromHSL(
                                                   item.value,
-                                                  +30,
+                                                  +60,
                                               )
                                             : item.value
                                     }

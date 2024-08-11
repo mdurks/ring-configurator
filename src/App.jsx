@@ -33,7 +33,6 @@ import { orangeTextGradientMaterial } from './materials/orangeTextGradientMateri
 
     Burndown:
 
-    Scroll down msg
     Loading screen
     Get audio playing after loading screen begin
     Fix mobile bug, try it on, ring in wrong position, behind the modal window
