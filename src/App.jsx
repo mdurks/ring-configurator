@@ -73,7 +73,7 @@ function App() {
         xEnd: isMobile ? 0 : 2.7,
     }
     const introTitle3Positions = {
-        yStart: screenTo3DCoordinates.top + 2.25,
+        yStart: screenTo3DCoordinates.top + 3,
         yEnd: 2.7,
     }
 

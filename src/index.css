@@ -311,7 +311,7 @@ now the intro is over, remove the ability to scroll the page
 
 .configStageNavButtons {
     position: absolute;
-    z-index: 10;
+    z-index: -1;
     bottom: -10px;
     left: 50%;
     width: 723px;
@@ -319,7 +319,7 @@ now the intro is over, remove the ability to scroll the page
     transform: translateX(-50%) scale(0.5);
     text-align: center;
     user-select: none;
-    /* pointer-events: none; */
+    pointer-events: none;
     opacity: 0;
     transition: all ease 0.5s;
 
@@ -331,6 +331,7 @@ now the intro is over, remove the ability to scroll the page
         opacity: 1;
         bottom: 0px;
         z-index: var(--ziAboveCanvas);
+        pointer-events: all;
     }
 
     @media screen and (min-width: 1024px) {
