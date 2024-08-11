@@ -6,6 +6,10 @@ import { checkIsMobile } from '../utilities/checkIsMobile'
 
 const isMobile = checkIsMobile()
 
+export const fontPathDMSerifDisplay =
+    '/DM_Serif_Display/DMSerifDisplay-Regular.woff'
+export const fontPathAboreto = '/Aboreto/Aboreto-Regular.woff'
+
 export const zoomSettings = {
     min: 4.75,
     max: 5,

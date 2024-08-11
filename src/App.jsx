@@ -1,8 +1,8 @@
 /* eslint-disable no-unreachable */
-import { useEffect, useLayoutEffect, useRef } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import { useXR } from '@react-three/xr'
-import { OrbitControls, useScroll } from '@react-three/drei'
+import { OrbitControls, Text, useScroll } from '@react-three/drei'
 import gsap from 'gsap'
 
 import { degToRad } from 'three/src/math/MathUtils.js'
@@ -14,6 +14,8 @@ import {
     storeActions,
     ringDefaultState,
     configStages,
+    fontPathDMSerifDisplay,
+    fontPathAboreto,
 } from './store/store'
 
 // import { MiscExperiments } from './components/Experiments/MiscExperiments'
@@ -23,6 +25,7 @@ import { Gazebo } from './components/Gazebo/Gazebo'
 import { ProductRotator } from './components/ProductRotator/ProductRotator'
 import { CameraController } from './components/CameraController/CameraController'
 import { RainingDiamonds } from './components/RainingDiamonds/RainingDiamonds'
+import { getScreenEdgesInWorldCoordinates } from './utilities/getScreenEdgesInWorldCoordinates'
 
 /*
 
@@ -43,12 +46,36 @@ function App() {
     const scroll = useScroll()
     const { isPresenting } = useXR()
     const isMobile = checkIsMobile()
+    const screenTo3DCoordinates = useMemo(
+        () => getScreenEdgesInWorldCoordinates(three.camera, 0),
+        [],
+    )
 
     // Local init:
     const groupGazeboRef = useRef()
     const ringRef = useRef()
     const gazeboFloorRef = useRef()
+
     const tl_intro = useRef(gsap.timeline())
+
+    const introTitle1Ref = useRef(false)
+    const introTitle2Ref = useRef(false)
+    const introTitle3Ref = useRef(false)
+    const introScrollMsgRef = useRef(false)
+
+    const introTitle1Positions = {
+        xStart: screenTo3DCoordinates.left - 4,
+        xEnd: isMobile ? 0 : -2.65,
+        yPos: isMobile ? -1.1 : -0.3,
+    }
+    const introTitle2Positions = {
+        xStart: screenTo3DCoordinates.right + 3,
+        xEnd: isMobile ? 0 : 2.7,
+    }
+    const introTitle3Positions = {
+        yStart: screenTo3DCoordinates.top + 2.25,
+        yEnd: 2.7,
+    }
 
     const isRingReadyForScroll = useRef(false)
     const timeToSubtractForSetupAnimation = useRef()
@@ -110,16 +137,6 @@ function App() {
         //
         //
         //
-        // DOM handles:
-        const introTitle1El = document.querySelector('.introTitle1')
-        const introTitle2El = document.querySelector('.introTitle2')
-        const introTitle3El = document.querySelector('.introTitle3')
-        const introScrollMsgEl = document.querySelector('.introScrollMsg')
-
-        //
-        //
-        //
-        //
         // move elements into position:
         groupGazeboRef.current.position.y = -110 // move down so out of view
         groupGazeboRef.current.position.z = -25 // move back away from camera
@@ -134,12 +151,6 @@ function App() {
         const introPlaneMask = three.scene.getObjectByName('IntroPlaneMask')
 
         // return
-
-        gsap.set(introTitle1El, { left: -introTitle1El.offsetWidth })
-        gsap.set(introTitle2El, {
-            left: window.innerWidth + introTitle2El.offsetWidth,
-        })
-        gsap.set(introTitle3El, { top: -introTitle3El.offsetHeight })
 
         //
         //
@@ -172,27 +183,26 @@ function App() {
             'pre animation setup',
         )
         tl_intro.current.to(
-            introTitle1El,
+            introTitle1Ref.current.position,
             {
                 delay: 2.85,
                 duration: 2.5,
-                left: isMobile ? '50%' : '10%',
-                opacity: 1,
+                x: introTitle1Positions.xEnd,
                 ease: 'power1.inOut',
             },
             'pre animation setup',
         )
-        tl_intro.current.to(
-            introScrollMsgEl,
-            {
-                delay: 5.25,
-                duration: 1.5,
-                opacity: 1,
-                top: 0,
-                ease: 'power1.inOut',
-            },
-            'pre animation setup',
-        )
+        // tl_intro.current.to(
+        //     introScrollMsgEl,
+        //     {
+        //         delay: 5.25,
+        //         duration: 1.5,
+        //         opacity: 1,
+        //         top: 0,
+        //         ease: 'power1.inOut',
+        //     },
+        //     'pre animation setup',
+        // )
         tl_intro.current.add(() => {
             isRingReadyForScroll.current = true
             timeToSubtractForSetupAnimation.current =
@@ -236,21 +246,20 @@ function App() {
             'ready for scrolling',
         )
         tl_intro.current.to(
-            introTitle1El,
+            introTitle1Ref.current.position,
             {
                 duration: isMobile ? 2 : 4,
-                left: -introTitle1El.offsetWidth,
+                x: introTitle1Positions.xStart,
                 ease: 'power1.inOut',
             },
             'ready for scrolling',
         )
         tl_intro.current.to(
-            introTitle2El,
+            introTitle2Ref.current.position,
             {
                 delay: isMobile ? 1 : 3,
                 duration: isMobile ? 3.5 : 7,
-                left: isMobile ? '50%' : '50%',
-                opacity: 1,
+                x: introTitle2Positions.xEnd,
                 ease: 'power1.inOut',
             },
             'ready for scrolling',
@@ -267,11 +276,11 @@ function App() {
         tl_intro.current.addLabel('message three')
 
         tl_intro.current.to(
-            introTitle2El,
+            introTitle2Ref.current.position,
             {
                 delay: isMobile ? 0.25 : 1,
                 duration: isMobile ? 4 : 10,
-                left: window.innerWidth + introTitle2El.offsetWidth,
+                x: introTitle2Positions.xStart,
                 ease: 'power1.inOut',
             },
             'message three',
@@ -299,12 +308,11 @@ function App() {
             'message three',
         )
         tl_intro.current.to(
-            introTitle3El,
+            introTitle3Ref.current.position,
             {
                 delay: isMobile ? 2 : 4,
                 duration: isMobile ? 2.5 : 5,
-                top: isMobile ? '11%' : '9%',
-                opacity: 1,
+                y: introTitle3Positions.yEnd,
                 ease: 'power1.inOut',
             },
             'message three',
@@ -330,10 +338,10 @@ function App() {
             'down to gazebo',
         )
         tl_intro.current.to(
-            introTitle3El,
+            introTitle3Ref.current.position,
             {
                 duration: isMobile ? 2 : 4,
-                top: -introTitle3El.offsetHeight,
+                y: introTitle3Positions.yStart,
                 ease: 'power1.inOut',
             },
             'down to gazebo',
@@ -459,6 +467,110 @@ function App() {
 
     return (
         <>
+            <group
+                ref={introTitle1Ref}
+                position={[
+                    introTitle1Positions.xStart,
+                    introTitle1Positions.yPos,
+                    0,
+                ]}
+            >
+                <Text
+                    color="#bb7000"
+                    position={[0, 0, 0]}
+                    fontSize={isMobile ? 0.6 : 1.13}
+                    font={fontPathDMSerifDisplay}
+                >
+                    TIMELESS
+                </Text>
+                <Text
+                    color="#bb7000"
+                    position={[0, isMobile ? -0.5 : -0.9, 0]}
+                    fontSize={isMobile ? 0.375 : 0.75}
+                    font={fontPathDMSerifDisplay}
+                >
+                    ELEGANCE AWAITS
+                </Text>
+                <Text
+                    color="black"
+                    position={[0, isMobile ? -1.15 : -1.54, 0]}
+                    fontSize={0.225}
+                    font={fontPathAboreto}
+                    textAlign="center"
+                    lineHeight={1.5}
+                >
+                    {isMobile
+                        ? 'DISCOVER THE ART OF\nBESPOKE JEWELLERY'
+                        : 'DISCOVER THE ART OF BESPOKE JEWELLERY'}
+                </Text>
+            </group>
+            <group
+                ref={introTitle2Ref}
+                position={[introTitle2Positions.xStart, 0.15, 0]}
+            >
+                <Text
+                    color="#bb7000"
+                    position={[0, isMobile ? -1.5 : 0, 0]}
+                    fontSize={isMobile ? 0.5 : 0.75}
+                    font={fontPathDMSerifDisplay}
+                >
+                    DESIGN YOUR
+                </Text>
+                <Text
+                    color="#bb7000"
+                    position={[0, isMobile ? -2 : -0.7, 0]}
+                    fontSize={isMobile ? 0.5 : 0.75}
+                    font={fontPathDMSerifDisplay}
+                >
+                    DREAM RING
+                </Text>
+                <Text
+                    color="black"
+                    position={[0, isMobile ? -2.85 : -1.45, 0]}
+                    fontSize={isMobile ? 0.2 : 0.225}
+                    font={fontPathAboreto}
+                    textAlign="center"
+                    lineHeight={1.5}
+                >
+                    {isMobile
+                        ? 'EXPERIENCE THE FUSION OF\nEXQUISITE DESIGN AND\nUNPARALLELED CRAFTMANSHIP'
+                        : 'EXPERIENCE THE FUSION OF EXQUISITE\nDESIGN AND UNPARALLELED CRAFTMANSHIP'}
+                </Text>
+            </group>
+            <group
+                ref={introTitle3Ref}
+                position={[0, introTitle3Positions.yStart, 0]}
+            >
+                <Text
+                    color="#bb7000"
+                    position={[0, 0, 0]}
+                    fontSize={isMobile ? 0.65 : 1.1}
+                    font={fontPathDMSerifDisplay}
+                >
+                    BEAUTY
+                </Text>
+                <Text
+                    color="#bb7000"
+                    position={[0, isMobile ? -0.55 : -0.9, 0]}
+                    fontSize={isMobile ? 0.39 : 0.75}
+                    font={fontPathDMSerifDisplay}
+                >
+                    TAILORED TO YOU
+                </Text>
+                <Text
+                    color="black"
+                    position={[0, isMobile ? -1.35 : -1.7, 0]}
+                    fontSize={0.225}
+                    font={fontPathAboreto}
+                    textAlign="center"
+                    lineHeight={isMobile ? 1.4 : 1.5}
+                >
+                    {isMobile
+                        ? 'EMBRACE THE ELEGANCE OF\nPERSONAL STYLE AND\nEXCEPTIONAL ARTISTRY'
+                        : 'EMBRACE THE ELEGANCE OF PERSONAL STYLE\nAND EXCEPTIONAL ARTISTRY'}
+                </Text>
+            </group>
+
             <EnvironmentSetup />
 
             {isDebugging == false && isPresenting == false && (
