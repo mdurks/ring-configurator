@@ -329,7 +329,7 @@ now the intro is over, remove the ability to scroll the page
 
     .introEnded & {
         opacity: 1;
-        bottom: 0px;
+        bottom: -40px;
         z-index: var(--ziAboveCanvas);
         pointer-events: all;
     }
@@ -351,6 +351,7 @@ now the intro is over, remove the ability to scroll the page
         /* opacity: 0.5; */
         /* background-color: #8a2424; */
         /* color: orange; */
+        /* outline: 1px solid red; */
 
         .introEnded & {
             pointer-events: all;
@@ -361,49 +362,83 @@ now the intro is over, remove the ability to scroll the page
             left: 50px;
             top: 40px;
             width: 160px;
-            height: 55px;
+            height: 80px;
+
+            @media screen and (min-width: 1024px) {
+                top: 40px;
+                height: 55px;
+            }
         }
         &.nextBtn {
             left: 515px;
             top: 40px;
             width: 160px;
-            height: 55px;
+            height: 80px;
+
+            @media screen and (min-width: 1024px) {
+                height: 55px;
+                top: 40px;
+            }
         }
         &.stageNavBtn_gemColor {
             left: 50px;
-            top: 107px;
+            top: 133px;
             width: 135px;
-            height: 55px;
+            height: 65px;
+
+            @media screen and (min-width: 1024px) {
+                height: 55px;
+                top: 107px;
+            }
         }
         &.stageNavBtn_ring {
             left: 185px;
-            top: 110px;
+            top: 140px;
             width: 130px;
-            height: 55px;
+            height: 65px;
+
+            @media screen and (min-width: 1024px) {
+                height: 55px;
+                top: 110px;
+            }
         }
         &.stageNavBtn_metal {
             left: 315px;
-            top: 110px;
+            top: 140px;
             width: 150px;
-            height: 55px;
+            height: 65px;
+
+            @media screen and (min-width: 1024px) {
+                height: 55px;
+                top: 110px;
+            }
         }
         &.stageNavBtn_tryon {
             left: 465px;
-            top: 107px;
+            top: 137px;
             width: 200px;
-            height: 55px;
+            height: 65px;
+
+            @media screen and (min-width: 1024px) {
+                height: 55px;
+                top: 107px;
+            }
         }
     }
 
     .chosenItemLabel {
         position: absolute;
         left: 50%;
-        top: 56px;
+        top: 65px;
         transform: translateX(-50%);
         text-transform: capitalize;
         font-family: Georgia, 'Times New Roman', Times, serif;
         font-size: 1.75rem;
         letter-spacing: -0.5px;
+
+        @media screen and (min-width: 1024px) {
+            top: 56px;
+        }
     }
 
     h1 {

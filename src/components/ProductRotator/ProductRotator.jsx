@@ -25,6 +25,7 @@ export const ProductRotator = ({ meshRef }) => {
 
     const onPointerDown = (e) => {
         if (configStage == configStages.tryon.name) return
+        if (e.srcElement != '[object HTMLDivElement]') return
 
         storeActions.setIsPointerDown(true)
 
