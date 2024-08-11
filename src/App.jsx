@@ -31,6 +31,8 @@ import { getScreenEdgesInWorldCoordinates } from './utilities/getScreenEdgesInWo
 
     Burndown:
 
+    Loading screen
+    Get audio playing after loading screen begin
     Fix mobile bug, try it on, ring in wrong position, behind the modal window
     Get "Try it on" hand picture
     More garden stuff in the big empty areas
@@ -460,6 +462,10 @@ function App() {
         if (isIntroActive == false) {
             storeActions.setConfigStagePrevious('intro')
             storeActions.setConfigStage(configStages.gemColor.name)
+
+            introTitle1Ref.current.visible = false
+            introTitle2Ref.current.visible = false
+            introTitle3Ref.current.visible = false
         }
     }, [isIntroActive])
 
