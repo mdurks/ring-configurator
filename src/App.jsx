@@ -26,11 +26,14 @@ import { ProductRotator } from './components/ProductRotator/ProductRotator'
 import { CameraController } from './components/CameraController/CameraController'
 import { RainingDiamonds } from './components/RainingDiamonds/RainingDiamonds'
 import { getScreenEdgesInWorldCoordinates } from './utilities/getScreenEdgesInWorldCoordinates'
+import { RoundedPlane } from './components/RoundedPlane/RoundedPlane'
+import { orangeTextGradientMaterial } from './materials/orangeTextGradientMaterial'
 
 /*
 
     Burndown:
 
+    Scroll down msg
     Loading screen
     Get audio playing after loading screen begin
     Fix mobile bug, try it on, ring in wrong position, behind the modal window
@@ -77,6 +80,10 @@ function App() {
     const introTitle3Positions = {
         yStart: screenTo3DCoordinates.top + 3,
         yEnd: 2.7,
+    }
+    const introScrollMsgPositions = {
+        yStart: screenTo3DCoordinates.bottom - 2,
+        yEnd: isMobile ? -2 : -2.3,
     }
 
     const isRingReadyForScroll = useRef(false)
@@ -194,17 +201,16 @@ function App() {
             },
             'pre animation setup',
         )
-        // tl_intro.current.to(
-        //     introScrollMsgEl,
-        //     {
-        //         delay: 5.25,
-        //         duration: 1.5,
-        //         opacity: 1,
-        //         top: 0,
-        //         ease: 'power1.inOut',
-        //     },
-        //     'pre animation setup',
-        // )
+        tl_intro.current.to(
+            introScrollMsgRef.current.position,
+            {
+                delay: isMobile ? 4.25 : 5,
+                duration: 1.5,
+                y: introScrollMsgPositions.yEnd,
+                ease: 'power1.inOut',
+            },
+            'pre animation setup',
+        )
         tl_intro.current.add(() => {
             isRingReadyForScroll.current = true
             timeToSubtractForSetupAnimation.current =
@@ -509,6 +515,35 @@ function App() {
                         ? 'DISCOVER THE ART OF\nBESPOKE JEWELLERY'
                         : 'DISCOVER THE ART OF BESPOKE JEWELLERY'}
                 </Text>
+                <group
+                    ref={introScrollMsgRef}
+                    position={[0, introScrollMsgPositions.yStart, 0]}
+                >
+                    <Text
+                        color="#000"
+                        position={[0, 0, 0.02]}
+                        fontSize={isMobile ? 0.25 : 0.25}
+                        font={fontPathAboreto}
+                    >
+                        SCROLL DOWN
+                    </Text>
+                    <Text
+                        color="#000"
+                        position={[0.0025, 0.0025, 0.02]}
+                        fontSize={isMobile ? 0.25 : 0.25}
+                        font={fontPathAboreto}
+                    >
+                        SCROLL DOWN
+                    </Text>
+                    <RoundedPlane
+                        position={[0, -0.05, 0]}
+                        width={2.7}
+                        height={0.75}
+                        radius={0.4}
+                        depth={0}
+                        material={orangeTextGradientMaterial}
+                    />
+                </group>
             </group>
             <group
                 ref={introTitle2Ref}
