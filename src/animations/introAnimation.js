@@ -20,6 +20,8 @@ export const introAnimation = (
     ringDefaultState,
     gazeboFloorRef,
     introPlaneMask,
+    cloudsUpper,
+    cloudsLower,
     isIntroActive,
 ) => {
     //
@@ -155,6 +157,16 @@ export const introAnimation = (
         'message three',
     )
     tl_intro.current.to(
+        introTitle3Ref.current.position,
+        {
+            delay: isMobile ? 2 : 4,
+            duration: isMobile ? 2.5 : 5,
+            y: introTitle3Positions.yEnd,
+            ease: 'power1.inOut',
+        },
+        'message three',
+    )
+    tl_intro.current.to(
         ringRef.current.position,
         {
             duration: isMobile ? 5 : 10,
@@ -176,19 +188,19 @@ export const introAnimation = (
         },
         'message three',
     )
-    tl_intro.current.to(
-        introTitle3Ref.current.position,
-        {
-            delay: isMobile ? 2 : 4,
-            duration: isMobile ? 2.5 : 5,
-            y: introTitle3Positions.yEnd,
-            ease: 'power1.inOut',
-        },
-        'message three',
-    )
 
     // add empty time:
-    tl_intro.current.to({}, { duration: isMobile ? 0.5 : 1 })
+    tl_intro.current.to(
+        {},
+        {
+            duration: isMobile ? 0.5 : 1,
+            onComplete: () => {
+                console.log('lkj')
+                cloudsLower.visible = true
+                cloudsUpper.visible = true
+            },
+        },
+    )
 
     //
     //

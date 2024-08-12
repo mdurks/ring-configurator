@@ -113,12 +113,10 @@ export const useAppStore = create(
         // -------------------------------------------
 
         hasAppLoaded: false,
-
         hasClickedBegin: false,
+        isIntroActive: true,
 
         isAudioEnabled: false,
-
-        isIntroActive: true,
 
         isPointerDown: false,
 

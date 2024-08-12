@@ -150,6 +150,7 @@ export const Gazebo = ({ groupGazeboRef, ringRef, gazeboFloorRef }) => {
             transparent: true,
             opacity: 0.5,
         })
+        cloudsLower.current.visible = false
 
         cloudsUpper.current = gazeeboModel.scene.getObjectByName('CloudsUpper')
         cloudsUpper.current.material = new THREE.MeshBasicMaterial({
@@ -157,6 +158,7 @@ export const Gazebo = ({ groupGazeboRef, ringRef, gazeboFloorRef }) => {
             transparent: true,
             opacity: 0.3,
         })
+        cloudsUpper.current.visible = false
     }, [gazeeboModel])
 
     useFrame(() => {

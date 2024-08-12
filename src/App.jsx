@@ -35,7 +35,6 @@ import { introAnimation } from './animations/introAnimation'
     Burndown:
 
     Fix mobile bug, try it on, ring in wrong position, behind the modal window
-    Hide clouds during intro
     Get "Try it on" hand picture
     More garden stuff in the big empty areas
 
@@ -161,6 +160,8 @@ function App() {
     useEffect(() => {
         if (hasClickedBegin) {
             const introPlaneMask = three.scene.getObjectByName('IntroPlaneMask')
+            const cloudsUpper = three.scene.getObjectByName('CloudsUpper')
+            const cloudsLower = three.scene.getObjectByName('CloudsLower')
             introAnimation(
                 tl_intro,
                 ringRef,
@@ -180,6 +181,8 @@ function App() {
                 ringDefaultState,
                 gazeboFloorRef,
                 introPlaneMask,
+                cloudsUpper,
+                cloudsLower,
                 isIntroActive,
             )
         }
