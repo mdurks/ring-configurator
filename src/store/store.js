@@ -112,6 +112,12 @@ export const useAppStore = create(
         // initial state:
         // -------------------------------------------
 
+        hasAppLoaded: false,
+
+        hasClickedBegin: false,
+
+        isAudioEnabled: false,
+
         isIntroActive: true,
 
         isPointerDown: false,
@@ -169,6 +175,33 @@ export const useAppStore = create(
         //
         // App:
         // -------------------------------------------
+
+        setHasAppLoaded: (value) =>
+            set(
+                produce((state) => {
+                    state.hasAppLoaded = value
+                }),
+                false,
+                `setHasAppLoaded: ${value}`,
+            ),
+
+        setIsAudioEnabled: (value) =>
+            set(
+                produce((state) => {
+                    state.isAudioEnabled = value
+                }),
+                false,
+                `setIsAudioEnabled: ${value}`,
+            ),
+
+        setHasClickedBegin: (value) =>
+            set(
+                produce((state) => {
+                    state.hasClickedBegin = value
+                }),
+                false,
+                `setHasClickedBegin: ${value}`,
+            ),
 
         setIsIntroActive: (value) =>
             set(
@@ -271,6 +304,9 @@ export const useAppStore = create(
 )
 
 export const storeActions = {
+    setHasAppLoaded: useAppStore.getState().setHasAppLoaded,
+    setIsAudioEnabled: useAppStore.getState().setIsAudioEnabled,
+    setHasClickedBegin: useAppStore.getState().setHasClickedBegin,
     setIsIntroActive: useAppStore.getState().setIsIntroActive,
     setIsPointerDown: useAppStore.getState().setIsPointerDown,
 

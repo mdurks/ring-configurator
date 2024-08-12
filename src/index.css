@@ -91,11 +91,86 @@ a:hover {
     border-radius: 4px;
 }
 
-/* h1 {
-    margin: 0;
-    line-height: 0;
-    text-transform: capitalize;
-} */
+/*
+Loading Screen:
+----------------------------------------------------------
+*/
+
+.loadingScreen {
+    position: absolute;
+    z-index: var(--ziAboveCanvas);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: #eae9d1;
+    color: #b48408;
+    font-family: var(--subHeaderFont);
+
+    .centerBox {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .progressValue {
+        font-size: 6rem;
+        letter-spacing: -0.5rem;
+
+        @media (min-width: 1024px) {
+            font-size: 14rem;
+            letter-spacing: -0.75rem;
+        }
+    }
+    .loadingTxt {
+        font-size: 2rem;
+        letter-spacing: 0.25rem;
+        font-weight: bold;
+
+        @media (min-width: 1024px) {
+            font-weight: normal;
+            font-size: 3rem;
+            letter-spacing: 0.5rem;
+        }
+    }
+    .beginButton {
+        position: relative;
+        top: 50px;
+
+        margin: 15px 0 0;
+        padding: 15px 40px;
+
+        border: none;
+        border-radius: 100px;
+        background: linear-gradient(0deg, #9b6a00 30%, #c48600 90%);
+
+        font-family: var(--subHeaderFont);
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 2rem;
+        letter-spacing: 1px;
+        color: white;
+
+        opacity: 0;
+
+        @media (min-width: 1024px) {
+            padding: 15px 60px;
+        }
+
+        &:disabled {
+            cursor: default;
+        }
+    }
+}
+
+/*
+Canvas:
+----------------------------------------------------------
+*/
 
 /*
 the ScrollControls div created to scroll the page
@@ -108,6 +183,10 @@ now the intro is over, remove the ability to scroll the page
     overflow: hidden !important;
 }
 
+/*
+Skygradient:
+----------------------------------------------------------
+*/
 .skyGradient {
     position: absolute;
     left: 0;
@@ -135,6 +214,11 @@ now the intro is over, remove the ability to scroll the page
     opacity: 0;
     z-index: -1;
 }
+
+/*
+Intro:
+----------------------------------------------------------
+*/
 
 .introTitle1,
 .introTitle2,
@@ -308,6 +392,11 @@ now the intro is over, remove the ability to scroll the page
     border-radius: 100px;
     opacity: 0; /* gsap sets back to 1 */
 }
+
+/*
+Navigation:
+----------------------------------------------------------
+*/
 
 .configStageNavButtons {
     position: absolute;
@@ -649,15 +738,16 @@ Mute Audio button:
     z-index: var(--arAboveCanvas);
     right: 16px;
     top: 16px;
+    padding: 3px 0;
     width: 40px;
     border: none;
     background: none;
     transition: all ease 0.2s;
-    outline: none;
 
     @media (min-width: 1024px) {
         right: 30px;
         top: 30px;
+        padding: 0;
         width: 55px;
     }
 }

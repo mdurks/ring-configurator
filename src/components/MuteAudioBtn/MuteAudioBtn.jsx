@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { startAudioLoop, stopAllAudio } from '../../utilities/audio'
+import { storeActions, useAppStore } from '../../store/store'
 
 export const MuteAudioBtn = () => {
-    const [isAudioEnabled, setAudioEnabled] = useState(false)
+    const isAudioEnabled = useAppStore((state) => state.isAudioEnabled)
+
     const [isHovered, setIsHovered] = useState(false)
 
     const audioMusic = document.getElementById('audioMusic')
@@ -22,15 +24,11 @@ export const MuteAudioBtn = () => {
         } else {
             startAudioLoop(audioMusic, 1, audioMusicVolume)
         }
-        setAudioEnabled(!isAudioEnabled)
+        storeActions.setIsAudioEnabled(!isAudioEnabled)
     }
 
     const onHover = () => setIsHovered(true)
     const onHoverLeave = () => setIsHovered(false)
-
-    useEffect(() => {
-        // startAudioLoop(audioMusic, 1, audioMusicVolume)
-    }, [])
 
     return (
         <button
